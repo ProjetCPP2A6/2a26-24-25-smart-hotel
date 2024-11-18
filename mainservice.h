@@ -18,7 +18,7 @@ public:
     ~mainservice();
 
 private slots:
-
+     void onLoginButtonClicked();
     void on_pushButton_ajouter_clicked();
 
     void on_pushButton_supprimer_clicked();
@@ -33,7 +33,14 @@ private slots:
 
     void on_pushButton_edit_clicked();
 
+    void on_pushButton_afficher_tous_clicked();
+    void on_lineEdit_id_ed_editingFinished();
+    void onSendMessage();
+    void on_pushButton_pdf_clicked();
+
 private:
     Ui::mainservice *ui;
+    void showAllEmployees();
+    bool validateLogin(const QString &username, const QString &password);
 };
 #endif // MAINSERVICE_H
