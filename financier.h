@@ -13,24 +13,26 @@ class financier
 private:
     int id;
     QDate dateTransaction;
-    int montant;
+    QString montant;
     QString desc;
     QString type;
     QString modePaiement;
 public:
     financier();
-    financier(int id,QDate dateTransaction, int montant , QString desc , QString type , QString modePaiement  );
+    financier(int id,QDate dateTransaction, QString montant , QString desc , QString type , QString modePaiement  );
 
+    void setId(int id); // Déclaration de la méthode setId
+    void setMontant(const QString& montant); // Déclaration de la méthode setMontant
     //Getters
     QDate getdate(){return dateTransaction ;}
     QString getdesc(){return desc ;}
-    int getmontant(){return montant ;}
+    QString getmontant(){return montant ;}
       QString gettype(){return type ;}
       QString getmode(){return modePaiement ;}
     //setters
 
     void setdate(QDate date){dateTransaction=date;}
-    void setmontant(int m){this->montant=m;}
+    void setmontant(QString m){this->montant=m;}
     void setid(QString d){desc=d;}
     void settype(QString t){type=t;}
     void setmode(QString mode){modePaiement=mode;}
@@ -38,7 +40,14 @@ public:
     bool Add();
     QSqlQueryModel *afficher();
     bool supprimer(int id);
-    bool Modifier_Employe(int id,QDate dateTransaction, int montant, QString desc, QString type, QString modePaiement);
+    bool modifier_paiement();
+    QSqlQueryModel *tri_paiement();
+    bool PDF(const QString& fileName, QSqlQueryModel* model);
+    bool recherche(int id, QSqlQueryModel*& model);
+   void stat_paiement(QSqlQueryModel* model, QWidget* chartView);
+    void Historique(const QString &action,int IDD);
+   void History_recherche(const QString &action,int id);
+    void afficherHistorique();
 };
 
 #endif // FINANCIER_H

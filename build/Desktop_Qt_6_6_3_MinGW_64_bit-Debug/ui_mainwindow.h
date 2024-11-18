@@ -20,10 +20,10 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -50,23 +50,8 @@ public:
     QPushButton *pushButton_74;
     QPushButton *pushButton_75;
     QTabWidget *tabWidget;
-    QWidget *tab;
-    QPushButton *pushButton_76;
-    QPushButton *pushButton_77;
-    QComboBox *comboBox_3;
-    QComboBox *comboBox_4;
-    QLabel *label_128;
-    QLabel *label_129;
-    QLabel *label_131;
-    QLabel *label_132;
-    QLabel *label_118;
-    QPushButton *pushButton_81;
-    QLabel *label_134;
-    QLabel *label_135;
-    QTableView *tableView_6;
     QWidget *tab_19;
     QLabel *label_120;
-    QLineEdit *lineEdit_Date;
     QLineEdit *lineEdit_Montant;
     QLineEdit *lineEdit_Desc;
     QLabel *label_121;
@@ -78,27 +63,43 @@ public:
     QPushButton *addButton;
     QPushButton *pushButton_17;
     QLabel *label_119;
-    QLineEdit *lineEdit_ID;
-    QLabel *label_130;
-    QWidget *tab_17;
-    QTableWidget *tableWidget_2;
-    QLabel *label_127;
-    QLineEdit *lineEdit_IDSUPP;
-    QPushButton *delete_button;
-    QWidget *tab_18;
-    QLabel *label_125;
+    QDateEdit *dateEdit;
+    QWidget *tab;
+    QPushButton *pushButton_76;
+    QPushButton *tri;
+    QComboBox *comboBox_3;
+    QComboBox *comboBox_4;
+    QLabel *label_118;
+    QTableView *tableView_6;
     QLineEdit *lineEdit_modifID;
-    QLabel *label_126;
-    QComboBox *comboBox_modifMODE;
-    QLineEdit *lineEdit_modifMONTANT;
-    QPushButton *modifier_button;
-    QLineEdit *lineEdit_modifDATE;
+    QLabel *label_131;
+    QLabel *label_128;
+    QLabel *label_134;
+    QLabel *label_139;
     QLineEdit *lineEdit_modifDESC;
-    QLabel *label_133;
-    QLabel *label_136;
-    QLabel *label_137;
-    QLabel *label_138;
-    QComboBox *comboBox_modifTYPE;
+    QLineEdit *lineEdit_modifMONTANT;
+    QDateEdit *dateEdit_2;
+    QComboBox *comboBox_mode_2;
+    QLabel *label_129;
+    QPushButton *modifier_button;
+    QComboBox *comboBox_type_2;
+    QLabel *label_132;
+    QPushButton *PDF;
+    QWidget *tab_17;
+    QLabel *label_127;
+    QPushButton *pushButton_3;
+    QLineEdit *lineEdit_montant_search;
+    QTableView *tableView_7;
+    QLineEdit *lineEdit_IDSUPP;
+    QPushButton *pushButton_delete;
+    QWidget *tab_18;
+    QPushButton *statistique;
+    QWidget *chartView;
+    QLabel *FILE;
+    QLabel *FILE_NAME;
+    QPushButton *play_button;
+    QPushButton *pause_button;
+    QSlider *horizontalSlider;
     QWidget *page_2;
     QWidget *widget;
     QPushButton *pushButton_2;
@@ -574,7 +575,7 @@ public:
         page_7->setObjectName("page_7");
         widget_11 = new QWidget(page_7);
         widget_11->setObjectName("widget_11");
-        widget_11->setGeometry(QRect(10, 0, 961, 41));
+        widget_11->setGeometry(QRect(0, 0, 961, 41));
         widget_11->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "background:black;\n"
 "border-radius:10px;\n"
@@ -616,95 +617,15 @@ public:
         pushButton_75->setGeometry(QRect(20, 390, 121, 31));
         tabWidget = new QTabWidget(page_7);
         tabWidget->setObjectName("tabWidget");
-        tabWidget->setGeometry(QRect(170, 70, 791, 571));
-        tab = new QWidget();
-        tab->setObjectName("tab");
-        pushButton_76 = new QPushButton(tab);
-        pushButton_76->setObjectName("pushButton_76");
-        pushButton_76->setGeometry(QRect(40, 490, 93, 29));
-        pushButton_77 = new QPushButton(tab);
-        pushButton_77->setObjectName("pushButton_77");
-        pushButton_77->setGeometry(QRect(370, 490, 93, 29));
-        comboBox_3 = new QComboBox(tab);
-        comboBox_3->addItem(QString());
-        comboBox_3->addItem(QString());
-        comboBox_3->addItem(QString());
-        comboBox_3->setObjectName("comboBox_3");
-        comboBox_3->setGeometry(QRect(170, 490, 161, 26));
-        comboBox_4 = new QComboBox(tab);
-        comboBox_4->addItem(QString());
-        comboBox_4->addItem(QString());
-        comboBox_4->setObjectName("comboBox_4");
-        comboBox_4->setGeometry(QRect(500, 490, 121, 26));
-        label_128 = new QLabel(tab);
-        label_128->setObjectName("label_128");
-        label_128->setGeometry(QRect(250, 30, 191, 111));
-        label_128->setTextFormat(Qt::TextFormat::AutoText);
-        label_128->setPixmap(QPixmap(QString::fromUtf8("attendancebg.png")));
-        label_128->setScaledContents(true);
-        label_129 = new QLabel(tab);
-        label_129->setObjectName("label_129");
-        label_129->setGeometry(QRect(20, 30, 191, 111));
-        label_129->setPixmap(QPixmap(QString::fromUtf8("empcardbg.png")));
-        label_129->setScaledContents(true);
-        label_131 = new QLabel(tab);
-        label_131->setObjectName("label_131");
-        label_131->setGeometry(QRect(30, 90, 111, 41));
-        QFont font;
-        font.setPointSize(28);
-        font.setBold(true);
-        label_131->setFont(font);
-        label_131->setStyleSheet(QString::fromUtf8("\n"
-"\n"
-"	color:white;\n"
-"	font-weight:bold;\n"
-""));
-        label_132 = new QLabel(tab);
-        label_132->setObjectName("label_132");
-        label_132->setGeometry(QRect(310, 90, 91, 41));
-        label_132->setFont(font);
-        label_132->setStyleSheet(QString::fromUtf8("\n"
-"\n"
-"	color:white;\n"
-"	font-weight:bold;\n"
-""));
-        label_118 = new QLabel(tab);
-        label_118->setObjectName("label_118");
-        label_118->setGeometry(QRect(160, 140, 241, 21));
-        QFont font1;
-        font1.setFamilies({QString::fromUtf8("Arial")});
-        font1.setPointSize(12);
-        font1.setBold(true);
-        label_118->setFont(font1);
-        pushButton_81 = new QPushButton(tab);
-        pushButton_81->setObjectName("pushButton_81");
-        pushButton_81->setGeometry(QRect(610, 140, 141, 29));
-        label_134 = new QLabel(tab);
-        label_134->setObjectName("label_134");
-        label_134->setGeometry(QRect(20, 50, 201, 20));
-        QFont font2;
-        font2.setPointSize(10);
-        font2.setBold(true);
-        label_134->setFont(font2);
-        label_135 = new QLabel(tab);
-        label_135->setObjectName("label_135");
-        label_135->setGeometry(QRect(280, 40, 101, 31));
-        label_135->setFont(font2);
-        tableView_6 = new QTableView(tab);
-        tableView_6->setObjectName("tableView_6");
-        tableView_6->setGeometry(QRect(30, 200, 721, 271));
-        tabWidget->addTab(tab, QString());
+        tabWidget->setGeometry(QRect(160, 50, 791, 571));
         tab_19 = new QWidget();
         tab_19->setObjectName("tab_19");
         label_120 = new QLabel(tab_19);
         label_120->setObjectName("label_120");
         label_120->setGeometry(QRect(200, 90, 151, 20));
-        QFont font3;
-        font3.setBold(true);
-        label_120->setFont(font3);
-        lineEdit_Date = new QLineEdit(tab_19);
-        lineEdit_Date->setObjectName("lineEdit_Date");
-        lineEdit_Date->setGeometry(QRect(180, 130, 171, 31));
+        QFont font;
+        font.setBold(true);
+        label_120->setFont(font);
         lineEdit_Montant = new QLineEdit(tab_19);
         lineEdit_Montant->setObjectName("lineEdit_Montant");
         lineEdit_Montant->setGeometry(QRect(390, 130, 181, 31));
@@ -714,15 +635,15 @@ public:
         label_121 = new QLabel(tab_19);
         label_121->setObjectName("label_121");
         label_121->setGeometry(QRect(440, 90, 81, 20));
-        label_121->setFont(font3);
+        label_121->setFont(font);
         label_122 = new QLabel(tab_19);
         label_122->setObjectName("label_122");
         label_122->setGeometry(QRect(630, 90, 101, 20));
-        label_122->setFont(font3);
+        label_122->setFont(font);
         label_123 = new QLabel(tab_19);
         label_123->setObjectName("label_123");
         label_123->setGeometry(QRect(40, 220, 63, 20));
-        label_123->setFont(font3);
+        label_123->setFont(font);
         comboBox_type = new QComboBox(tab_19);
         comboBox_type->addItem(QString());
         comboBox_type->addItem(QString());
@@ -736,7 +657,7 @@ public:
         label_124 = new QLabel(tab_19);
         label_124->setObjectName("label_124");
         label_124->setGeometry(QRect(350, 220, 131, 20));
-        label_124->setFont(font3);
+        label_124->setFont(font);
         addButton = new QPushButton(tab_19);
         addButton->setObjectName("addButton");
         addButton->setGeometry(QRect(120, 320, 93, 29));
@@ -746,102 +667,150 @@ public:
         label_119 = new QLabel(tab_19);
         label_119->setObjectName("label_119");
         label_119->setGeometry(QRect(250, 20, 241, 51));
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("Arial")});
+        font1.setPointSize(12);
+        font1.setBold(true);
         label_119->setFont(font1);
-        lineEdit_ID = new QLineEdit(tab_19);
-        lineEdit_ID->setObjectName("lineEdit_ID");
-        lineEdit_ID->setGeometry(QRect(0, 130, 171, 31));
-        label_130 = new QLabel(tab_19);
-        label_130->setObjectName("label_130");
-        label_130->setGeometry(QRect(20, 80, 121, 31));
-        label_130->setFont(font3);
+        dateEdit = new QDateEdit(tab_19);
+        dateEdit->setObjectName("dateEdit");
+        dateEdit->setGeometry(QRect(190, 120, 151, 31));
         tabWidget->addTab(tab_19, QString());
+        tab = new QWidget();
+        tab->setObjectName("tab");
+        pushButton_76 = new QPushButton(tab);
+        pushButton_76->setObjectName("pushButton_76");
+        pushButton_76->setGeometry(QRect(40, 490, 93, 29));
+        tri = new QPushButton(tab);
+        tri->setObjectName("tri");
+        tri->setGeometry(QRect(370, 490, 93, 29));
+        comboBox_3 = new QComboBox(tab);
+        comboBox_3->addItem(QString());
+        comboBox_3->addItem(QString());
+        comboBox_3->addItem(QString());
+        comboBox_3->setObjectName("comboBox_3");
+        comboBox_3->setGeometry(QRect(170, 490, 161, 26));
+        comboBox_4 = new QComboBox(tab);
+        comboBox_4->addItem(QString());
+        comboBox_4->addItem(QString());
+        comboBox_4->setObjectName("comboBox_4");
+        comboBox_4->setGeometry(QRect(500, 490, 121, 26));
+        label_118 = new QLabel(tab);
+        label_118->setObjectName("label_118");
+        label_118->setGeometry(QRect(200, 170, 241, 21));
+        label_118->setFont(font1);
+        tableView_6 = new QTableView(tab);
+        tableView_6->setObjectName("tableView_6");
+        tableView_6->setGeometry(QRect(30, 230, 671, 241));
+        lineEdit_modifID = new QLineEdit(tab);
+        lineEdit_modifID->setObjectName("lineEdit_modifID");
+        lineEdit_modifID->setGeometry(QRect(40, 40, 131, 31));
+        label_131 = new QLabel(tab);
+        label_131->setObjectName("label_131");
+        label_131->setGeometry(QRect(40, 10, 121, 31));
+        label_131->setFont(font);
+        label_128 = new QLabel(tab);
+        label_128->setObjectName("label_128");
+        label_128->setGeometry(QRect(180, 10, 171, 31));
+        QFont font2;
+        font2.setPointSize(10);
+        font2.setBold(true);
+        label_128->setFont(font2);
+        label_134 = new QLabel(tab);
+        label_134->setObjectName("label_134");
+        label_134->setGeometry(QRect(370, 0, 171, 31));
+        label_134->setFont(font2);
+        label_139 = new QLabel(tab);
+        label_139->setObjectName("label_139");
+        label_139->setGeometry(QRect(590, 0, 131, 31));
+        label_139->setFont(font2);
+        lineEdit_modifDESC = new QLineEdit(tab);
+        lineEdit_modifDESC->setObjectName("lineEdit_modifDESC");
+        lineEdit_modifDESC->setGeometry(QRect(370, 40, 161, 31));
+        lineEdit_modifMONTANT = new QLineEdit(tab);
+        lineEdit_modifMONTANT->setObjectName("lineEdit_modifMONTANT");
+        lineEdit_modifMONTANT->setGeometry(QRect(560, 40, 141, 31));
+        dateEdit_2 = new QDateEdit(tab);
+        dateEdit_2->setObjectName("dateEdit_2");
+        dateEdit_2->setGeometry(QRect(190, 40, 151, 31));
+        comboBox_mode_2 = new QComboBox(tab);
+        comboBox_mode_2->addItem(QString());
+        comboBox_mode_2->addItem(QString());
+        comboBox_mode_2->setObjectName("comboBox_mode_2");
+        comboBox_mode_2->setGeometry(QRect(170, 90, 131, 26));
+        label_129 = new QLabel(tab);
+        label_129->setObjectName("label_129");
+        label_129->setGeometry(QRect(10, 90, 131, 20));
+        label_129->setFont(font);
+        modifier_button = new QPushButton(tab);
+        modifier_button->setObjectName("modifier_button");
+        modifier_button->setGeometry(QRect(620, 100, 151, 41));
+        comboBox_type_2 = new QComboBox(tab);
+        comboBox_type_2->addItem(QString());
+        comboBox_type_2->addItem(QString());
+        comboBox_type_2->setObjectName("comboBox_type_2");
+        comboBox_type_2->setGeometry(QRect(450, 100, 111, 31));
+        label_132 = new QLabel(tab);
+        label_132->setObjectName("label_132");
+        label_132->setGeometry(QRect(342, 110, 81, 20));
+        label_132->setFont(font);
+        PDF = new QPushButton(tab);
+        PDF->setObjectName("PDF");
+        PDF->setGeometry(QRect(40, 170, 93, 29));
+        tabWidget->addTab(tab, QString());
         tab_17 = new QWidget();
         tab_17->setObjectName("tab_17");
-        tableWidget_2 = new QTableWidget(tab_17);
-        if (tableWidget_2->columnCount() < 7)
-            tableWidget_2->setColumnCount(7);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(1, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(2, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(3, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(4, __qtablewidgetitem4);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(5, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tableWidget_2->setHorizontalHeaderItem(6, __qtablewidgetitem6);
-        tableWidget_2->setObjectName("tableWidget_2");
-        tableWidget_2->setGeometry(QRect(0, 190, 731, 291));
-        QFont font4;
-        font4.setPointSize(8);
-        font4.setBold(true);
-        tableWidget_2->setFont(font4);
         label_127 = new QLabel(tab_17);
         label_127->setObjectName("label_127");
         label_127->setGeometry(QRect(30, 40, 171, 20));
         label_127->setFont(font2);
+        pushButton_3 = new QPushButton(tab_17);
+        pushButton_3->setObjectName("pushButton_3");
+        pushButton_3->setGeometry(QRect(40, 130, 93, 29));
+        lineEdit_montant_search = new QLineEdit(tab_17);
+        lineEdit_montant_search->setObjectName("lineEdit_montant_search");
+        lineEdit_montant_search->setGeometry(QRect(190, 120, 161, 41));
+        tableView_7 = new QTableView(tab_17);
+        tableView_7->setObjectName("tableView_7");
+        tableView_7->setGeometry(QRect(90, 200, 451, 111));
         lineEdit_IDSUPP = new QLineEdit(tab_17);
         lineEdit_IDSUPP->setObjectName("lineEdit_IDSUPP");
-        lineEdit_IDSUPP->setGeometry(QRect(210, 30, 161, 41));
-        delete_button = new QPushButton(tab_17);
-        delete_button->setObjectName("delete_button");
-        delete_button->setGeometry(QRect(130, 100, 93, 29));
+        lineEdit_IDSUPP->setGeometry(QRect(200, 40, 181, 31));
+        pushButton_delete = new QPushButton(tab_17);
+        pushButton_delete->setObjectName("pushButton_delete");
+        pushButton_delete->setGeometry(QRect(430, 40, 93, 29));
         tabWidget->addTab(tab_17, QString());
         tab_18 = new QWidget();
         tab_18->setObjectName("tab_18");
-        label_125 = new QLabel(tab_18);
-        label_125->setObjectName("label_125");
-        label_125->setGeometry(QRect(70, 60, 161, 20));
-        label_125->setFont(font2);
-        lineEdit_modifID = new QLineEdit(tab_18);
-        lineEdit_modifID->setObjectName("lineEdit_modifID");
-        lineEdit_modifID->setGeometry(QRect(40, 100, 161, 31));
-        label_126 = new QLabel(tab_18);
-        label_126->setObjectName("label_126");
-        label_126->setGeometry(QRect(250, 50, 171, 31));
-        label_126->setFont(font2);
-        comboBox_modifMODE = new QComboBox(tab_18);
-        comboBox_modifMODE->addItem(QString());
-        comboBox_modifMODE->addItem(QString());
-        comboBox_modifMODE->setObjectName("comboBox_modifMODE");
-        comboBox_modifMODE->setGeometry(QRect(100, 250, 141, 31));
-        lineEdit_modifMONTANT = new QLineEdit(tab_18);
-        lineEdit_modifMONTANT->setObjectName("lineEdit_modifMONTANT");
-        lineEdit_modifMONTANT->setGeometry(QRect(640, 100, 141, 31));
-        modifier_button = new QPushButton(tab_18);
-        modifier_button->setObjectName("modifier_button");
-        modifier_button->setGeometry(QRect(150, 330, 151, 41));
-        lineEdit_modifDATE = new QLineEdit(tab_18);
-        lineEdit_modifDATE->setObjectName("lineEdit_modifDATE");
-        lineEdit_modifDATE->setGeometry(QRect(250, 100, 161, 31));
-        lineEdit_modifDESC = new QLineEdit(tab_18);
-        lineEdit_modifDESC->setObjectName("lineEdit_modifDESC");
-        lineEdit_modifDESC->setGeometry(QRect(460, 100, 161, 31));
-        label_133 = new QLabel(tab_18);
-        label_133->setObjectName("label_133");
-        label_133->setGeometry(QRect(460, 50, 171, 31));
-        label_133->setFont(font2);
-        label_136 = new QLabel(tab_18);
-        label_136->setObjectName("label_136");
-        label_136->setGeometry(QRect(640, 60, 131, 31));
-        label_136->setFont(font2);
-        label_137 = new QLabel(tab_18);
-        label_137->setObjectName("label_137");
-        label_137->setGeometry(QRect(100, 190, 161, 31));
-        label_137->setFont(font2);
-        label_138 = new QLabel(tab_18);
-        label_138->setObjectName("label_138");
-        label_138->setGeometry(QRect(350, 190, 131, 31));
-        label_138->setFont(font2);
-        comboBox_modifTYPE = new QComboBox(tab_18);
-        comboBox_modifTYPE->addItem(QString());
-        comboBox_modifTYPE->addItem(QString());
-        comboBox_modifTYPE->setObjectName("comboBox_modifTYPE");
-        comboBox_modifTYPE->setGeometry(QRect(300, 260, 141, 31));
+        statistique = new QPushButton(tab_18);
+        statistique->setObjectName("statistique");
+        statistique->setGeometry(QRect(60, 40, 93, 29));
+        chartView = new QWidget(tab_18);
+        chartView->setObjectName("chartView");
+        chartView->setGeometry(QRect(90, 110, 661, 191));
+        FILE = new QLabel(tab_18);
+        FILE->setObjectName("FILE");
+        FILE->setGeometry(QRect(70, 340, 201, 51));
+        QFont font3;
+        font3.setPointSize(12);
+        font3.setBold(true);
+        FILE->setFont(font3);
+        FILE_NAME = new QLabel(tab_18);
+        FILE_NAME->setObjectName("FILE_NAME");
+        FILE_NAME->setGeometry(QRect(190, 350, 481, 31));
+        play_button = new QPushButton(tab_18);
+        play_button->setObjectName("play_button");
+        play_button->setGeometry(QRect(60, 420, 93, 61));
+        pause_button = new QPushButton(tab_18);
+        pause_button->setObjectName("pause_button");
+        pause_button->setGeometry(QRect(190, 420, 93, 61));
+        horizontalSlider = new QSlider(tab_18);
+        horizontalSlider->setObjectName("horizontalSlider");
+        horizontalSlider->setGeometry(QRect(310, 430, 451, 51));
+        horizontalSlider->setMinimum(1);
+        horizontalSlider->setMaximum(100);
+        horizontalSlider->setValue(10);
+        horizontalSlider->setOrientation(Qt::Orientation::Horizontal);
         tabWidget->addTab(tab_18, QString());
         stackedWidget->addWidget(page_7);
         page_2 = new QWidget();
@@ -906,24 +875,21 @@ public:
         label_7 = new QLabel(affiche);
         label_7->setObjectName("label_7");
         label_7->setGeometry(QRect(-30, 30, 221, 31));
-        QFont font5;
-        font5.setPointSize(12);
-        font5.setBold(true);
-        label_7->setFont(font5);
+        label_7->setFont(font3);
         label_10 = new QLabel(affiche);
         label_10->setObjectName("label_10");
         label_10->setGeometry(QRect(190, 30, 131, 31));
-        label_10->setFont(font5);
+        label_10->setFont(font3);
         label_12 = new QLabel(affiche);
         label_12->setObjectName("label_12");
         label_12->setGeometry(QRect(430, 30, 211, 31));
-        label_12->setFont(font5);
+        label_12->setFont(font3);
         searchTextBox = new QLineEdit(affiche);
         searchTextBox->setObjectName("searchTextBox");
         searchTextBox->setGeometry(QRect(10, 150, 611, 31));
-        QFont font6;
-        font6.setPointSize(10);
-        searchTextBox->setFont(font6);
+        QFont font4;
+        font4.setPointSize(10);
+        searchTextBox->setFont(font4);
         searchTextBox->setStyleSheet(QString::fromUtf8("#searchTextBox\n"
 "{\n"
 "	padding-left:8px;\n"
@@ -932,9 +898,9 @@ public:
         pushButton_8 = new QPushButton(affiche);
         pushButton_8->setObjectName("pushButton_8");
         pushButton_8->setGeometry(QRect(620, 150, 41, 31));
-        QFont font7;
-        font7.setPointSize(12);
-        pushButton_8->setFont(font7);
+        QFont font5;
+        font5.setPointSize(12);
+        pushButton_8->setFont(font5);
         pushButton_8->setStyleSheet(QString::fromUtf8("#pushButton\n"
 "{\n"
 "	border:none;\n"
@@ -1034,7 +1000,10 @@ public:
         empLabel = new QLabel(affiche);
         empLabel->setObjectName("empLabel");
         empLabel->setGeometry(QRect(20, 60, 191, 61));
-        empLabel->setFont(font);
+        QFont font6;
+        font6.setPointSize(28);
+        font6.setBold(true);
+        empLabel->setFont(font6);
         empLabel->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -1043,7 +1012,7 @@ public:
         empLabel_2 = new QLabel(affiche);
         empLabel_2->setObjectName("empLabel_2");
         empLabel_2->setGeometry(QRect(220, 60, 191, 61));
-        empLabel_2->setFont(font);
+        empLabel_2->setFont(font6);
         empLabel_2->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -1052,7 +1021,7 @@ public:
         empLabel_3 = new QLabel(affiche);
         empLabel_3->setObjectName("empLabel_3");
         empLabel_3->setGeometry(QRect(430, 60, 191, 61));
-        empLabel_3->setFont(font);
+        empLabel_3->setFont(font6);
         empLabel_3->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -1080,10 +1049,10 @@ public:
         empName = new QLineEdit(tab_6);
         empName->setObjectName("empName");
         empName->setGeometry(QRect(20, 100, 171, 32));
-        QFont font8;
-        font8.setFamilies({QString::fromUtf8("Arial")});
-        font8.setPointSize(10);
-        empName->setFont(font8);
+        QFont font7;
+        font7.setFamilies({QString::fromUtf8("Arial")});
+        font7.setPointSize(10);
+        empName->setFont(font7);
         empName->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1094,7 +1063,7 @@ public:
         empName_2 = new QLineEdit(tab_6);
         empName_2->setObjectName("empName_2");
         empName_2->setGeometry(QRect(210, 100, 181, 32));
-        empName_2->setFont(font8);
+        empName_2->setFont(font7);
         empName_2->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1105,7 +1074,7 @@ public:
         empName_3 = new QLineEdit(tab_6);
         empName_3->setObjectName("empName_3");
         empName_3->setGeometry(QRect(210, 180, 181, 32));
-        empName_3->setFont(font8);
+        empName_3->setFont(font7);
         empName_3->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1116,7 +1085,7 @@ public:
         empDOB = new QDateEdit(tab_6);
         empDOB->setObjectName("empDOB");
         empDOB->setGeometry(QRect(420, 100, 181, 32));
-        empDOB->setFont(font8);
+        empDOB->setFont(font7);
         empDOB->setStyleSheet(QString::fromUtf8("#empDOB\n"
 "{\n"
 "	background:white;\n"
@@ -1143,7 +1112,7 @@ public:
         empGender->addItem(QString());
         empGender->setObjectName("empGender");
         empGender->setGeometry(QRect(20, 180, 171, 32));
-        empGender->setFont(font8);
+        empGender->setFont(font7);
         empGender->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -1154,7 +1123,7 @@ public:
         empName_4 = new QLineEdit(tab_6);
         empName_4->setObjectName("empName_4");
         empName_4->setGeometry(QRect(420, 180, 181, 32));
-        empName_4->setFont(font8);
+        empName_4->setFont(font7);
         empName_4->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1165,7 +1134,7 @@ public:
         pushButton_13 = new QPushButton(tab_6);
         pushButton_13->setObjectName("pushButton_13");
         pushButton_13->setGeometry(QRect(480, 410, 150, 32));
-        pushButton_13->setFont(font6);
+        pushButton_13->setFont(font4);
         pushButton_13->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_13->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_13->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -1184,7 +1153,7 @@ public:
         pushButton_14 = new QPushButton(tab_6);
         pushButton_14->setObjectName("pushButton_14");
         pushButton_14->setGeometry(QRect(320, 410, 150, 32));
-        pushButton_14->setFont(font6);
+        pushButton_14->setFont(font4);
         pushButton_14->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_14->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_14->setStyleSheet(QString::fromUtf8("#pushButton_14\n"
@@ -1268,7 +1237,7 @@ public:
         updateEmpName = new QLineEdit(tab_2);
         updateEmpName->setObjectName("updateEmpName");
         updateEmpName->setGeometry(QRect(300, 90, 381, 32));
-        updateEmpName->setFont(font8);
+        updateEmpName->setFont(font7);
         updateEmpName->setStyleSheet(QString::fromUtf8(""));
         id_21 = new QLabel(tab_2);
         id_21->setObjectName("id_21");
@@ -1277,7 +1246,7 @@ public:
         updateEmpName_2 = new QLineEdit(tab_2);
         updateEmpName_2->setObjectName("updateEmpName_2");
         updateEmpName_2->setGeometry(QRect(300, 170, 381, 32));
-        updateEmpName_2->setFont(font8);
+        updateEmpName_2->setFont(font7);
         updateEmpName_2->setStyleSheet(QString::fromUtf8(""));
         id_17 = new QLabel(tab_2);
         id_17->setObjectName("id_17");
@@ -1289,7 +1258,7 @@ public:
         updateEmpGender->addItem(QString());
         updateEmpGender->setObjectName("updateEmpGender");
         updateEmpGender->setGeometry(QRect(300, 250, 161, 32));
-        updateEmpGender->setFont(font8);
+        updateEmpGender->setFont(font7);
         updateEmpGender->setStyleSheet(QString::fromUtf8("#empDesig\n"
 "{\n"
 "	background:white;\n"
@@ -1304,7 +1273,7 @@ public:
         updateEmpDOB = new QDateEdit(tab_2);
         updateEmpDOB->setObjectName("updateEmpDOB");
         updateEmpDOB->setGeometry(QRect(490, 250, 181, 31));
-        updateEmpDOB->setFont(font8);
+        updateEmpDOB->setFont(font7);
         updateEmpDOB->setStyleSheet(QString::fromUtf8("#updateEmpDOB\n"
 "{\n"
 "	background:white;\n"
@@ -1319,7 +1288,7 @@ public:
         updateEmpPhone = new QLineEdit(tab_2);
         updateEmpPhone->setObjectName("updateEmpPhone");
         updateEmpPhone->setGeometry(QRect(300, 330, 381, 32));
-        updateEmpPhone->setFont(font8);
+        updateEmpPhone->setFont(font7);
         updateEmpPhone->setStyleSheet(QString::fromUtf8(""));
         id_16 = new QLabel(tab_2);
         id_16->setObjectName("id_16");
@@ -1328,12 +1297,12 @@ public:
         updateEmpPhone_2 = new QLineEdit(tab_2);
         updateEmpPhone_2->setObjectName("updateEmpPhone_2");
         updateEmpPhone_2->setGeometry(QRect(300, 410, 381, 32));
-        updateEmpPhone_2->setFont(font8);
+        updateEmpPhone_2->setFont(font7);
         updateEmpPhone_2->setStyleSheet(QString::fromUtf8(""));
         pushButton_9 = new QPushButton(tab_2);
         pushButton_9->setObjectName("pushButton_9");
         pushButton_9->setGeometry(QRect(350, 500, 150, 32));
-        pushButton_9->setFont(font6);
+        pushButton_9->setFont(font4);
         pushButton_9->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_9->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_9->setStyleSheet(QString::fromUtf8("#pushButton_8\n"
@@ -1352,7 +1321,7 @@ public:
         pushButton_10 = new QPushButton(tab_2);
         pushButton_10->setObjectName("pushButton_10");
         pushButton_10->setGeometry(QRect(520, 500, 150, 31));
-        pushButton_10->setFont(font6);
+        pushButton_10->setFont(font4);
         pushButton_10->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_10->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_10->setStyleSheet(QString::fromUtf8("#pushButton_7\n"
@@ -1455,7 +1424,7 @@ public:
         pushButton_11 = new QPushButton(tab_5);
         pushButton_11->setObjectName("pushButton_11");
         pushButton_11->setGeometry(QRect(470, 520, 150, 34));
-        pushButton_11->setFont(font6);
+        pushButton_11->setFont(font4);
         pushButton_11->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -1509,19 +1478,19 @@ public:
         label_9 = new QLabel(affiche_2);
         label_9->setObjectName("label_9");
         label_9->setGeometry(QRect(-30, 30, 221, 31));
-        label_9->setFont(font5);
+        label_9->setFont(font3);
         label_11 = new QLabel(affiche_2);
         label_11->setObjectName("label_11");
         label_11->setGeometry(QRect(190, 30, 221, 31));
-        label_11->setFont(font5);
+        label_11->setFont(font3);
         label_13 = new QLabel(affiche_2);
         label_13->setObjectName("label_13");
         label_13->setGeometry(QRect(430, 30, 211, 31));
-        label_13->setFont(font5);
+        label_13->setFont(font3);
         searchTextBox_2 = new QLineEdit(affiche_2);
         searchTextBox_2->setObjectName("searchTextBox_2");
         searchTextBox_2->setGeometry(QRect(10, 150, 611, 31));
-        searchTextBox_2->setFont(font6);
+        searchTextBox_2->setFont(font4);
         searchTextBox_2->setStyleSheet(QString::fromUtf8("#searchTextBox\n"
 "{\n"
 "	padding-left:8px;\n"
@@ -1530,7 +1499,7 @@ public:
         pushButton_20 = new QPushButton(affiche_2);
         pushButton_20->setObjectName("pushButton_20");
         pushButton_20->setGeometry(QRect(620, 150, 41, 31));
-        pushButton_20->setFont(font7);
+        pushButton_20->setFont(font5);
         pushButton_20->setStyleSheet(QString::fromUtf8("#pushButton\n"
 "{\n"
 "	border:none;\n"
@@ -1627,7 +1596,7 @@ public:
         empLabel_4 = new QLabel(affiche_2);
         empLabel_4->setObjectName("empLabel_4");
         empLabel_4->setGeometry(QRect(20, 60, 191, 61));
-        empLabel_4->setFont(font);
+        empLabel_4->setFont(font6);
         empLabel_4->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -1636,7 +1605,7 @@ public:
         empLabel_5 = new QLabel(affiche_2);
         empLabel_5->setObjectName("empLabel_5");
         empLabel_5->setGeometry(QRect(220, 60, 191, 61));
-        empLabel_5->setFont(font);
+        empLabel_5->setFont(font6);
         empLabel_5->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -1645,7 +1614,7 @@ public:
         empLabel_6 = new QLabel(affiche_2);
         empLabel_6->setObjectName("empLabel_6");
         empLabel_6->setGeometry(QRect(430, 60, 191, 61));
-        empLabel_6->setFont(font);
+        empLabel_6->setFont(font6);
         empLabel_6->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -1673,7 +1642,7 @@ public:
         empName_6 = new QLineEdit(tab_7);
         empName_6->setObjectName("empName_6");
         empName_6->setGeometry(QRect(20, 100, 171, 32));
-        empName_6->setFont(font8);
+        empName_6->setFont(font7);
         empName_6->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1684,7 +1653,7 @@ public:
         empName_7 = new QLineEdit(tab_7);
         empName_7->setObjectName("empName_7");
         empName_7->setGeometry(QRect(210, 100, 181, 32));
-        empName_7->setFont(font8);
+        empName_7->setFont(font7);
         empName_7->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1695,7 +1664,7 @@ public:
         empName_8 = new QLineEdit(tab_7);
         empName_8->setObjectName("empName_8");
         empName_8->setGeometry(QRect(210, 180, 181, 32));
-        empName_8->setFont(font8);
+        empName_8->setFont(font7);
         empName_8->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1706,7 +1675,7 @@ public:
         empDOB_2 = new QDateEdit(tab_7);
         empDOB_2->setObjectName("empDOB_2");
         empDOB_2->setGeometry(QRect(420, 100, 181, 32));
-        empDOB_2->setFont(font8);
+        empDOB_2->setFont(font7);
         empDOB_2->setStyleSheet(QString::fromUtf8("#empDOB\n"
 "{\n"
 "	background:white;\n"
@@ -1733,7 +1702,7 @@ public:
         empGender_2->addItem(QString());
         empGender_2->setObjectName("empGender_2");
         empGender_2->setGeometry(QRect(20, 180, 171, 32));
-        empGender_2->setFont(font8);
+        empGender_2->setFont(font7);
         empGender_2->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -1744,7 +1713,7 @@ public:
         empName_9 = new QLineEdit(tab_7);
         empName_9->setObjectName("empName_9");
         empName_9->setGeometry(QRect(420, 180, 181, 32));
-        empName_9->setFont(font8);
+        empName_9->setFont(font7);
         empName_9->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1759,7 +1728,7 @@ public:
         empName_10 = new QLineEdit(tab_7);
         empName_10->setObjectName("empName_10");
         empName_10->setGeometry(QRect(20, 260, 171, 32));
-        empName_10->setFont(font8);
+        empName_10->setFont(font7);
         empName_10->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -1789,7 +1758,7 @@ public:
         empDept_2->addItem(QString());
         empDept_2->setObjectName("empDept_2");
         empDept_2->setGeometry(QRect(20, 380, 171, 32));
-        empDept_2->setFont(font8);
+        empDept_2->setFont(font7);
         empDept_2->setStyleSheet(QString::fromUtf8("#empDept\n"
 "{\n"
 "	background:white;\n"
@@ -1803,7 +1772,7 @@ public:
         empDesig_2->addItem(QString());
         empDesig_2->setObjectName("empDesig_2");
         empDesig_2->setGeometry(QRect(210, 380, 181, 32));
-        empDesig_2->setFont(font8);
+        empDesig_2->setFont(font7);
         empDesig_2->setStyleSheet(QString::fromUtf8("#empDesig\n"
 "{\n"
 "	background:white;\n"
@@ -1816,7 +1785,7 @@ public:
         empType_2->addItem(QString());
         empType_2->setObjectName("empType_2");
         empType_2->setGeometry(QRect(420, 380, 181, 32));
-        empType_2->setFont(font8);
+        empType_2->setFont(font7);
         empType_2->setStyleSheet(QString::fromUtf8("#empType\n"
 "{\n"
 "	background:white;\n"
@@ -1840,7 +1809,7 @@ public:
         empID_2->setObjectName("empID_2");
         empID_2->setEnabled(false);
         empID_2->setGeometry(QRect(20, 460, 171, 32));
-        empID_2->setFont(font8);
+        empID_2->setFont(font7);
         empID_2->setStyleSheet(QString::fromUtf8("#empID\n"
 "{\n"
 "	background:white;\n"
@@ -1864,7 +1833,7 @@ public:
         empDOJ_2 = new QDateEdit(tab_7);
         empDOJ_2->setObjectName("empDOJ_2");
         empDOJ_2->setGeometry(QRect(210, 460, 181, 32));
-        empDOJ_2->setFont(font8);
+        empDOJ_2->setFont(font7);
         empDOJ_2->setStyleSheet(QString::fromUtf8("#empDOJ\n"
 "{\n"
 "	background:white;\n"
@@ -1875,7 +1844,7 @@ public:
         empSalary_2 = new QLineEdit(tab_7);
         empSalary_2->setObjectName("empSalary_2");
         empSalary_2->setGeometry(QRect(420, 460, 181, 32));
-        empSalary_2->setFont(font8);
+        empSalary_2->setFont(font7);
         empSalary_2->setStyleSheet(QString::fromUtf8("#empSalary\n"
 "{\n"
 "	background:white;\n"
@@ -1886,7 +1855,7 @@ public:
         pushButton_22 = new QPushButton(tab_7);
         pushButton_22->setObjectName("pushButton_22");
         pushButton_22->setGeometry(QRect(350, 530, 150, 32));
-        pushButton_22->setFont(font6);
+        pushButton_22->setFont(font4);
         pushButton_22->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_22->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_22->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -1905,7 +1874,7 @@ public:
         pushButton_23 = new QPushButton(tab_7);
         pushButton_23->setObjectName("pushButton_23");
         pushButton_23->setGeometry(QRect(520, 530, 150, 32));
-        pushButton_23->setFont(font6);
+        pushButton_23->setFont(font4);
         pushButton_23->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_23->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_23->setStyleSheet(QString::fromUtf8("#pushButton_14\n"
@@ -1989,7 +1958,7 @@ public:
         updateEmpName_3 = new QLineEdit(tab_3);
         updateEmpName_3->setObjectName("updateEmpName_3");
         updateEmpName_3->setGeometry(QRect(300, 90, 381, 32));
-        updateEmpName_3->setFont(font8);
+        updateEmpName_3->setFont(font7);
         updateEmpName_3->setStyleSheet(QString::fromUtf8(""));
         id_35 = new QLabel(tab_3);
         id_35->setObjectName("id_35");
@@ -1998,7 +1967,7 @@ public:
         updateEmpName_4 = new QLineEdit(tab_3);
         updateEmpName_4->setObjectName("updateEmpName_4");
         updateEmpName_4->setGeometry(QRect(300, 170, 381, 32));
-        updateEmpName_4->setFont(font8);
+        updateEmpName_4->setFont(font7);
         updateEmpName_4->setStyleSheet(QString::fromUtf8(""));
         id_36 = new QLabel(tab_3);
         id_36->setObjectName("id_36");
@@ -2010,7 +1979,7 @@ public:
         updateEmpGender_2->addItem(QString());
         updateEmpGender_2->setObjectName("updateEmpGender_2");
         updateEmpGender_2->setGeometry(QRect(300, 250, 161, 32));
-        updateEmpGender_2->setFont(font8);
+        updateEmpGender_2->setFont(font7);
         updateEmpGender_2->setStyleSheet(QString::fromUtf8("#empDesig\n"
 "{\n"
 "	background:white;\n"
@@ -2025,7 +1994,7 @@ public:
         updateEmpDOB_2 = new QDateEdit(tab_3);
         updateEmpDOB_2->setObjectName("updateEmpDOB_2");
         updateEmpDOB_2->setGeometry(QRect(490, 250, 181, 31));
-        updateEmpDOB_2->setFont(font8);
+        updateEmpDOB_2->setFont(font7);
         updateEmpDOB_2->setStyleSheet(QString::fromUtf8("#updateEmpDOB\n"
 "{\n"
 "	background:white;\n"
@@ -2040,7 +2009,7 @@ public:
         updateEmpPhone_4 = new QLineEdit(tab_3);
         updateEmpPhone_4->setObjectName("updateEmpPhone_4");
         updateEmpPhone_4->setGeometry(QRect(300, 330, 381, 32));
-        updateEmpPhone_4->setFont(font8);
+        updateEmpPhone_4->setFont(font7);
         updateEmpPhone_4->setStyleSheet(QString::fromUtf8(""));
         id_39 = new QLabel(tab_3);
         id_39->setObjectName("id_39");
@@ -2053,17 +2022,17 @@ public:
         updateEmpPhone_5 = new QLineEdit(tab_3);
         updateEmpPhone_5->setObjectName("updateEmpPhone_5");
         updateEmpPhone_5->setGeometry(QRect(300, 410, 381, 32));
-        updateEmpPhone_5->setFont(font8);
+        updateEmpPhone_5->setFont(font7);
         updateEmpPhone_5->setStyleSheet(QString::fromUtf8(""));
         updateEmpPhone_6 = new QLineEdit(tab_3);
         updateEmpPhone_6->setObjectName("updateEmpPhone_6");
         updateEmpPhone_6->setGeometry(QRect(300, 490, 381, 32));
-        updateEmpPhone_6->setFont(font8);
+        updateEmpPhone_6->setFont(font7);
         updateEmpPhone_6->setStyleSheet(QString::fromUtf8(""));
         pushButton_24 = new QPushButton(tab_3);
         pushButton_24->setObjectName("pushButton_24");
         pushButton_24->setGeometry(QRect(350, 530, 150, 32));
-        pushButton_24->setFont(font6);
+        pushButton_24->setFont(font4);
         pushButton_24->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_24->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_24->setStyleSheet(QString::fromUtf8("#pushButton_8\n"
@@ -2082,7 +2051,7 @@ public:
         pushButton_25 = new QPushButton(tab_3);
         pushButton_25->setObjectName("pushButton_25");
         pushButton_25->setGeometry(QRect(520, 530, 150, 31));
-        pushButton_25->setFont(font6);
+        pushButton_25->setFont(font4);
         pushButton_25->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_25->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_25->setStyleSheet(QString::fromUtf8("#pushButton_7\n"
@@ -2185,7 +2154,7 @@ public:
         pushButton_26 = new QPushButton(tab_8);
         pushButton_26->setObjectName("pushButton_26");
         pushButton_26->setGeometry(QRect(470, 520, 150, 34));
-        pushButton_26->setFont(font6);
+        pushButton_26->setFont(font4);
         pushButton_26->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -2274,19 +2243,19 @@ public:
         label_35 = new QLabel(affiche_3);
         label_35->setObjectName("label_35");
         label_35->setGeometry(QRect(-30, 30, 221, 31));
-        label_35->setFont(font5);
+        label_35->setFont(font3);
         label_44 = new QLabel(affiche_3);
         label_44->setObjectName("label_44");
         label_44->setGeometry(QRect(190, 30, 221, 31));
-        label_44->setFont(font5);
+        label_44->setFont(font3);
         label_55 = new QLabel(affiche_3);
         label_55->setObjectName("label_55");
         label_55->setGeometry(QRect(430, 30, 211, 31));
-        label_55->setFont(font5);
+        label_55->setFont(font3);
         searchTextBox_3 = new QLineEdit(affiche_3);
         searchTextBox_3->setObjectName("searchTextBox_3");
         searchTextBox_3->setGeometry(QRect(10, 150, 611, 31));
-        searchTextBox_3->setFont(font6);
+        searchTextBox_3->setFont(font4);
         searchTextBox_3->setStyleSheet(QString::fromUtf8("#searchTextBox\n"
 "{\n"
 "	padding-left:8px;\n"
@@ -2295,7 +2264,7 @@ public:
         pushButton_32 = new QPushButton(affiche_3);
         pushButton_32->setObjectName("pushButton_32");
         pushButton_32->setGeometry(QRect(620, 150, 41, 31));
-        pushButton_32->setFont(font7);
+        pushButton_32->setFont(font5);
         pushButton_32->setStyleSheet(QString::fromUtf8("#pushButton\n"
 "{\n"
 "	border:none;\n"
@@ -2392,7 +2361,7 @@ public:
         empLabel_7 = new QLabel(affiche_3);
         empLabel_7->setObjectName("empLabel_7");
         empLabel_7->setGeometry(QRect(20, 60, 191, 61));
-        empLabel_7->setFont(font);
+        empLabel_7->setFont(font6);
         empLabel_7->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -2401,7 +2370,7 @@ public:
         empLabel_8 = new QLabel(affiche_3);
         empLabel_8->setObjectName("empLabel_8");
         empLabel_8->setGeometry(QRect(220, 60, 191, 61));
-        empLabel_8->setFont(font);
+        empLabel_8->setFont(font6);
         empLabel_8->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -2410,7 +2379,7 @@ public:
         empLabel_9 = new QLabel(affiche_3);
         empLabel_9->setObjectName("empLabel_9");
         empLabel_9->setGeometry(QRect(430, 60, 191, 61));
-        empLabel_9->setFont(font);
+        empLabel_9->setFont(font6);
         empLabel_9->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -2428,7 +2397,7 @@ public:
         pushButton_45 = new QPushButton(affiche_3);
         pushButton_45->setObjectName("pushButton_45");
         pushButton_45->setGeometry(QRect(510, 520, 150, 32));
-        pushButton_45->setFont(font6);
+        pushButton_45->setFont(font4);
         pushButton_45->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_45->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_45->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -2466,7 +2435,7 @@ public:
         empName_11 = new QLineEdit(tab_9);
         empName_11->setObjectName("empName_11");
         empName_11->setGeometry(QRect(20, 100, 171, 32));
-        empName_11->setFont(font8);
+        empName_11->setFont(font7);
         empName_11->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -2477,7 +2446,7 @@ public:
         empName_12 = new QLineEdit(tab_9);
         empName_12->setObjectName("empName_12");
         empName_12->setGeometry(QRect(210, 100, 181, 32));
-        empName_12->setFont(font8);
+        empName_12->setFont(font7);
         empName_12->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -2488,7 +2457,7 @@ public:
         empName_13 = new QLineEdit(tab_9);
         empName_13->setObjectName("empName_13");
         empName_13->setGeometry(QRect(210, 180, 181, 32));
-        empName_13->setFont(font8);
+        empName_13->setFont(font7);
         empName_13->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -2499,7 +2468,7 @@ public:
         empDOB_3 = new QDateEdit(tab_9);
         empDOB_3->setObjectName("empDOB_3");
         empDOB_3->setGeometry(QRect(420, 100, 181, 32));
-        empDOB_3->setFont(font8);
+        empDOB_3->setFont(font7);
         empDOB_3->setStyleSheet(QString::fromUtf8("#empDOB\n"
 "{\n"
 "	background:white;\n"
@@ -2526,7 +2495,7 @@ public:
         empGender_3->addItem(QString());
         empGender_3->setObjectName("empGender_3");
         empGender_3->setGeometry(QRect(20, 180, 171, 32));
-        empGender_3->setFont(font8);
+        empGender_3->setFont(font7);
         empGender_3->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -2556,7 +2525,7 @@ public:
         empDesig_3->addItem(QString());
         empDesig_3->setObjectName("empDesig_3");
         empDesig_3->setGeometry(QRect(210, 380, 181, 32));
-        empDesig_3->setFont(font8);
+        empDesig_3->setFont(font7);
         empDesig_3->setStyleSheet(QString::fromUtf8("#empDesig\n"
 "{\n"
 "	background:white;\n"
@@ -2567,7 +2536,7 @@ public:
         pushButton_34 = new QPushButton(tab_9);
         pushButton_34->setObjectName("pushButton_34");
         pushButton_34->setGeometry(QRect(540, 481, 151, 31));
-        pushButton_34->setFont(font6);
+        pushButton_34->setFont(font4);
         pushButton_34->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_34->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_34->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -2586,7 +2555,7 @@ public:
         pushButton_35 = new QPushButton(tab_9);
         pushButton_35->setObjectName("pushButton_35");
         pushButton_35->setGeometry(QRect(380, 480, 150, 32));
-        pushButton_35->setFont(font6);
+        pushButton_35->setFont(font4);
         pushButton_35->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_35->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_35->setStyleSheet(QString::fromUtf8("#pushButton_14\n"
@@ -2605,7 +2574,7 @@ public:
         empDOB_4 = new QDateEdit(tab_9);
         empDOB_4->setObjectName("empDOB_4");
         empDOB_4->setGeometry(QRect(420, 180, 181, 32));
-        empDOB_4->setFont(font8);
+        empDOB_4->setFont(font7);
         empDOB_4->setStyleSheet(QString::fromUtf8("#empDOB\n"
 "{\n"
 "	background:white;\n"
@@ -2620,7 +2589,7 @@ public:
         empGender_4->addItem(QString());
         empGender_4->setObjectName("empGender_4");
         empGender_4->setGeometry(QRect(20, 260, 171, 32));
-        empGender_4->setFont(font8);
+        empGender_4->setFont(font7);
         empGender_4->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -2631,7 +2600,7 @@ public:
         empName_14 = new QLineEdit(tab_9);
         empName_14->setObjectName("empName_14");
         empName_14->setGeometry(QRect(20, 380, 171, 32));
-        empName_14->setFont(font8);
+        empName_14->setFont(font7);
         empName_14->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -2707,7 +2676,7 @@ public:
         updateEmpName_5 = new QLineEdit(tab_4);
         updateEmpName_5->setObjectName("updateEmpName_5");
         updateEmpName_5->setGeometry(QRect(300, 90, 381, 32));
-        updateEmpName_5->setFont(font8);
+        updateEmpName_5->setFont(font7);
         updateEmpName_5->setStyleSheet(QString::fromUtf8(""));
         id_54 = new QLabel(tab_4);
         id_54->setObjectName("id_54");
@@ -2716,7 +2685,7 @@ public:
         updateEmpName_6 = new QLineEdit(tab_4);
         updateEmpName_6->setObjectName("updateEmpName_6");
         updateEmpName_6->setGeometry(QRect(300, 170, 381, 32));
-        updateEmpName_6->setFont(font8);
+        updateEmpName_6->setFont(font7);
         updateEmpName_6->setStyleSheet(QString::fromUtf8(""));
         id_55 = new QLabel(tab_4);
         id_55->setObjectName("id_55");
@@ -2729,7 +2698,7 @@ public:
         updateEmpDOB_3 = new QDateEdit(tab_4);
         updateEmpDOB_3->setObjectName("updateEmpDOB_3");
         updateEmpDOB_3->setGeometry(QRect(490, 250, 181, 31));
-        updateEmpDOB_3->setFont(font8);
+        updateEmpDOB_3->setFont(font7);
         updateEmpDOB_3->setStyleSheet(QString::fromUtf8("#updateEmpDOB\n"
 "{\n"
 "	background:white;\n"
@@ -2744,7 +2713,7 @@ public:
         updateEmpPhone_7 = new QLineEdit(tab_4);
         updateEmpPhone_7->setObjectName("updateEmpPhone_7");
         updateEmpPhone_7->setGeometry(QRect(300, 330, 381, 32));
-        updateEmpPhone_7->setFont(font8);
+        updateEmpPhone_7->setFont(font7);
         updateEmpPhone_7->setStyleSheet(QString::fromUtf8(""));
         id_58 = new QLabel(tab_4);
         id_58->setObjectName("id_58");
@@ -2757,7 +2726,7 @@ public:
         pushButton_36 = new QPushButton(tab_4);
         pushButton_36->setObjectName("pushButton_36");
         pushButton_36->setGeometry(QRect(350, 530, 150, 32));
-        pushButton_36->setFont(font6);
+        pushButton_36->setFont(font4);
         pushButton_36->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_36->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_36->setStyleSheet(QString::fromUtf8("#pushButton_8\n"
@@ -2776,7 +2745,7 @@ public:
         pushButton_37 = new QPushButton(tab_4);
         pushButton_37->setObjectName("pushButton_37");
         pushButton_37->setGeometry(QRect(520, 530, 150, 31));
-        pushButton_37->setFont(font6);
+        pushButton_37->setFont(font4);
         pushButton_37->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_37->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_37->setStyleSheet(QString::fromUtf8("#pushButton_7\n"
@@ -2795,7 +2764,7 @@ public:
         updateEmpDOB_4 = new QDateEdit(tab_4);
         updateEmpDOB_4->setObjectName("updateEmpDOB_4");
         updateEmpDOB_4->setGeometry(QRect(300, 250, 181, 31));
-        updateEmpDOB_4->setFont(font8);
+        updateEmpDOB_4->setFont(font7);
         updateEmpDOB_4->setStyleSheet(QString::fromUtf8("#updateEmpDOB\n"
 "{\n"
 "	background:white;\n"
@@ -2809,7 +2778,7 @@ public:
         empGender_5->addItem(QString());
         empGender_5->setObjectName("empGender_5");
         empGender_5->setGeometry(QRect(300, 410, 381, 32));
-        empGender_5->setFont(font8);
+        empGender_5->setFont(font7);
         empGender_5->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -2823,7 +2792,7 @@ public:
         empGender_6->addItem(QString());
         empGender_6->setObjectName("empGender_6");
         empGender_6->setGeometry(QRect(300, 480, 381, 32));
-        empGender_6->setFont(font8);
+        empGender_6->setFont(font7);
         empGender_6->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -2918,7 +2887,7 @@ public:
         pushButton_38 = new QPushButton(tab_10);
         pushButton_38->setObjectName("pushButton_38");
         pushButton_38->setGeometry(QRect(540, 520, 150, 34));
-        pushButton_38->setFont(font6);
+        pushButton_38->setFont(font4);
         pushButton_38->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -2944,7 +2913,7 @@ public:
         pushButton_44 = new QPushButton(tab_10);
         pushButton_44->setObjectName("pushButton_44");
         pushButton_44->setGeometry(QRect(360, 520, 150, 34));
-        pushButton_44->setFont(font6);
+        pushButton_44->setFont(font4);
         pushButton_44->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -3072,19 +3041,19 @@ public:
         label_79 = new QLabel(affiche_4);
         label_79->setObjectName("label_79");
         label_79->setGeometry(QRect(-30, 30, 221, 31));
-        label_79->setFont(font5);
+        label_79->setFont(font3);
         label_80 = new QLabel(affiche_4);
         label_80->setObjectName("label_80");
         label_80->setGeometry(QRect(190, 30, 221, 31));
-        label_80->setFont(font5);
+        label_80->setFont(font3);
         label_81 = new QLabel(affiche_4);
         label_81->setObjectName("label_81");
         label_81->setGeometry(QRect(430, 30, 191, 31));
-        label_81->setFont(font5);
+        label_81->setFont(font3);
         searchTextBox_4 = new QLineEdit(affiche_4);
         searchTextBox_4->setObjectName("searchTextBox_4");
         searchTextBox_4->setGeometry(QRect(10, 150, 611, 31));
-        searchTextBox_4->setFont(font6);
+        searchTextBox_4->setFont(font4);
         searchTextBox_4->setStyleSheet(QString::fromUtf8("#searchTextBox\n"
 "{\n"
 "	padding-left:8px;\n"
@@ -3093,7 +3062,7 @@ public:
         pushButton_33 = new QPushButton(affiche_4);
         pushButton_33->setObjectName("pushButton_33");
         pushButton_33->setGeometry(QRect(620, 150, 41, 31));
-        pushButton_33->setFont(font7);
+        pushButton_33->setFont(font5);
         pushButton_33->setStyleSheet(QString::fromUtf8("#pushButton\n"
 "{\n"
 "	border:none;\n"
@@ -3181,7 +3150,7 @@ public:
         empLabel_10 = new QLabel(affiche_4);
         empLabel_10->setObjectName("empLabel_10");
         empLabel_10->setGeometry(QRect(20, 60, 191, 61));
-        empLabel_10->setFont(font);
+        empLabel_10->setFont(font6);
         empLabel_10->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -3190,7 +3159,7 @@ public:
         empLabel_11 = new QLabel(affiche_4);
         empLabel_11->setObjectName("empLabel_11");
         empLabel_11->setGeometry(QRect(220, 60, 191, 61));
-        empLabel_11->setFont(font);
+        empLabel_11->setFont(font6);
         empLabel_11->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -3199,7 +3168,7 @@ public:
         empLabel_12 = new QLabel(affiche_4);
         empLabel_12->setObjectName("empLabel_12");
         empLabel_12->setGeometry(QRect(430, 60, 191, 61));
-        empLabel_12->setFont(font);
+        empLabel_12->setFont(font6);
         empLabel_12->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -3208,7 +3177,7 @@ public:
         pushButton_51 = new QPushButton(affiche_4);
         pushButton_51->setObjectName("pushButton_51");
         pushButton_51->setGeometry(QRect(510, 520, 150, 32));
-        pushButton_51->setFont(font6);
+        pushButton_51->setFont(font4);
         pushButton_51->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_51->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_51->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -3242,7 +3211,7 @@ public:
         empName_15 = new QLineEdit(tab_11);
         empName_15->setObjectName("empName_15");
         empName_15->setGeometry(QRect(20, 100, 171, 32));
-        empName_15->setFont(font8);
+        empName_15->setFont(font7);
         empName_15->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -3253,7 +3222,7 @@ public:
         empName_16 = new QLineEdit(tab_11);
         empName_16->setObjectName("empName_16");
         empName_16->setGeometry(QRect(210, 100, 181, 32));
-        empName_16->setFont(font8);
+        empName_16->setFont(font7);
         empName_16->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -3264,7 +3233,7 @@ public:
         empName_17 = new QLineEdit(tab_11);
         empName_17->setObjectName("empName_17");
         empName_17->setGeometry(QRect(210, 180, 181, 32));
-        empName_17->setFont(font8);
+        empName_17->setFont(font7);
         empName_17->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -3286,7 +3255,7 @@ public:
         empGender_7->addItem(QString());
         empGender_7->setObjectName("empGender_7");
         empGender_7->setGeometry(QRect(410, 100, 171, 32));
-        empGender_7->setFont(font8);
+        empGender_7->setFont(font7);
         empGender_7->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -3301,7 +3270,7 @@ public:
         pushButton_52 = new QPushButton(tab_11);
         pushButton_52->setObjectName("pushButton_52");
         pushButton_52->setGeometry(QRect(430, 310, 151, 31));
-        pushButton_52->setFont(font6);
+        pushButton_52->setFont(font4);
         pushButton_52->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_52->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_52->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -3320,7 +3289,7 @@ public:
         pushButton_53 = new QPushButton(tab_11);
         pushButton_53->setObjectName("pushButton_53");
         pushButton_53->setGeometry(QRect(260, 310, 150, 32));
-        pushButton_53->setFont(font6);
+        pushButton_53->setFont(font4);
         pushButton_53->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_53->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_53->setStyleSheet(QString::fromUtf8("#pushButton_14\n"
@@ -3342,7 +3311,7 @@ public:
         empGender_8->addItem(QString());
         empGender_8->setObjectName("empGender_8");
         empGender_8->setGeometry(QRect(20, 180, 171, 32));
-        empGender_8->setFont(font8);
+        empGender_8->setFont(font7);
         empGender_8->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -3418,7 +3387,7 @@ public:
         updateEmpName_7 = new QLineEdit(tab_12);
         updateEmpName_7->setObjectName("updateEmpName_7");
         updateEmpName_7->setGeometry(QRect(300, 90, 381, 32));
-        updateEmpName_7->setFont(font8);
+        updateEmpName_7->setFont(font7);
         updateEmpName_7->setStyleSheet(QString::fromUtf8(""));
         id_65 = new QLabel(tab_12);
         id_65->setObjectName("id_65");
@@ -3427,7 +3396,7 @@ public:
         updateEmpName_8 = new QLineEdit(tab_12);
         updateEmpName_8->setObjectName("updateEmpName_8");
         updateEmpName_8->setGeometry(QRect(300, 170, 381, 32));
-        updateEmpName_8->setFont(font8);
+        updateEmpName_8->setFont(font7);
         updateEmpName_8->setStyleSheet(QString::fromUtf8(""));
         id_68 = new QLabel(tab_12);
         id_68->setObjectName("id_68");
@@ -3436,7 +3405,7 @@ public:
         updateEmpPhone_8 = new QLineEdit(tab_12);
         updateEmpPhone_8->setObjectName("updateEmpPhone_8");
         updateEmpPhone_8->setGeometry(QRect(300, 410, 381, 32));
-        updateEmpPhone_8->setFont(font8);
+        updateEmpPhone_8->setFont(font7);
         updateEmpPhone_8->setStyleSheet(QString::fromUtf8(""));
         id_69 = new QLabel(tab_12);
         id_69->setObjectName("id_69");
@@ -3449,7 +3418,7 @@ public:
         pushButton_54 = new QPushButton(tab_12);
         pushButton_54->setObjectName("pushButton_54");
         pushButton_54->setGeometry(QRect(350, 530, 150, 32));
-        pushButton_54->setFont(font6);
+        pushButton_54->setFont(font4);
         pushButton_54->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_54->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_54->setStyleSheet(QString::fromUtf8("#pushButton_8\n"
@@ -3468,7 +3437,7 @@ public:
         pushButton_55 = new QPushButton(tab_12);
         pushButton_55->setObjectName("pushButton_55");
         pushButton_55->setGeometry(QRect(520, 530, 150, 31));
-        pushButton_55->setFont(font6);
+        pushButton_55->setFont(font4);
         pushButton_55->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_55->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_55->setStyleSheet(QString::fromUtf8("#pushButton_7\n"
@@ -3490,7 +3459,7 @@ public:
         empGender_9->addItem(QString());
         empGender_9->setObjectName("empGender_9");
         empGender_9->setGeometry(QRect(300, 250, 381, 32));
-        empGender_9->setFont(font8);
+        empGender_9->setFont(font7);
         empGender_9->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -3504,7 +3473,7 @@ public:
         empGender_10->addItem(QString());
         empGender_10->setObjectName("empGender_10");
         empGender_10->setGeometry(QRect(300, 330, 381, 32));
-        empGender_10->setFont(font8);
+        empGender_10->setFont(font7);
         empGender_10->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -3590,7 +3559,7 @@ public:
         pushButton_56 = new QPushButton(tab_13);
         pushButton_56->setObjectName("pushButton_56");
         pushButton_56->setGeometry(QRect(540, 520, 150, 34));
-        pushButton_56->setFont(font6);
+        pushButton_56->setFont(font4);
         pushButton_56->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -3607,7 +3576,7 @@ public:
         pushButton_57 = new QPushButton(tab_13);
         pushButton_57->setObjectName("pushButton_57");
         pushButton_57->setGeometry(QRect(360, 520, 150, 34));
-        pushButton_57->setFont(font6);
+        pushButton_57->setFont(font4);
         pushButton_57->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -3693,19 +3662,19 @@ public:
         label_100 = new QLabel(affiche_5);
         label_100->setObjectName("label_100");
         label_100->setGeometry(QRect(-30, 30, 221, 31));
-        label_100->setFont(font5);
+        label_100->setFont(font3);
         label_101 = new QLabel(affiche_5);
         label_101->setObjectName("label_101");
         label_101->setGeometry(QRect(190, 30, 221, 31));
-        label_101->setFont(font5);
+        label_101->setFont(font3);
         label_102 = new QLabel(affiche_5);
         label_102->setObjectName("label_102");
         label_102->setGeometry(QRect(430, 30, 191, 31));
-        label_102->setFont(font5);
+        label_102->setFont(font3);
         searchTextBox_5 = new QLineEdit(affiche_5);
         searchTextBox_5->setObjectName("searchTextBox_5");
         searchTextBox_5->setGeometry(QRect(10, 150, 611, 31));
-        searchTextBox_5->setFont(font6);
+        searchTextBox_5->setFont(font4);
         searchTextBox_5->setStyleSheet(QString::fromUtf8("#searchTextBox\n"
 "{\n"
 "	padding-left:8px;\n"
@@ -3714,7 +3683,7 @@ public:
         pushButton_63 = new QPushButton(affiche_5);
         pushButton_63->setObjectName("pushButton_63");
         pushButton_63->setGeometry(QRect(620, 150, 41, 31));
-        pushButton_63->setFont(font7);
+        pushButton_63->setFont(font5);
         pushButton_63->setStyleSheet(QString::fromUtf8("#pushButton\n"
 "{\n"
 "	border:none;\n"
@@ -3802,7 +3771,7 @@ public:
         empLabel_13 = new QLabel(affiche_5);
         empLabel_13->setObjectName("empLabel_13");
         empLabel_13->setGeometry(QRect(20, 60, 191, 61));
-        empLabel_13->setFont(font);
+        empLabel_13->setFont(font6);
         empLabel_13->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -3811,7 +3780,7 @@ public:
         empLabel_14 = new QLabel(affiche_5);
         empLabel_14->setObjectName("empLabel_14");
         empLabel_14->setGeometry(QRect(220, 60, 191, 61));
-        empLabel_14->setFont(font);
+        empLabel_14->setFont(font6);
         empLabel_14->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -3820,7 +3789,7 @@ public:
         empLabel_15 = new QLabel(affiche_5);
         empLabel_15->setObjectName("empLabel_15");
         empLabel_15->setGeometry(QRect(430, 60, 191, 61));
-        empLabel_15->setFont(font);
+        empLabel_15->setFont(font6);
         empLabel_15->setStyleSheet(QString::fromUtf8("#empLabel\n"
 "{\n"
 "	color:white;\n"
@@ -3829,7 +3798,7 @@ public:
         pushButton_64 = new QPushButton(affiche_5);
         pushButton_64->setObjectName("pushButton_64");
         pushButton_64->setGeometry(QRect(510, 520, 150, 32));
-        pushButton_64->setFont(font6);
+        pushButton_64->setFont(font4);
         pushButton_64->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_64->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_64->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -3863,7 +3832,7 @@ public:
         empName_18 = new QLineEdit(tab_14);
         empName_18->setObjectName("empName_18");
         empName_18->setGeometry(QRect(20, 100, 171, 32));
-        empName_18->setFont(font8);
+        empName_18->setFont(font7);
         empName_18->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -3874,7 +3843,7 @@ public:
         empName_19 = new QLineEdit(tab_14);
         empName_19->setObjectName("empName_19");
         empName_19->setGeometry(QRect(210, 100, 181, 32));
-        empName_19->setFont(font8);
+        empName_19->setFont(font7);
         empName_19->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -3885,7 +3854,7 @@ public:
         empName_20 = new QLineEdit(tab_14);
         empName_20->setObjectName("empName_20");
         empName_20->setGeometry(QRect(210, 180, 181, 32));
-        empName_20->setFont(font8);
+        empName_20->setFont(font7);
         empName_20->setStyleSheet(QString::fromUtf8("#empName\n"
 "{\n"
 "	background:white;\n"
@@ -3907,7 +3876,7 @@ public:
         empGender_11->addItem(QString());
         empGender_11->setObjectName("empGender_11");
         empGender_11->setGeometry(QRect(410, 100, 171, 32));
-        empGender_11->setFont(font8);
+        empGender_11->setFont(font7);
         empGender_11->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -3922,7 +3891,7 @@ public:
         pushButton_65 = new QPushButton(tab_14);
         pushButton_65->setObjectName("pushButton_65");
         pushButton_65->setGeometry(QRect(430, 310, 151, 31));
-        pushButton_65->setFont(font6);
+        pushButton_65->setFont(font4);
         pushButton_65->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_65->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_65->setStyleSheet(QString::fromUtf8("#pushButton_13\n"
@@ -3941,7 +3910,7 @@ public:
         pushButton_66 = new QPushButton(tab_14);
         pushButton_66->setObjectName("pushButton_66");
         pushButton_66->setGeometry(QRect(260, 310, 150, 32));
-        pushButton_66->setFont(font6);
+        pushButton_66->setFont(font4);
         pushButton_66->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_66->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_66->setStyleSheet(QString::fromUtf8("#pushButton_14\n"
@@ -3963,7 +3932,7 @@ public:
         empGender_12->addItem(QString());
         empGender_12->setObjectName("empGender_12");
         empGender_12->setGeometry(QRect(20, 180, 171, 32));
-        empGender_12->setFont(font8);
+        empGender_12->setFont(font7);
         empGender_12->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -4039,7 +4008,7 @@ public:
         updateEmpName_9 = new QLineEdit(tab_15);
         updateEmpName_9->setObjectName("updateEmpName_9");
         updateEmpName_9->setGeometry(QRect(300, 90, 381, 32));
-        updateEmpName_9->setFont(font8);
+        updateEmpName_9->setFont(font7);
         updateEmpName_9->setStyleSheet(QString::fromUtf8(""));
         id_67 = new QLabel(tab_15);
         id_67->setObjectName("id_67");
@@ -4048,7 +4017,7 @@ public:
         updateEmpName_10 = new QLineEdit(tab_15);
         updateEmpName_10->setObjectName("updateEmpName_10");
         updateEmpName_10->setGeometry(QRect(300, 170, 381, 32));
-        updateEmpName_10->setFont(font8);
+        updateEmpName_10->setFont(font7);
         updateEmpName_10->setStyleSheet(QString::fromUtf8(""));
         id_71 = new QLabel(tab_15);
         id_71->setObjectName("id_71");
@@ -4057,7 +4026,7 @@ public:
         updateEmpPhone_9 = new QLineEdit(tab_15);
         updateEmpPhone_9->setObjectName("updateEmpPhone_9");
         updateEmpPhone_9->setGeometry(QRect(300, 410, 381, 32));
-        updateEmpPhone_9->setFont(font8);
+        updateEmpPhone_9->setFont(font7);
         updateEmpPhone_9->setStyleSheet(QString::fromUtf8(""));
         id_72 = new QLabel(tab_15);
         id_72->setObjectName("id_72");
@@ -4070,7 +4039,7 @@ public:
         pushButton_67 = new QPushButton(tab_15);
         pushButton_67->setObjectName("pushButton_67");
         pushButton_67->setGeometry(QRect(350, 530, 150, 32));
-        pushButton_67->setFont(font6);
+        pushButton_67->setFont(font4);
         pushButton_67->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_67->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_67->setStyleSheet(QString::fromUtf8("#pushButton_8\n"
@@ -4089,7 +4058,7 @@ public:
         pushButton_68 = new QPushButton(tab_15);
         pushButton_68->setObjectName("pushButton_68");
         pushButton_68->setGeometry(QRect(520, 530, 150, 31));
-        pushButton_68->setFont(font6);
+        pushButton_68->setFont(font4);
         pushButton_68->setCursor(QCursor(Qt::PointingHandCursor));
         pushButton_68->setFocusPolicy(Qt::FocusPolicy::TabFocus);
         pushButton_68->setStyleSheet(QString::fromUtf8("#pushButton_7\n"
@@ -4111,7 +4080,7 @@ public:
         empGender_13->addItem(QString());
         empGender_13->setObjectName("empGender_13");
         empGender_13->setGeometry(QRect(300, 250, 381, 32));
-        empGender_13->setFont(font8);
+        empGender_13->setFont(font7);
         empGender_13->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -4125,7 +4094,7 @@ public:
         empGender_14->addItem(QString());
         empGender_14->setObjectName("empGender_14");
         empGender_14->setGeometry(QRect(300, 330, 381, 32));
-        empGender_14->setFont(font8);
+        empGender_14->setFont(font7);
         empGender_14->setStyleSheet(QString::fromUtf8("#empGender\n"
 "{\n"
 "	background:white;\n"
@@ -4211,7 +4180,7 @@ public:
         pushButton_69 = new QPushButton(tab_16);
         pushButton_69->setObjectName("pushButton_69");
         pushButton_69->setGeometry(QRect(540, 520, 150, 34));
-        pushButton_69->setFont(font6);
+        pushButton_69->setFont(font4);
         pushButton_69->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -4228,7 +4197,7 @@ public:
         pushButton_70 = new QPushButton(tab_16);
         pushButton_70->setObjectName("pushButton_70");
         pushButton_70->setGeometry(QRect(360, 520, 150, 34));
-        pushButton_70->setFont(font6);
+        pushButton_70->setFont(font4);
         pushButton_70->setStyleSheet(QString::fromUtf8("#pushButton_3\n"
 "{\n"
 "	background:#00855C;\n"
@@ -4249,7 +4218,7 @@ public:
         retranslateUi(MainWindow);
 
         stackedWidget->setCurrentIndex(1);
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
         logistic->setCurrentIndex(0);
         employe->setCurrentIndex(3);
         reservation->setCurrentIndex(0);
@@ -4274,24 +4243,6 @@ public:
         pushButton_73->setText(QCoreApplication::translate("MainWindow", "Gestion de r\303\251servation ", nullptr));
         pushButton_74->setText(QCoreApplication::translate("MainWindow", "Gestion de Chambre", nullptr));
         pushButton_75->setText(QCoreApplication::translate("MainWindow", "Gestion d\342\200\231employ\303\251", nullptr));
-        pushButton_76->setText(QCoreApplication::translate("MainWindow", "rechercher", nullptr));
-        pushButton_77->setText(QCoreApplication::translate("MainWindow", "Trier", nullptr));
-        comboBox_3->setItemText(0, QCoreApplication::translate("MainWindow", "ID de transaction", nullptr));
-        comboBox_3->setItemText(1, QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
-        comboBox_3->setItemText(2, QCoreApplication::translate("MainWindow", "Type", nullptr));
-
-        comboBox_4->setItemText(0, QCoreApplication::translate("MainWindow", "Montant", nullptr));
-        comboBox_4->setItemText(1, QCoreApplication::translate("MainWindow", "Type", nullptr));
-
-        label_128->setText(QString());
-        label_129->setText(QString());
-        label_131->setText(QCoreApplication::translate("MainWindow", "000", nullptr));
-        label_132->setText(QCoreApplication::translate("MainWindow", "000", nullptr));
-        label_118->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-style:italic; color:#cbb479;\">Liste des transactions</span></p><p><br/></p></body></html>", nullptr));
-        pushButton_81->setText(QCoreApplication::translate("MainWindow", "Exporter en PDF", nullptr));
-        label_134->setText(QCoreApplication::translate("MainWindow", "Paiement en espece", nullptr));
-        label_135->setText(QCoreApplication::translate("MainWindow", "Benefice", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "affiche", nullptr));
         label_120->setText(QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
         label_121->setText(QCoreApplication::translate("MainWindow", "Montant", nullptr));
         label_122->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
@@ -4306,39 +4257,42 @@ public:
         addButton->setText(QCoreApplication::translate("MainWindow", "Ajouter", nullptr));
         pushButton_17->setText(QCoreApplication::translate("MainWindow", "Annuler", nullptr));
         label_119->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-style:italic; color:#cbb479;\">Ajouter une transaction</span></p></body></html>", nullptr));
-        label_130->setText(QCoreApplication::translate("MainWindow", "ID transaction", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_19), QCoreApplication::translate("MainWindow", "insert", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = tableWidget_2->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "ID de transaction", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = tableWidget_2->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = tableWidget_2->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Montant", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = tableWidget_2->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Type", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = tableWidget_2->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = tableWidget_2->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Revenu total", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = tableWidget_2->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Depense total", nullptr));
-        label_127->setText(QCoreApplication::translate("MainWindow", "ID transaction", nullptr));
-        delete_button->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_17), QCoreApplication::translate("MainWindow", "delete", nullptr));
-        label_125->setText(QCoreApplication::translate("MainWindow", "ID ", nullptr));
-        label_126->setText(QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
-        comboBox_modifMODE->setItemText(0, QCoreApplication::translate("MainWindow", "Espece", nullptr));
-        comboBox_modifMODE->setItemText(1, QCoreApplication::translate("MainWindow", "Virement", nullptr));
+        pushButton_76->setText(QCoreApplication::translate("MainWindow", "rechercher", nullptr));
+        tri->setText(QCoreApplication::translate("MainWindow", "Trier", nullptr));
+        comboBox_3->setItemText(0, QCoreApplication::translate("MainWindow", "ID de transaction", nullptr));
+        comboBox_3->setItemText(1, QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
+        comboBox_3->setItemText(2, QCoreApplication::translate("MainWindow", "Type", nullptr));
 
+        comboBox_4->setItemText(0, QCoreApplication::translate("MainWindow", "Montant", nullptr));
+        comboBox_4->setItemText(1, QCoreApplication::translate("MainWindow", "Type", nullptr));
+
+        label_118->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-style:italic; color:#cbb479;\">Liste des transactions</span></p><p><br/></p></body></html>", nullptr));
+        label_131->setText(QCoreApplication::translate("MainWindow", "ID transaction", nullptr));
+        label_128->setText(QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
+        label_134->setText(QCoreApplication::translate("MainWindow", "DESCRIPTION", nullptr));
+        label_139->setText(QCoreApplication::translate("MainWindow", "MONTANT", nullptr));
+        comboBox_mode_2->setItemText(0, QCoreApplication::translate("MainWindow", "Espece", nullptr));
+        comboBox_mode_2->setItemText(1, QCoreApplication::translate("MainWindow", "Virement", nullptr));
+
+        label_129->setText(QCoreApplication::translate("MainWindow", "Mode de paiement", nullptr));
         modifier_button->setText(QCoreApplication::translate("MainWindow", "Modifier", nullptr));
-        label_133->setText(QCoreApplication::translate("MainWindow", "DESCRIPTION", nullptr));
-        label_136->setText(QCoreApplication::translate("MainWindow", "MONTANT", nullptr));
-        label_137->setText(QCoreApplication::translate("MainWindow", "Mode de paiement", nullptr));
-        label_138->setText(QCoreApplication::translate("MainWindow", "TYPE", nullptr));
-        comboBox_modifTYPE->setItemText(0, QCoreApplication::translate("MainWindow", "Depense", nullptr));
-        comboBox_modifTYPE->setItemText(1, QCoreApplication::translate("MainWindow", "Revenu", nullptr));
+        comboBox_type_2->setItemText(0, QCoreApplication::translate("MainWindow", "Depense", nullptr));
+        comboBox_type_2->setItemText(1, QCoreApplication::translate("MainWindow", "Revenu", nullptr));
 
-        tabWidget->setTabText(tabWidget->indexOf(tab_18), QCoreApplication::translate("MainWindow", "modify", nullptr));
+        label_132->setText(QCoreApplication::translate("MainWindow", "Type", nullptr));
+        PDF->setText(QCoreApplication::translate("MainWindow", "exportet PDF", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "affiche", nullptr));
+        label_127->setText(QCoreApplication::translate("MainWindow", "ID transaction", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("MainWindow", "search", nullptr));
+        pushButton_delete->setText(QCoreApplication::translate("MainWindow", "delete", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_17), QCoreApplication::translate("MainWindow", "delete", nullptr));
+        statistique->setText(QCoreApplication::translate("MainWindow", "statistique", nullptr));
+        FILE->setText(QCoreApplication::translate("MainWindow", "FILE_NAME", nullptr));
+        FILE_NAME->setText(QString());
+        play_button->setText(QString());
+        pause_button->setText(QString());
+        tabWidget->setTabText(tabWidget->indexOf(tab_18), QCoreApplication::translate("MainWindow", "statistique", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "Gestion de service", nullptr));
         pushButton_15->setText(QCoreApplication::translate("MainWindow", "Gestion de logistique ", nullptr));
         pushButton_16->setText(QCoreApplication::translate("MainWindow", "Gestion Financi\303\250re", nullptr));

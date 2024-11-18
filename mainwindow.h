@@ -5,6 +5,9 @@
 #include <QStackedWidget>
 #include <QLineEdit>
 #include <QPushButton>
+#include<QtMultimedia>
+#include<QStyle>
+#include <QFileDialog>
 #include "financier.h"
 
 QT_BEGIN_NAMESPACE
@@ -17,6 +20,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+     void clearFields();
 
 private slots:
     void onLoginButtonClicked();
@@ -27,18 +31,39 @@ private slots:
     void showPage5();
     void showPage6();
     void showPage7();
-
     void on_addButton_clicked();
 
 
-    void on_delete_button_clicked();
+
+
+    void on_tableView_6_activated(const QModelIndex &index);
 
     void on_modifier_button_clicked();
+
+    void on_tri_clicked();
+
+
+
+    void on_PDF_clicked();
+
+
+    void on_pushButton_3_clicked();
+
+    void on_statistique_clicked();
+
+    void on_pushButton_delete_clicked();
+
+    void on_play_button_clicked();
+
+    void on_pause_button_clicked();
+
+    void on_horizontalSlider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;
     financier ETMP;
-
+    financier f;
+    QMediaPlayer *M_PLAYER;
     bool validateLogin(const QString &username, const QString &password);
     QStackedWidget *stackedWidget;
     QPushButton *buttons[30];

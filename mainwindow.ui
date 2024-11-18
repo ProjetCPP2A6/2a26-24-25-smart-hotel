@@ -169,7 +169,7 @@ border-bottom:2px solid white;
      <widget class="QWidget" name="widget_11" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>0</y>
         <width>961</width>
         <height>41</height>
@@ -289,265 +289,15 @@ border-bottom:2px solid white;
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
-        <x>170</x>
-        <y>70</y>
+        <x>160</x>
+        <y>50</y>
         <width>791</width>
         <height>571</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>affiche</string>
-       </attribute>
-       <widget class="QPushButton" name="pushButton_76">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>490</y>
-          <width>93</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>rechercher</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_77">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>490</y>
-          <width>93</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Trier</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_3">
-        <property name="geometry">
-         <rect>
-          <x>170</x>
-          <y>490</y>
-          <width>161</width>
-          <height>26</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>ID de transaction</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Date de transaction</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QComboBox" name="comboBox_4">
-        <property name="geometry">
-         <rect>
-          <x>500</x>
-          <y>490</y>
-          <width>121</width>
-          <height>26</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Montant</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_128">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>30</y>
-          <width>191</width>
-          <height>111</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::TextFormat::AutoText</enum>
-        </property>
-        <property name="pixmap">
-         <pixmap>attendancebg.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_129">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>191</width>
-          <height>111</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>empcardbg.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_131">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>90</y>
-          <width>111</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>28</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
-
-	color:white;
-	font-weight:bold;
-</string>
-        </property>
-        <property name="text">
-         <string>000</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_132">
-        <property name="geometry">
-         <rect>
-          <x>310</x>
-          <y>90</y>
-          <width>91</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>28</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
-
-	color:white;
-	font-weight:bold;
-</string>
-        </property>
-        <property name="text">
-         <string>000</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_118">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>140</y>
-          <width>241</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>12</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; color:#cbb479;&quot;&gt;Liste des transactions&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_81">
-        <property name="geometry">
-         <rect>
-          <x>610</x>
-          <y>140</y>
-          <width>141</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Exporter en PDF</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_134">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>50</y>
-          <width>201</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Paiement en espece</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_135">
-        <property name="geometry">
-         <rect>
-          <x>280</x>
-          <y>40</y>
-          <width>101</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Benefice</string>
-        </property>
-       </widget>
-       <widget class="QTableView" name="tableView_6">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>200</y>
-          <width>721</width>
-          <height>271</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
       <widget class="QWidget" name="tab_19">
        <attribute name="title">
         <string>insert</string>
@@ -568,16 +318,6 @@ border-bottom:2px solid white;
         </property>
         <property name="text">
          <string>Date de transaction</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_Date">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>130</y>
-          <width>171</width>
-          <height>31</height>
-         </rect>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_Montant">
@@ -758,21 +498,137 @@ border-bottom:2px solid white;
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; color:#cbb479;&quot;&gt;Ajouter une transaction&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_ID">
+       <widget class="QDateEdit" name="dateEdit">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>130</y>
-          <width>171</width>
+          <x>190</x>
+          <y>120</y>
+          <width>151</width>
           <height>31</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_130">
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>affiche</string>
+       </attribute>
+       <widget class="QPushButton" name="pushButton_76">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>80</y>
+          <x>40</x>
+          <y>490</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>rechercher</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="tri">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>490</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Trier</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_3">
+        <property name="geometry">
+         <rect>
+          <x>170</x>
+          <y>490</y>
+          <width>161</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>ID de transaction</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Date de transaction</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QComboBox" name="comboBox_4">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>490</y>
+          <width>121</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Montant</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_118">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>170</y>
+          <width>241</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; color:#cbb479;&quot;&gt;Liste des transactions&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTableView" name="tableView_6">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>230</y>
+          <width>671</width>
+          <height>241</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_modifID">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>40</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_131">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>10</y>
           <width>121</width>
           <height>31</height>
          </rect>
@@ -786,62 +642,200 @@ border-bottom:2px solid white;
          <string>ID transaction</string>
         </property>
        </widget>
+       <widget class="QLabel" name="label_128">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>10</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Date de transaction</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_134">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>0</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>DESCRIPTION</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_139">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>0</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>MONTANT</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_modifDESC">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>40</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_modifMONTANT">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>40</y>
+          <width>141</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDateEdit" name="dateEdit_2">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>40</y>
+          <width>151</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_mode_2">
+        <property name="geometry">
+         <rect>
+          <x>170</x>
+          <y>90</y>
+          <width>131</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Espece</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Virement</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_129">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>90</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Mode de paiement</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="modifier_button">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>100</y>
+          <width>151</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Modifier</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_type_2">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>100</y>
+          <width>111</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Depense</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Revenu</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_132">
+        <property name="geometry">
+         <rect>
+          <x>342</x>
+          <y>110</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="PDF">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>170</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>exportet PDF</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_17">
        <attribute name="title">
         <string>delete</string>
        </attribute>
-       <widget class="QTableWidget" name="tableWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>190</y>
-          <width>731</width>
-          <height>291</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>8</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <column>
-         <property name="text">
-          <string>ID de transaction</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Date de transaction</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Montant</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Description</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Revenu total</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Depense total</string>
-         </property>
-        </column>
-       </widget>
        <widget class="QLabel" name="label_127">
         <property name="geometry">
          <rect>
@@ -861,240 +855,169 @@ border-bottom:2px solid white;
          <string>ID transaction</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_IDSUPP">
+       <widget class="QPushButton" name="pushButton_3">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>30</y>
-          <width>161</width>
-          <height>41</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="delete_button">
-        <property name="geometry">
-         <rect>
-          <x>130</x>
-          <y>100</y>
+          <x>40</x>
+          <y>130</y>
           <width>93</width>
           <height>29</height>
          </rect>
         </property>
         <property name="text">
-         <string>Delete</string>
+         <string>search</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_montant_search">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>120</y>
+          <width>161</width>
+          <height>41</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTableView" name="tableView_7">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>200</y>
+          <width>451</width>
+          <height>111</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_IDSUPP">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>40</y>
+          <width>181</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_delete">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>40</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>delete</string>
         </property>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_18">
        <attribute name="title">
-        <string>modify</string>
+        <string>statistique</string>
        </attribute>
-       <widget class="QLabel" name="label_125">
+       <widget class="QPushButton" name="statistique">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>statistique</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="chartView" native="true">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>110</y>
+          <width>661</width>
+          <height>191</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="FILE">
         <property name="geometry">
          <rect>
           <x>70</x>
-          <y>60</y>
-          <width>161</width>
-          <height>20</height>
+          <y>340</y>
+          <width>201</width>
+          <height>51</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>10</pointsize>
+          <pointsize>12</pointsize>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>ID </string>
+         <string>FILE_NAME</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_modifID">
+       <widget class="QLabel" name="FILE_NAME">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>100</y>
-          <width>161</width>
+          <x>190</x>
+          <y>350</y>
+          <width>481</width>
           <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_126">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>50</y>
-          <width>171</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Date de transaction</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_modifMODE">
-        <property name="geometry">
-         <rect>
-          <x>100</x>
-          <y>250</y>
-          <width>141</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Espece</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Virement</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_modifMONTANT">
-        <property name="geometry">
-         <rect>
-          <x>640</x>
-          <y>100</y>
-          <width>141</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="modifier_button">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>330</y>
-          <width>151</width>
-          <height>41</height>
          </rect>
         </property>
         <property name="text">
-         <string>Modifier</string>
+         <string/>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_modifDATE">
+       <widget class="QPushButton" name="play_button">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>100</y>
-          <width>161</width>
-          <height>31</height>
+          <x>60</x>
+          <y>420</y>
+          <width>93</width>
+          <height>61</height>
          </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_modifDESC">
-        <property name="geometry">
-         <rect>
-          <x>460</x>
-          <y>100</y>
-          <width>161</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_133">
-        <property name="geometry">
-         <rect>
-          <x>460</x>
-          <y>50</y>
-          <width>171</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
         </property>
         <property name="text">
-         <string>DESCRIPTION</string>
+         <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="label_136">
+       <widget class="QPushButton" name="pause_button">
         <property name="geometry">
          <rect>
-          <x>640</x>
-          <y>60</y>
-          <width>131</width>
-          <height>31</height>
+          <x>190</x>
+          <y>420</y>
+          <width>93</width>
+          <height>61</height>
          </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
         </property>
         <property name="text">
-         <string>MONTANT</string>
+         <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="label_137">
+       <widget class="QSlider" name="horizontalSlider">
         <property name="geometry">
          <rect>
-          <x>100</x>
-          <y>190</y>
-          <width>161</width>
-          <height>31</height>
+          <x>310</x>
+          <y>430</y>
+          <width>451</width>
+          <height>51</height>
          </rect>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
+        <property name="minimum">
+         <number>1</number>
         </property>
-        <property name="text">
-         <string>Mode de paiement</string>
+        <property name="maximum">
+         <number>100</number>
         </property>
-       </widget>
-       <widget class="QLabel" name="label_138">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>190</y>
-          <width>131</width>
-          <height>31</height>
-         </rect>
+        <property name="value">
+         <number>10</number>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <bold>true</bold>
-         </font>
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
-        <property name="text">
-         <string>TYPE</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_modifTYPE">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>260</y>
-          <width>141</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Depense</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Revenu</string>
-         </property>
-        </item>
        </widget>
       </widget>
      </widget>

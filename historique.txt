@@ -1,0 +1,9 @@
+2024-11-16 16:24:33 - Modification du transaction  
+2024-11-16 16:30:09 - ajout du transaction  
+2024-11-16 16:35:47 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 32
+2024-11-17 22:32:51 - ajout du transaction  
+2024-11-17 22:36:10 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 33
+2024-11-17 22:37:14 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 31
+2024-11-18 09:25:29 - Modification du transaction   de ID_TRANSACTION 41
+2024-11-18 09:48:49 - Recherche du TRANSACTIONS de ID:
+2024-11-18 09:50:05 - Recherche du TRANSACTIONS de ID:

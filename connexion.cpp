@@ -11,9 +11,9 @@ bool Connexion::createconnect()
 {
     bool test = false;
     db = QSqlDatabase::addDatabase("QODBC");
-    db.setDatabaseName("projetcpp2a26");
-    db.setUserName("system");
-    db.setPassword("2a26oracle");
+    db.setDatabaseName("CPP_Project");
+    db.setUserName("projetcpp2a26");
+    db.setPassword("mp2a26");
     if (db.open()) {
         test = true;
 
