@@ -37,6 +37,7 @@ public:
     bool deleteServiceFromDB(int id_service);
     bool editServiceInDB(int id_service, QString newEtat, double newCout);
     void refreshServiceList();
+    QSqlQueryModel* displayAllServices();
 };
 
 #endif // SERVICE_H

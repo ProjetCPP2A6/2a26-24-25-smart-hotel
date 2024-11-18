@@ -85,14 +85,16 @@ QSqlQueryModel* service::fetchAllServices() {
     QSqlQueryModel* model = new QSqlQueryModel();
     QSqlQuery query;
 
-    // Prepare and execute the query
-    query.prepare("SELECT * FROM Services");
+    // Ensure the query sorts the results by 'cout' in ascending order
+    query.prepare("SELECT id_service, nom_service, etat, categorie, cout FROM Services ORDER BY cout ASC");
+
     if (query.exec()) {
-        model->setQuery(query); // Set the query result directly
+        model->setQuery(query); // Set the sorted query result
     } else {
-        qWarning() << "Error fetching services from DB:" << query.lastError().text();
+        qWarning() << "Error fetching and sorting services:" << query.lastError().text();
     }
-    return model;
+
+    return model; // Return the model for the caller
 }
 
 // Delete service from the database
@@ -129,4 +131,19 @@ bool service::editServiceInDB(int id_service, QString newEtat, double newCout) {
         qWarning() << "Error editing service in DB:" << query.lastError().text();
         return false; // Not found or error
     }
+}
+QSqlQueryModel* service::displayAllServices() {
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QSqlQuery query;
+
+    // Prepare and execute the query to select all services
+    query.prepare("SELECT * FROM Services");
+
+    if (query.exec()) {
+        model->setQuery(query); // Assign the query result to the model
+    } else {
+        qWarning() << "Error displaying all services:" << query.lastError().text();
+    }
+
+    return model; // Return the model for display in QTableView
 }

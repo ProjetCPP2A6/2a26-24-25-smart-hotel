@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql printsupport multimedia charts multimediawidgets printsupport widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,14 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
     connection.cpp \
+    mailhandler.cpp \
     main.cpp \
     mainservice.cpp \
-    service.cpp
+    service.cpp \
+    taskscheduling.cpp
 
 HEADERS += \
     connection.h \
+    mailhandler.h \
     mainservice.h \
-    service.h
+    service.h \
+    taskscheduling.h
 
 FORMS += \
     mainservice.ui
