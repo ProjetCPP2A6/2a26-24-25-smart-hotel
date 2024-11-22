@@ -6,13 +6,13 @@
 Chambre::Chambre()
 {
     idchambre= 0;
-    tarif=0;
+    tarif=0.0;
     etat="";
     type="";
 
 }
 
-Chambre:: Chambre(int idchambre,QString etat,QString type,int tarif )
+Chambre:: Chambre(int idchambre,QString etat,QString type,float tarif )
 {
     this->idchambre=idchambre;
     this->etat=etat;
@@ -56,7 +56,7 @@ QSqlQueryModel  * Chambre :: afficher()
 
 }
 
-bool Chambre::modifier(int idchambre, QString etat, QString type, int tarif)
+bool Chambre::modifier(int idchambre, QString etat, QString type, float tarif)
 {
     QSqlQuery query;
     query.prepare("UPDATE gs_chambre SET etat = :etat, type = :type, tarif = :tarif WHERE idchambre = :idchambre");

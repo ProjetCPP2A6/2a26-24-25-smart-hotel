@@ -4,7 +4,16 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql charts
+QT += core gui widgets printsupport
+QT += core gui widgets charts
+QMAKE_CXXFLAGS += -Wa,-mbig-obj
+
+QT += core gui charts
+QT += charts
+QT += multimedia charts
+
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,12 +37,16 @@ SOURCES += \
     chambre.cpp \
         main.cpp \
         mainwindow.cpp \
-    connection.cpp
+    connection.cpp \
+    qcustomplot.cpp \
+    qrcode.cpp
 
 HEADERS += \
     chambre.h \
         mainwindow.h \
-    connection.h
+    connection.h \
+    qcustomplot.h \
+    qrcode.h
 
 FORMS += \
         mainwindow.ui

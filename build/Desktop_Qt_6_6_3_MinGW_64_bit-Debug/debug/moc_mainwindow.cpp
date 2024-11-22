@@ -45,18 +45,21 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "index",
     "on_comboBox_type_activated",
     "on_pushButton_Supprimer_clicked",
-    "on_pushButton_Modifier_clicked",
-    "on_comboBox_etat_2_activated",
-    "on_comboBox_type_2_activated",
-    "on_pushButton_SaveModifier_clicked",
     "on_pushButton_Annuler_clicked",
-    "on_pushButton_Annuler2_clicked",
-    "on_lineEdit_Modifier_editingFinished",
-    "on_pushButton_Annuler_3_clicked"
+    "on_lineEdit_ID_editingFinished",
+    "on_pushButton_tri_clicked",
+    "on_pushButton_Recherche_clicked",
+    "on_tableView_clicked",
+    "QModelIndex",
+    "on_qrcode_button_clicked",
+    "on_tabWidget_currentChanged",
+    "on_pushButton_SMS_clicked",
+    "on_tableView_activated",
+    "on_pushButton_exporter_2_clicked"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
-    uint offsetsAndSizes[30];
+    uint offsetsAndSizes[36];
     char stringdata0[11];
     char stringdata1[30];
     char stringdata2[1];
@@ -64,14 +67,17 @@ struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
     char stringdata4[6];
     char stringdata5[27];
     char stringdata6[32];
-    char stringdata7[31];
-    char stringdata8[29];
-    char stringdata9[29];
-    char stringdata10[35];
-    char stringdata11[30];
-    char stringdata12[31];
-    char stringdata13[37];
-    char stringdata14[32];
+    char stringdata7[30];
+    char stringdata8[31];
+    char stringdata9[26];
+    char stringdata10[32];
+    char stringdata11[21];
+    char stringdata12[12];
+    char stringdata13[25];
+    char stringdata14[28];
+    char stringdata15[26];
+    char stringdata16[23];
+    char stringdata17[33];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSMainWindowENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -84,14 +90,17 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
         QT_MOC_LITERAL(69, 5),  // "index"
         QT_MOC_LITERAL(75, 26),  // "on_comboBox_type_activated"
         QT_MOC_LITERAL(102, 31),  // "on_pushButton_Supprimer_clicked"
-        QT_MOC_LITERAL(134, 30),  // "on_pushButton_Modifier_clicked"
-        QT_MOC_LITERAL(165, 28),  // "on_comboBox_etat_2_activated"
-        QT_MOC_LITERAL(194, 28),  // "on_comboBox_type_2_activated"
-        QT_MOC_LITERAL(223, 34),  // "on_pushButton_SaveModifier_cl..."
-        QT_MOC_LITERAL(258, 29),  // "on_pushButton_Annuler_clicked"
-        QT_MOC_LITERAL(288, 30),  // "on_pushButton_Annuler2_clicked"
-        QT_MOC_LITERAL(319, 36),  // "on_lineEdit_Modifier_editingF..."
-        QT_MOC_LITERAL(356, 31)   // "on_pushButton_Annuler_3_clicked"
+        QT_MOC_LITERAL(134, 29),  // "on_pushButton_Annuler_clicked"
+        QT_MOC_LITERAL(164, 30),  // "on_lineEdit_ID_editingFinished"
+        QT_MOC_LITERAL(195, 25),  // "on_pushButton_tri_clicked"
+        QT_MOC_LITERAL(221, 31),  // "on_pushButton_Recherche_clicked"
+        QT_MOC_LITERAL(253, 20),  // "on_tableView_clicked"
+        QT_MOC_LITERAL(274, 11),  // "QModelIndex"
+        QT_MOC_LITERAL(286, 24),  // "on_qrcode_button_clicked"
+        QT_MOC_LITERAL(311, 27),  // "on_tabWidget_currentChanged"
+        QT_MOC_LITERAL(339, 25),  // "on_pushButton_SMS_clicked"
+        QT_MOC_LITERAL(365, 22),  // "on_tableView_activated"
+        QT_MOC_LITERAL(388, 32)   // "on_pushButton_exporter_2_clicked"
     },
     "MainWindow",
     "on_pushButton_Ajouter_clicked",
@@ -100,14 +109,17 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
     "index",
     "on_comboBox_type_activated",
     "on_pushButton_Supprimer_clicked",
-    "on_pushButton_Modifier_clicked",
-    "on_comboBox_etat_2_activated",
-    "on_comboBox_type_2_activated",
-    "on_pushButton_SaveModifier_clicked",
     "on_pushButton_Annuler_clicked",
-    "on_pushButton_Annuler2_clicked",
-    "on_lineEdit_Modifier_editingFinished",
-    "on_pushButton_Annuler_3_clicked"
+    "on_lineEdit_ID_editingFinished",
+    "on_pushButton_tri_clicked",
+    "on_pushButton_Recherche_clicked",
+    "on_tableView_clicked",
+    "QModelIndex",
+    "on_qrcode_button_clicked",
+    "on_tabWidget_currentChanged",
+    "on_pushButton_SMS_clicked",
+    "on_tableView_activated",
+    "on_pushButton_exporter_2_clicked"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -119,7 +131,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -127,18 +139,20 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   86,    2, 0x08,    1 /* Private */,
-       3,    1,   87,    2, 0x08,    2 /* Private */,
-       5,    1,   90,    2, 0x08,    4 /* Private */,
-       6,    0,   93,    2, 0x08,    6 /* Private */,
-       7,    0,   94,    2, 0x08,    7 /* Private */,
-       8,    1,   95,    2, 0x08,    8 /* Private */,
-       9,    1,   98,    2, 0x08,   10 /* Private */,
-      10,    0,  101,    2, 0x08,   12 /* Private */,
-      11,    0,  102,    2, 0x08,   13 /* Private */,
-      12,    0,  103,    2, 0x08,   14 /* Private */,
-      13,    0,  104,    2, 0x08,   15 /* Private */,
-      14,    0,  105,    2, 0x08,   16 /* Private */,
+       1,    0,   98,    2, 0x08,    1 /* Private */,
+       3,    1,   99,    2, 0x08,    2 /* Private */,
+       5,    1,  102,    2, 0x08,    4 /* Private */,
+       6,    0,  105,    2, 0x08,    6 /* Private */,
+       7,    0,  106,    2, 0x08,    7 /* Private */,
+       8,    0,  107,    2, 0x08,    8 /* Private */,
+       9,    0,  108,    2, 0x08,    9 /* Private */,
+      10,    0,  109,    2, 0x08,   10 /* Private */,
+      11,    1,  110,    2, 0x08,   11 /* Private */,
+      13,    0,  113,    2, 0x08,   13 /* Private */,
+      14,    0,  114,    2, 0x08,   14 /* Private */,
+      15,    0,  115,    2, 0x08,   15 /* Private */,
+      16,    1,  116,    2, 0x08,   16 /* Private */,
+      17,    0,  119,    2, 0x08,   18 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -146,12 +160,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void, QMetaType::Int,    4,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    4,
-    QMetaType::Void, QMetaType::Int,    4,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 12,    4,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 12,    4,
     QMetaType::Void,
 
        0        // eod
@@ -176,23 +192,27 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_pushButton_Supprimer_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_pushButton_Modifier_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_comboBox_etat_2_activated'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_comboBox_type_2_activated'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_pushButton_SaveModifier_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_Annuler_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_pushButton_Annuler2_clicked'
+        // method 'on_lineEdit_ID_editingFinished'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_lineEdit_Modifier_editingFinished'
+        // method 'on_pushButton_tri_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_pushButton_Annuler_3_clicked'
+        // method 'on_pushButton_Recherche_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_tableView_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'on_qrcode_button_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_tabWidget_currentChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pushButton_SMS_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_tableView_activated'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'on_pushButton_exporter_2_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -208,14 +228,16 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->on_comboBox_etat_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 2: _t->on_comboBox_type_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 3: _t->on_pushButton_Supprimer_clicked(); break;
-        case 4: _t->on_pushButton_Modifier_clicked(); break;
-        case 5: _t->on_comboBox_etat_2_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 6: _t->on_comboBox_type_2_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 7: _t->on_pushButton_SaveModifier_clicked(); break;
-        case 8: _t->on_pushButton_Annuler_clicked(); break;
-        case 9: _t->on_pushButton_Annuler2_clicked(); break;
-        case 10: _t->on_lineEdit_Modifier_editingFinished(); break;
-        case 11: _t->on_pushButton_Annuler_3_clicked(); break;
+        case 4: _t->on_pushButton_Annuler_clicked(); break;
+        case 5: _t->on_lineEdit_ID_editingFinished(); break;
+        case 6: _t->on_pushButton_tri_clicked(); break;
+        case 7: _t->on_pushButton_Recherche_clicked(); break;
+        case 8: _t->on_tableView_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 9: _t->on_qrcode_button_clicked(); break;
+        case 10: _t->on_tabWidget_currentChanged(); break;
+        case 11: _t->on_pushButton_SMS_clicked(); break;
+        //case 12: _t->on_tableView_activated((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 13: _t->on_pushButton_exporter_2_clicked(); break;
         default: ;
         }
     }
@@ -240,13 +262,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 14)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 12;
+        _id -= 14;
     }
     return _id;
 }
