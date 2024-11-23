@@ -678,11 +678,26 @@ void MainWindow::on_pushButton_SMS_clicked()
     QNetworkAccessManager* manager = new QNetworkAccessManager();
 
     // Twilio API URL
-    QString accountSID = "AC0ab85d030d910067416bc0204c8138db";
-    QString authToken = "d87792b00fdcb63363c7587abee4e9ad";
-    QString fromNumber = "+14243427425"; // Your Twilio number
+    /*QString accountSID = "AC0ab85d030d910067416bc0204c8138db";
+    QString authToken = "d87792b00fdcb63363c7587abee4e9ad";*/
+    /*QString fromNumber = "+14243427425"; // Your Twilio number
+    qDebug() << "Account SID:" << account_sid;
+    qDebug() << "Auth Token:" << auth_token;*/
     QString id = ui->comboBox->currentText();
     qDebug() << "Selected ID from comboBox:" << id;
+
+    const char* account_sid = getenv("TWILIO_ACCOUNT_SID");
+    const char* auth_token = getenv("TWILIO_AUTH_TOKEN");
+
+    if (!account_sid || !auth_token) {
+        qDebug() << "Environment variables for Twilio are missing!";
+        return;
+    }
+
+    QString fromNumber = "+14243427425"; // Your Twilio number
+    qDebug() << "Account SID:" << account_sid;
+    qDebug() << "Auth Token:" << auth_token;
+
 
     QSqlQuery query;
     query.prepare("SELECT NUMT, MONTANT_TOTAL, IDCHAMBRE FROM GS_RESERVATION WHERE ID_RESERVATION = :id");
