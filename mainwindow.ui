@@ -315,7 +315,7 @@ QTableView::item:hover {
      <widget class="QPushButton" name="pushButton_Supprimer">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>830</x>
         <y>80</y>
         <width>101</width>
         <height>31</height>

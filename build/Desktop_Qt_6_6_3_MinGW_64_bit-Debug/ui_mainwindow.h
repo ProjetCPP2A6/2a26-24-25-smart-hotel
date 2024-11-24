@@ -178,7 +178,7 @@ public:
         pushButton_Recherche->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         pushButton_Supprimer = new QPushButton(tab);
         pushButton_Supprimer->setObjectName("pushButton_Supprimer");
-        pushButton_Supprimer->setGeometry(QRect(840, 80, 101, 31));
+        pushButton_Supprimer->setGeometry(QRect(830, 80, 101, 31));
         pushButton_Supprimer->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         label_17 = new QLabel(tab);
         label_17->setObjectName("label_17");

@@ -69,9 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->lineEdit_ID->setValidator(new QIntValidator(0,9999,this));
-    //ui->lineEdit_supp->setValidator(new QIntValidator(0,9999,this));
 
-     connect(ui->lineEdit_ID, &QLineEdit::editingFinished, this, &MainWindow::on_lineEdit_ID_editingFinished);
+    connect(ui->lineEdit_ID, &QLineEdit::editingFinished, this, &MainWindow::on_lineEdit_ID_editingFinished);
     connect(ui->pushButton_tri, &QPushButton::clicked, this, &MainWindow::on_pushButton_tri_clicked);
 
 
@@ -89,28 +88,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_Ajouter_clicked()
 {
-    /*int idchambre=ui->lineEdit_ID->text().toInt();
-    QString etat =ui->comboBox_etat->currentText();
-    QString type =ui->comboBox_type->currentText();
-    int tarif=ui->lineEdit_T->text().toInt();
-
-    Chambre CH (idchambre,etat,type,tarif);
-    bool test= CH.ajouter();
-    if(test)
-    {
-        ui->tableView->setModel(CHtmp.afficher());
-        QMessageBox :: information(nullptr,QObject::tr("ok"),
-                                  QObject::tr("Ajout effectue/n"
-                                              "click cancel to exit."),
-                                  QMessageBox :: Cancel);
-    //clearChambreFields();
-    }
-    else
-    {
-        QMessageBox :: critical(nullptr,QObject::tr("Not ok"),
-                               QObject::tr("Ajout non effectue/n" "click cancel to exit."),
-                               QMessageBox :: Cancel);
-    }*/
 
     int idchambre = ui->lineEdit_ID->text().toInt();
     QString etat = ui->comboBox_etat->currentText();
@@ -206,71 +183,43 @@ void MainWindow::on_comboBox_type_activated (int index)
 
 void MainWindow::on_pushButton_Supprimer_clicked()
 {
+    QString critere = ui->comboBox_trier_2->currentText();
+    QString valeurRecherchee = ui->lineEdit_Rech->text();
 
+    if (critere == "idchambre") {
+        int idchambre = valeurRecherchee.toInt();
 
-    /*int idchambre = ui->lineEdit_supp->text().toInt();
+        // Vérifiez si l'ID de la chambre existe avant de supprimer
+        QSqlQuery query;
+        query.prepare("SELECT COUNT(*) FROM gs_chambre WHERE idchambre = :idchambre");
+        query.bindValue(":idchambre", idchambre);
+        query.exec();
 
-    // Vérifiez si l'ID de la chambre existe avant de supprimer
-    QSqlQuery query;  //crée un objet de requête SQL
-    query.prepare("SELECT COUNT(*) FROM gs_chambre WHERE idchambre = :idchambre"); //renvoie le nombre de lignes dans la tabl
-    query.bindValue(":idchambre", idchambre);
-    query.exec();
-
-    if (query.next() && query.value(0).toInt() > 0) {
-        // L'ID existe, on peut procéder à la suppression
-        bool test = CHtmp.supprimer(idchambre);
-        if (test) {
-            ui->tableView->setModel(CHtmp.afficher());
-            QMessageBox::information(this, QObject::tr("ok"),
-                                     QObject::tr("Suppression effectuée.\n"
-                                                 "Cliquez sur Annuler pour quitter."),
-                                     QMessageBox::Cancel);
-            // Effacer le champ après suppression
-            ui->lineEdit_supp->clear();
+        if (query.next() && query.value(0).toInt() > 0) {
+            // L'ID existe, procéder à la suppression
+            bool test = CHtmp.supprimer(idchambre);
+            if (test) {
+                ui->tableView->setModel(CHtmp.afficher());
+                QMessageBox::information(this, QObject::tr("Succès"),
+                                         QObject::tr("Suppression effectuée avec succès."),
+                                         QMessageBox::Ok);
+                // Effacer les champs après la suppression
+                ui->lineEdit_Rech->clear();
+            } else {
+                QMessageBox::critical(this, QObject::tr("Échec"),
+                                      QObject::tr("La suppression n'a pas pu être effectuée."),
+                                      QMessageBox::Ok);
+            }
         } else {
-            QMessageBox::critical(this, QObject::tr("Not ok"),
-                                  QObject::tr("Suppression non effectuée.\n"
-                                              "Cliquez sur Annuler pour quitter."),
-                                  QMessageBox::Cancel);
+            QMessageBox::warning(this, QObject::tr("Erreur"),
+                                 QObject::tr("L'ID spécifié n'existe pas."),
+                                 QMessageBox::Ok);
         }
     } else {
-        // L'ID n'existe pas
         QMessageBox::warning(this, QObject::tr("Erreur"),
-                             QObject::tr("L'ID spécifié n'existe pas.\n"
-                                         "Veuillez vérifier l'ID et réessayer."),
-                             QMessageBox::Cancel);
-    }*/
-
-    QString idChambre = ui->lineEdit_Rech->text();
-
-    // Vérifiez si l'ID est vide
-    if (idChambre.isEmpty()) {
-        QMessageBox::warning(this, "Erreur", "Veuillez entrer un ID de chambre.");
-        return; // Ne rien faire si le champ est vide
+                             QObject::tr("Veuillez sélectionner 'idchambre' comme critère de recherche."),
+                             QMessageBox::Ok);
     }
-
-    // Vérifiez si l'ID de la chambre existe avant de supprimer
-    QSqlQuery query;
-    query.prepare("SELECT COUNT(*) FROM gs_chambre WHERE idchambre = :idchambre");
-    query.bindValue(":idchambre", idChambre);
-    query.exec();
-
-    if (query.next() && query.value(0).toInt() > 0) {
-        // L'ID existe, on peut procéder à la suppression
-        bool test = CHtmp.supprimer(idChambre.toInt()); // Assurez-vous que supprimer() accepte un int si nécessaire
-        if (test) {
-            ui->tableView->setModel(CHtmp.afficher());  // Actualiser l'affichage après suppression
-            QMessageBox::information(this, "Ok", "Suppression effectuée.");
-            ui->lineEdit_Rech->clear();  // Effacer le champ après suppression
-        } else {
-            QMessageBox::critical(this, "Not Ok", "Suppression non effectuée.");
-        }
-    } else {
-        // L'ID n'existe pas
-        QMessageBox::warning(this, "Erreur", "L'ID spécifié n'existe pas.\nVeuillez vérifier l'ID et réessayer.");
-    }
-
-
 }
 
 
@@ -399,57 +348,44 @@ void MainWindow::on_pushButton_tri_clicked()
 
 void MainWindow::on_pushButton_Recherche_clicked()
 {
-    /*QString idChambre = ui->lineEdit_Rech->text();
+    QString critere = ui->comboBox_trier_2->currentText();
+    QString valeurRecherchee = ui->lineEdit_Rech->text();
+
+    // Vérifiez si la valeur entrée est vide
+    if (valeurRecherchee.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez entrer une valeur pour la recherche.");
+        return;
+    }
+
     QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
 
-    // Prépare la requête pour rechercher la chambre par ID
-    query.prepare("SELECT * FROM gs_chambre WHERE idchambre = :idchambre");
-    query.bindValue(":idchambre", idChambre);
+    if (critere == "idchambre") {
+        // Recherche par ID
+        query.prepare("SELECT * FROM gs_chambre WHERE idchambre = :valeur");
+        query.bindValue(":valeur", valeurRecherchee);
+    } else if (critere == "tarif") {
+        // Recherche par tarif (avec tolérance)
+        bool conversionOk;
+        double tarif = valeurRecherchee.toDouble(&conversionOk);
 
-    // Exécute la requête
-    if (query.exec()) {
-         model->setQuery(std::move(query));
-        ui->tableView->setModel(model);
-
-        // Vérifie si des résultats ont été trouvés
-        if (model->rowCount() > 0) {
-            // Colorie la ligne en vert si l'ID est trouvé
-            for (int row = 0; row < model->rowCount(); ++row) {
-                if (model->data(model->index(row, 0)).toString() == idChambre) {
-                    // Applique la couleur verte à la ligne
-                    for (int col = 0; col < model->columnCount(); ++col) {
-                        ui->tableView->model()->setData(
-                            model->index(row, col), QBrush(Qt::green), Qt::BackgroundRole
-                            );
-                    }
-                    break;
-                }
-            }
-        } else {
-            // Affiche un message si aucun résultat n'est trouvé
-            QMessageBox::information(this, "Recherche", "L'ID " + idChambre + " n'existe pas.");
+        if (!conversionOk) {
+            QMessageBox::warning(this, "Erreur", "Veuillez entrer un tarif valide (format : 150.25).");
+            return;
         }
+
+        // Utilisation d'une plage pour éviter les problèmes de précision
+        double tolerance = 0.01;
+        double minTarif = tarif - tolerance;
+        double maxTarif = tarif + tolerance;
+
+        query.prepare("SELECT * FROM gs_chambre WHERE tarif BETWEEN :minTarif AND :maxTarif");
+        query.bindValue(":minTarif", minTarif);
+        query.bindValue(":maxTarif", maxTarif);
     } else {
-        QMessageBox::critical(this, "Erreur", "Échec de la recherche : " + query.lastError().text());
+        QMessageBox::warning(this, "Erreur", "Critère de recherche inconnu.");
+        return;
     }
-    ui->lineEdit_Rech->clear();*/
-    if(ui->comboBox_trier_2->currentText()=="idchambre")
-    {
-    QString idChambre = ui->lineEdit_Rech->text();
-
-    // Vérifiez si l'ID est vide
-    if (idChambre.isEmpty()) {
-        QMessageBox::warning(this, "Erreur", "Veuillez entrer un ID de chambre.");
-        return; // Ne rien faire si le champ est vide
-    }
-
-    QSqlQueryModel *model = new QSqlQueryModel();
-    QSqlQuery query;
-
-    // Prépare la requête pour rechercher la chambre par ID
-    query.prepare("SELECT * FROM gs_chambre WHERE idchambre = :idchambre");
-    query.bindValue(":idchambre", idChambre);
 
     // Exécute la requête
     if (query.exec()) {
@@ -458,69 +394,19 @@ void MainWindow::on_pushButton_Recherche_clicked()
 
         // Vérifie si des résultats ont été trouvés
         if (model->rowCount() > 0) {
-            // Colorie la ligne en vert si l'ID est trouvé
+            // Applique une coloration verte aux lignes trouvées
             for (int row = 0; row < model->rowCount(); ++row) {
-                if (model->data(model->index(row, 0)).toString() == idChambre) {
-                    // Applique la couleur verte à la ligne
-                    for (int col = 0; col < model->columnCount(); ++col) {
-                        ui->tableView->model()->setData(
-                            model->index(row, col), QBrush(Qt::green), Qt::BackgroundRole
-                            );
-                    }
-                    break;
+                for (int col = 0; col < model->columnCount(); ++col) {
+                    ui->tableView->model()->setData(
+                        model->index(row, col), QBrush(Qt::green), Qt::BackgroundRole
+                        );
                 }
             }
         } else {
-            // Affiche un message si aucun résultat n'est trouvé
-            QMessageBox::information(this, "Recherche", "L'ID " + idChambre + " n'existe pas.");
+            QMessageBox::information(this, "Recherche", "Aucun résultat trouvé pour la valeur " + valeurRecherchee + ".");
         }
     } else {
         QMessageBox::critical(this, "Erreur", "Échec de la recherche : " + query.lastError().text());
-    }
-    }
-
-    else{
-        QString idChambre = ui->lineEdit_Rech->text();
-
-        // Vérifiez si l'ID est vide
-        if (idChambre.isEmpty()) {
-            QMessageBox::warning(this, "Erreur", "Veuillez entrer un ID de chambre.");
-            return; // Ne rien faire si le champ est vide
-        }
-
-        QSqlQueryModel *model = new QSqlQueryModel();
-        QSqlQuery query;
-
-        // Prépare la requête pour rechercher la chambre par ID
-        query.prepare("SELECT * FROM gs_chambre WHERE tarif = :idchambre");
-        query.bindValue(":idchambre", idChambre);
-
-        // Exécute la requête
-        if (query.exec()) {
-            model->setQuery(std::move(query));
-            ui->tableView->setModel(model);
-
-            // Vérifie si des résultats ont été trouvés
-            if (model->rowCount() > 0) {
-                // Colorie la ligne en vert si l'ID est trouvé
-                for (int row = 0; row < model->rowCount(); ++row) {
-                    if (model->data(model->index(row, 0)).toString() == idChambre) {
-                        // Applique la couleur verte à la ligne
-                        for (int col = 0; col < model->columnCount(); ++col) {
-                            ui->tableView->model()->setData(
-                                model->index(row, col), QBrush(Qt::green), Qt::BackgroundRole
-                                );
-                        }
-                        break;
-                    }
-                }
-            } else {
-                // Affiche un message si aucun résultat n'est trouvé
-                QMessageBox::information(this, "Recherche", "tarif " + idChambre + " n'existe pas.");
-            }
-        } else {
-            QMessageBox::critical(this, "Erreur", "Échec de la recherche : " + query.lastError().text());
-        }
     }
 
 }
@@ -675,7 +561,90 @@ void MainWindow::box()
 
 void MainWindow::on_pushButton_SMS_clicked()
 {
+    QNetworkAccessManager* manager = new QNetworkAccessManager();
 
+    // Twilio API URL
+    QString accountSID = "AC0ab85d030d910067416bc0204c8138db";
+    QString authToken = "d87792b00fdcb63363c7587abee4e9ad";
+    QString fromNumber = "+14243427425"; // Your Twilio number
+
+    QString id = ui->comboBox->currentText();
+    qDebug() << "Selected ID from comboBox:" << id;
+
+    /*const char* account_sid = getenv("TWILIO_ACCOUNT_SID");
+    const char* auth_token = getenv("TWILIO_AUTH_TOKEN");*/
+
+    /*if (!account_sid || !auth_token) {
+        qDebug() << "Environment variables for Twilio are missing!";
+        return;
+    }*/
+
+    /*QString fromNumber = "+14243427425"; // Your Twilio number
+    qDebug() << "Account SID:" << account_sid;
+    qDebug() << "Auth Token:" << auth_token;*/
+
+
+    QSqlQuery query;
+    query.prepare("SELECT NUMT, MONTANT_TOTAL, IDCHAMBRE FROM GS_RESERVATION WHERE ID_RESERVATION = :id");
+    query.bindValue(":id", id);
+
+    QString numm, montant, idch, type;
+
+    if (query.exec()) {
+        if (query.next()) { // Ensure we move to the first result
+            numm = query.value(0).toString();
+            montant = query.value(1).toString();
+            idch = query.value(2).toString();
+            qDebug() << "Query 1 Results - NUMT:" << numm << ", MONTANT_TOTAL:" << montant << ", IDCHAMBRE:" << idch;
+        } else {
+            qDebug() << "Query 1 executed but returned no results.";
+        }
+    } else {
+        qDebug() << "Query 1 failed:" << query.lastError().text();
+    }
+
+    QSqlQuery query2;
+    query2.prepare("SELECT TYPE FROM GS_CHAMBRE WHERE IDCHAMBRE = :id");
+    query2.bindValue(":id", idch);
+
+    if (query2.exec()) {
+        if (query2.next()) { // Ensure we move to the first result
+            type = query2.value(0).toString();
+            qDebug() << "Query 2 Result - TYPE:" << type;
+        } else {
+            qDebug() << "Query 2 executed but returned no results.";
+        }
+    } else {
+        qDebug() << "Query 2 failed:" << query2.lastError().text();
+    }
+
+
+    QString toNumber = "+216"+numm; // Recipient number
+    QString message = "Hello, votre chambre est le numero : "+idch+" \n le montant total : "+montant+" \n type : "+type;
+
+    QString url = QString("https://api.twilio.com/2010-04-01/Accounts/%1/Messages.json").arg(accountSID);
+    QNetworkRequest request{QUrl(url)};
+
+    // Authentication
+    QByteArray credentials = QString("%1:%2").arg(accountSID, authToken).toUtf8().toBase64();
+    request.setRawHeader("Authorization", "Basic " + credentials);
+
+    // Data to send
+    QUrlQuery params;
+    params.addQueryItem("From", fromNumber);
+    params.addQueryItem("To", toNumber);
+    params.addQueryItem("Body", message);
+
+    // Send the request
+    QNetworkReply* reply = manager->post(request, params.toString(QUrl::FullyEncoded).toUtf8());
+    QObject::connect(reply, &QNetworkReply::finished, [reply]() {
+        if (reply->error() == QNetworkReply::NoError) {
+            qDebug() << "SMS sent successfully!";
+        } else {
+            qDebug() << "Failed to send SMS:" << reply->errorString();
+        }
+        reply->deleteLater();
+    });
 }
 
 
@@ -752,8 +721,8 @@ void MainWindow::createPDF(int idchambre, const QString& etat, const QString& ty
 
     // Set text color to green for "Reservation Details"
     painter.setPen(Qt::green);
-    painter.drawText(50, y, "Reservation Details:");
-    y += lineHeight;
+    /*painter.drawText(50, y, "Reservation Details:");
+    y += lineHeight;*/
 
     // Restore text color to default (black) for the rest of the content
     painter.setPen(Qt::black);
