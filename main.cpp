@@ -3,11 +3,15 @@
 #include <QMessageBox>
 #include "connection.h"
 
+
+
+
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Connection c;
+     Connection c;
     bool test=c.createconnection(); // etablir la connexion
     MainWindow w;
     if(test) // si la connexion et etablie

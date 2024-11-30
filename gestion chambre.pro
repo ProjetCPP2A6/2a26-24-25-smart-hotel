@@ -13,6 +13,9 @@ QT += core gui charts
 QT += charts
 QT += multimedia charts
 
+QT += serialport
+QT += core gui sql
+
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -34,6 +37,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arduino.cpp \
     chambre.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -42,6 +46,7 @@ SOURCES += \
     qrcode.cpp
 
 HEADERS += \
+    arduino.h \
     chambre.h \
         mainwindow.h \
     connection.h \

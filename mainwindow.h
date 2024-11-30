@@ -10,6 +10,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "arduino.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -22,7 +24,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void box();
-    void createPDF(int idchambre, const QString& etat, const QString& type, int tarif, const QString& id, const QString& date_debut, const QString& date_fin);
+    void createPDF(int idchambre, const QString& etat, const QString& type, float tarif, const QString& id, const QString& date_debut, const QString& date_fin);
 private slots:
 
     void on_pushButton_Ajouter_clicked();
@@ -33,7 +35,7 @@ private slots:
 
     void on_lineEdit_ID_editingFinished();
 
-
+    void readDataFromArduino();
     void on_pushButton_tri_clicked();
 
     void on_pushButton_Recherche_clicked();
@@ -46,9 +48,11 @@ private slots:
 
     void on_pushButton_SMS_clicked();
 
-    void on_tableView_activated(const QModelIndex &index);
+   // void on_tableView_activated(const QModelIndex &index);
 
     void on_pushButton_exporter_2_clicked(); // exporter
+
+     void update_label();  // Déclaration du slot
 
 private:
     Ui::MainWindow *ui;
@@ -56,6 +60,12 @@ private:
      bool getChambredata(const int &idchambre,QString &etat,QString &type,float &tarif);
      bool loadChambreData(int idchambre); // Nouvelle méthode pour charger les données de la chambre
      void generateQRCode(int id_chambre);
+
+     QByteArray data;
+
+
+
+     Arduino A;
 
 
 };

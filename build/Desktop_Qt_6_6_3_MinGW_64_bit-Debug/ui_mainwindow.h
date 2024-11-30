@@ -60,6 +60,7 @@ public:
     QLabel *label;
     QWidget *tab_4;
     QLabel *label_type;
+    QLabel *label_message;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -203,6 +204,7 @@ public:
         comboBox_trier_2 = new QComboBox(tab);
         comboBox_trier_2->addItem(QString());
         comboBox_trier_2->addItem(QString());
+        comboBox_trier_2->addItem(QString());
         comboBox_trier_2->setObjectName("comboBox_trier_2");
         comboBox_trier_2->setGeometry(QRect(380, 80, 131, 31));
         pushButton_exporter_2 = new QPushButton(tab);
@@ -219,8 +221,12 @@ public:
         tab_4->setObjectName("tab_4");
         label_type = new QLabel(tab_4);
         label_type->setObjectName("label_type");
-        label_type->setGeometry(QRect(180, 40, 691, 441));
+        label_type->setGeometry(QRect(30, 40, 691, 441));
         label_type->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        label_message = new QLabel(tab_4);
+        label_message->setObjectName("label_message");
+        label_message->setGeometry(QRect(750, 160, 341, 131));
+        label_message->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab_4, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -268,12 +274,14 @@ public:
         qr_code->setText(QString());
         pushButton_SMS->setText(QCoreApplication::translate("MainWindow", "SMS", nullptr));
         comboBox_trier_2->setItemText(0, QCoreApplication::translate("MainWindow", "idchambre", nullptr));
-        comboBox_trier_2->setItemText(1, QCoreApplication::translate("MainWindow", "tarif", nullptr));
+        comboBox_trier_2->setItemText(1, QCoreApplication::translate("MainWindow", "etat", nullptr));
+        comboBox_trier_2->setItemText(2, QCoreApplication::translate("MainWindow", "tarif", nullptr));
 
         pushButton_exporter_2->setText(QCoreApplication::translate("MainWindow", "Exporter pdf", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:700;\">id_reservation :</span></p></body></html>", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Aceuille", nullptr));
         label_type->setText(QString());
+        label_message->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("MainWindow", "Fonctionnaliter", nullptr));
     } // retranslateUi
 

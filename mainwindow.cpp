@@ -20,12 +20,12 @@
 #include <QDebug>
 
 
-#include <QtSql/QSqlQueryModel>       // Pour utiliser QSqlQueryModel pour les requêtes SQL
-#include <QtCharts/QChart>            // Pour la création du graphique
-#include <QtCharts/QChartView>        // Pour afficher le graphique
-#include <QtCharts/QPieSeries>        // Pour la série de graphique en camembert (pie chart)
-#include <QtCharts/QPieSlice>         // Pour les morceaux individuels du graphique en camembert
-#include <QMediaPlayer>               // Pour lire un son lors du clic
+#include <QtSql/QSqlQueryModel>
+#include <QtCharts/QChart>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QMediaPlayer>
 #include <QPen>
 
 #include <QMediaPlayer>
@@ -61,6 +61,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QDate>
+
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -68,10 +71,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit_ID->setValidator(new QIntValidator(0,9999,this));
 
+
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    switch(ret){
+    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        break;
+    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+        break;
+    case(-1):qDebug() << "arduino is not available";
+    }
+    QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(readDataFromArduino())); // permet de lancer
+    //le slot update_label suite à la reception du signal readyRead (reception des données).
+
+
+    ui->lineEdit_ID->setValidator(new QIntValidator(0,9999,this));
     connect(ui->lineEdit_ID, &QLineEdit::editingFinished, this, &MainWindow::on_lineEdit_ID_editingFinished);
     connect(ui->pushButton_tri, &QPushButton::clicked, this, &MainWindow::on_pushButton_tri_clicked);
+    //connect(A.getserial(), &QSerialPort::readyRead, this, &MainWindow::readDataFromArduino);
+
 
 
     ui->comboBox_trier->addItem("etat");
@@ -84,6 +102,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::update_label()
+{
+    // Exemple de mise à jour d'un label dans l'interface utilisateur
+    ui->label->setText("Mise à jour du label");
 }
 
 void MainWindow::on_pushButton_Ajouter_clicked()
@@ -311,7 +335,7 @@ void MainWindow::on_lineEdit_ID_editingFinished()
 void MainWindow::on_pushButton_Annuler_clicked()
 {
     ui->lineEdit_ID->clear();
-    ui->comboBox_etat->setCurrentIndex(-1); // Réinitialiser le comboBox
+    ui->comboBox_etat->setCurrentIndex(-1);
     ui->comboBox_type->setCurrentIndex(-1);
     ui->lineEdit_T->clear();
 }
@@ -382,6 +406,15 @@ void MainWindow::on_pushButton_Recherche_clicked()
         query.prepare("SELECT * FROM gs_chambre WHERE tarif BETWEEN :minTarif AND :maxTarif");
         query.bindValue(":minTarif", minTarif);
         query.bindValue(":maxTarif", maxTarif);
+    } else if (critere == "etat") {
+        // Recherche par état
+        if (valeurRecherchee != "Disponible" && valeurRecherchee != "Occupee") {
+            QMessageBox::warning(this, "Erreur", "Veuillez entrer un état valide (Disponible ou Occupee).");
+            return;
+        }
+
+        query.prepare("SELECT * FROM gs_chambre WHERE etat = :valeur");
+        query.bindValue(":valeur", valeurRecherchee);
     } else {
         QMessageBox::warning(this, "Erreur", "Critère de recherche inconnu.");
         return;
@@ -561,71 +594,58 @@ void MainWindow::box()
 
 void MainWindow::on_pushButton_SMS_clicked()
 {
+
     QNetworkAccessManager* manager = new QNetworkAccessManager();
 
-    // Twilio API URL
+    // Twilio API Credentials
     QString accountSID = "AC0ab85d030d910067416bc0204c8138db";
-    QString authToken = "d87792b00fdcb63363c7587abee4e9ad";
-    QString fromNumber = "+14243427425"; // Your Twilio number
+    QString authToken = "54a304e86d63b45f987ecb5f37bc6550";
+    QString fromNumber = "+14243427425"; // Twilio number
 
+    // Selected reservation ID
     QString id = ui->comboBox->currentText();
     qDebug() << "Selected ID from comboBox:" << id;
 
-    /*const char* account_sid = getenv("TWILIO_ACCOUNT_SID");
-    const char* auth_token = getenv("TWILIO_AUTH_TOKEN");*/
-
-    /*if (!account_sid || !auth_token) {
-        qDebug() << "Environment variables for Twilio are missing!";
-        return;
-    }*/
-
-    /*QString fromNumber = "+14243427425"; // Your Twilio number
-    qDebug() << "Account SID:" << account_sid;
-    qDebug() << "Auth Token:" << auth_token;*/
-
-
+    // Query to fetch reservation details
     QSqlQuery query;
     query.prepare("SELECT NUMT, MONTANT_TOTAL, IDCHAMBRE FROM GS_RESERVATION WHERE ID_RESERVATION = :id");
     query.bindValue(":id", id);
 
     QString numm, montant, idch, type;
 
-    if (query.exec()) {
-        if (query.next()) { // Ensure we move to the first result
-            numm = query.value(0).toString();
-            montant = query.value(1).toString();
-            idch = query.value(2).toString();
-            qDebug() << "Query 1 Results - NUMT:" << numm << ", MONTANT_TOTAL:" << montant << ", IDCHAMBRE:" << idch;
-        } else {
-            qDebug() << "Query 1 executed but returned no results.";
-        }
+    if (query.exec() && query.next()) {
+        numm = query.value(0).toString();
+        montant = query.value(1).toString();
+        idch = query.value(2).toString();
+        qDebug() << "Query 1 Results - NUMT:" << numm << ", MONTANT_TOTAL:" << montant << ", IDCHAMBRE:" << idch;
     } else {
-        qDebug() << "Query 1 failed:" << query.lastError().text();
+        qDebug() << "Query 1 failed or no results:" << query.lastError().text();
+        return;
     }
 
+    // Query to fetch room type
     QSqlQuery query2;
     query2.prepare("SELECT TYPE FROM GS_CHAMBRE WHERE IDCHAMBRE = :id");
     query2.bindValue(":id", idch);
 
-    if (query2.exec()) {
-        if (query2.next()) { // Ensure we move to the first result
-            type = query2.value(0).toString();
-            qDebug() << "Query 2 Result - TYPE:" << type;
-        } else {
-            qDebug() << "Query 2 executed but returned no results.";
-        }
+    if (query2.exec() && query2.next()) {
+        type = query2.value(0).toString();
+        qDebug() << "Query 2 Result - TYPE:" << type;
     } else {
-        qDebug() << "Query 2 failed:" << query2.lastError().text();
+        qDebug() << "Query 2 failed or no results:" << query2.lastError().text();
+        return;
     }
 
-
-    QString toNumber = "+216"+numm; // Recipient number
-    QString message = "Hello, votre chambre est le numero : "+idch+" \n le montant total : "+montant+" \n type : "+type;
+    QString toNumber = "+216" + numm; // Recipient number
+    QString message = "Hello, votre chambre est le numero : " + idch +
+                      " \nLe montant total : " + montant +
+                      " \nType : " + type;
 
     QString url = QString("https://api.twilio.com/2010-04-01/Accounts/%1/Messages.json").arg(accountSID);
     QNetworkRequest request{QUrl(url)};
 
-    // Authentication
+    // Add headers
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QByteArray credentials = QString("%1:%2").arg(accountSID, authToken).toUtf8().toBase64();
     request.setRawHeader("Authorization", "Basic " + credentials);
 
@@ -657,7 +677,7 @@ void MainWindow::on_pushButton_exporter_2_clicked()
     int idchambre=ui->lineEdit_ID->text().toInt();
     QString etat =ui->comboBox_etat->currentText();
     QString type =ui->comboBox_type->currentText();
-    int tarif=ui->lineEdit_T->text().toInt();
+    float tarif = ui->lineEdit_T->text().toFloat();
     QString id = ui->comboBox->currentText();
     QSqlQuery query;
     QString date_debut,date_fin;
@@ -683,7 +703,7 @@ void MainWindow::on_pushButton_exporter_2_clicked()
 }
 
 
-void MainWindow::createPDF(int idchambre, const QString& etat, const QString& type, int tarif, const QString& id, const QString& date_debut, const QString& date_fin) {
+void MainWindow::createPDF(int idchambre, const QString& etat, const QString& type, float tarif, const QString& id, const QString& date_debut, const QString& date_fin) {
     // Choose a location to save the PDF
     QString filePath = QFileDialog::getSaveFileName(nullptr, "Save PDF", "", "*.pdf");
     if (filePath.isEmpty())
@@ -716,18 +736,19 @@ void MainWindow::createPDF(int idchambre, const QString& etat, const QString& ty
     y += lineHeight;
     painter.drawText(50, y, "Type: " + type);
     y += lineHeight;
-    painter.drawText(50, y, "Tarif: " + QString::number(tarif));
+    /*painter.drawText(50, y, "Tarif: " + QString::number(tarif));
+    y += lineHeight;*/
+
+    // Convert tarif to QString with two decimals
+    QString tarifString = QString::number(tarif, 'f', 2); // Format as float with 2 decimals
+    painter.drawText(50, y, "Tarif: " + tarifString);
     y += lineHeight;
 
     // Set text color to green for "Reservation Details"
     painter.setPen(Qt::green);
-    /*painter.drawText(50, y, "Reservation Details:");
-    y += lineHeight;*/
 
     // Restore text color to default (black) for the rest of the content
     painter.setPen(Qt::black);
-    /*painter.drawText(50, y, "ID Reservation: " + id);
-    y += lineHeight;*/
     painter.drawText(50, y, "Date Debut: " + date_debut);
     y += lineHeight;
     painter.drawText(50, y, "Date Fin: " + date_fin);
@@ -738,3 +759,44 @@ void MainWindow::createPDF(int idchambre, const QString& etat, const QString& ty
 
     qDebug() << "PDF saved successfully at: " << filePath;
 }
+
+
+void MainWindow::readDataFromArduino()
+{
+    QString data = A.read_from_arduino();
+    qDebug() << "rfid : " << data;
+    QDate cd = QDate::currentDate();
+    QSqlQuery query;
+    query.prepare("SELECT idchambre FROM GS_CHAMBRE WHERE IDRFID = :rfid_id ");
+    query.bindValue(":rfid_id", data);
+    if (query.exec()) {
+        if (query.next()) {
+            QString idChambreDB = query.value(0).toString();
+
+            // Vérification des dates de réservation
+            QSqlQuery reservationQuery;
+            reservationQuery.prepare("SELECT date_fin FROM GS_RESERVATION WHERE idchambre = :idchambre");
+            reservationQuery.bindValue(":idchambre", idChambreDB);
+            if (reservationQuery.exec() && reservationQuery.next()) {
+                //QDate dateDebutDB = reservationQuery.value("date_debut").toDate();
+                QDate dateFinDB = reservationQuery.value(0).toDate();
+
+                if (cd > dateFinDB) {
+                    ui->label_message->setText("La date de réservation de cette chambre est terminée !");
+                } else {
+                    ui->label_message->setText("Votre chambre est ouverte !");
+
+                }
+            } else {
+                qDebug() << "Query execution failed: " << query.lastError().text();
+            }
+        } else {
+            ui->label_message->setText("Erreur : IDchambre non trouvé dans la base de données !");
+        }
+    } else {
+        ui->label_message->setText("Erreur de requête SQL : " + query.lastError().text());
+    }
+}
+
+
+
