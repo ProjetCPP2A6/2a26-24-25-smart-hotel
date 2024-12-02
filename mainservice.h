@@ -2,12 +2,18 @@
 #define MAINSERVICE_H
 
 #include <QMainWindow>
+#include <QTableView>
+#include <QSqlDatabase>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include <QSqlQueryModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class mainservice;
 }
 QT_END_NAMESPACE
+
 
 class mainservice : public QMainWindow
 {
@@ -29,7 +35,8 @@ private slots:
 
 
 
-
+    void readSerialData();
+    void processInput();
 
     void on_pushButton_edit_clicked();
 
@@ -37,10 +44,19 @@ private slots:
     void on_lineEdit_id_ed_editingFinished();
     void onSendMessage();
     void on_pushButton_pdf_clicked();
+    void populateStatistics(QTableView *tableView);
+    void on_pushButton_analysis_clicked();
 
 private:
     Ui::mainservice *ui;
     void showAllEmployees();
     bool validateLogin(const QString &username, const QString &password);
+    mainservice *service;
+    QSerialPort *serialPort;
+    QSqlQueryModel *model;
+
+    void setupDatabase();
+    void setupSerial();
+    void handleAttendance(const QString &id);
 };
 #endif // MAINSERVICE_H

@@ -7,12 +7,15 @@
 
 class Connection
 {
-    QSqlDatabase db;
 public:
     Connection();
     bool createconnect();
     void closeConnection();
+
+    QSqlDatabase getDatabase() { return db; }
+
+private:
+    QSqlDatabase db;
 };
 
 #endif // CONNECTION_H
-

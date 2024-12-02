@@ -10,11 +10,13 @@
 #include <QFileDialog>
 #include <QPageSize>
 #include <QDateTime>
-
+#include <QStandardItemModel>
+#include <QSqlQueryModel>
 
 mainservice::mainservice(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::mainservice)
+    , ui(new Ui::mainservice),
+    model(new QSqlQueryModel(this))
 {
     ui->setupUi(this);
 
@@ -40,12 +42,231 @@ mainservice::mainservice(QWidget *parent)
     connect(ui->sendButton, &QPushButton::clicked, this, &mainservice::onSendMessage);
     connect(ui->inputField, &QLineEdit::returnPressed, ui->sendButton, &QPushButton::click);
     connect(ui->pushButton, &QPushButton::clicked, this, &mainservice::onLoginButtonClicked);
+    connect(ui->pushButton_analysis, &QPushButton::clicked, this, &mainservice::on_pushButton_analysis_clicked);
+
+    // Populate the combo box with static values or dynamic data
+    ui->comboBox_poste_2->addItem("Manager");
+    ui->comboBox_poste_2->addItem("Developer");
+    ui->comboBox_poste_2->addItem("HR");
+
+    // Populate comboBox dynamically from the database
+    QSqlQuery query;
+    if (query.exec("SELECT DISTINCT poste FROM Employes")) {
+        while (query.next()) {
+            ui->comboBox_poste->addItem(query.value(0).toString());
+        }
+    } else {
+        qDebug() << "Failed to fetch postes:" << query.lastError().text();
+    }
+
+
+    // Set up QTableView model to display Attendance logs using QSqlQueryModel
+    QString attendanceQuery = "SELECT id_Attendance, id_Employe, timestamp, status FROM Attendance ORDER BY timestamp DESC";
+    model->setQuery(attendanceQuery);
+
+    if (model->lastError().isValid()) {
+        qDebug() << "Query Error:" << model->lastError().text();
+    }
+
+    ui->tableView_Logs->setModel(model);
+
+    // Configure QTableView
+    ui->tableView_Logs->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_Logs->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_Logs->resizeColumnsToContents();
+    ui->tableView_Logs->horizontalHeader()->setStretchLastSection(true);
+
+    setupSerial();
+
+    connect(serialPort, &QSerialPort::readyRead, this, &mainservice::readSerialData);
+
 
 }
+
 
 mainservice::~mainservice()
 {
     delete ui;
+
+}
+
+
+
+void mainservice::setupSerial()
+{
+    serialPort->setPortName("COM4"); // Replace with your Arduino's COM port
+    serialPort->setBaudRate(QSerialPort::Baud9600);
+
+    if (!serialPort->open(QIODevice::ReadOnly)) {
+        QMessageBox::critical(this, "Error", "Failed to open serial port.");
+    }
+}
+
+void mainservice::readSerialData()
+{
+    QByteArray data = serialPort->readAll();
+    QString id = QString::fromUtf8(data).trimmed();
+    ui->lineEdit_ID->setText(id);
+    handleAttendance(id);
+}
+
+void mainservice::processInput()
+{
+    QString id = ui->lineEdit_ID->text().trimmed();
+    handleAttendance(id);
+}
+
+void mainservice::handleAttendance(const QString &id)
+{
+    if (id.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Invalid ID.");
+        return;
+    }
+
+    QSqlQuery query;
+
+    // Step 1: Check if the employee exists
+    query.prepare("SELECT nom, prenom FROM Employes WHERE id_Employe = :id");
+    query.bindValue(":id", id);
+
+    if (!query.exec()) {
+        qDebug() << "Error executing employee check:" << query.lastError().text();
+        QMessageBox::critical(this, "Database Error", "Failed to check employee.");
+        return;
+    }
+
+    if (!query.next()) {
+        ui->label_EmployeeInfo->setText("Employee not found.");
+        qDebug() << "Employee ID not found:" << id;
+        return;
+    }
+
+    QString name = query.value(0).toString() + " " + query.value(1).toString();
+
+    // Step 2: Fetch the latest attendance record for this employee
+    // Correct the query to use subquery with ROWNUM for Oracle compatibility
+    QString latestAttendanceQuery = "SELECT timestamp, status "
+                                    "FROM (SELECT timestamp, status "
+                                    "      FROM Attendance "
+                                    "      WHERE id_Employe = :id "
+                                    "      ORDER BY timestamp DESC) "
+                                    "WHERE ROWNUM = 1";
+
+    query.prepare(latestAttendanceQuery);
+    query.bindValue(":id", id);
+
+    QDateTime lastTimestamp;
+    QString lastStatus;
+    QDateTime currentTimestamp = QDateTime::currentDateTime();
+    QString newStatus;
+
+    if (query.exec() && query.next()) {
+        lastTimestamp = query.value(0).toDateTime();
+        lastStatus = query.value(1).toString();
+
+        // Debugging: Log last timestamp and status
+        qDebug() << "Last Timestamp:" << lastTimestamp.toString("yyyy-MM-dd HH:mm:ss")
+                 << "Last Status:" << lastStatus;
+
+        if (lastStatus == "Left") {
+            if (lastTimestamp.addSecs(120) <= currentTimestamp) { // 2 minutes = 120 seconds
+                // Allow entry if 2 minutes have passed
+                newStatus = "Entered";
+            } else {
+                // Block re-entry if less than 2 minutes
+                QMessageBox::warning(this, "Error", "You need to wait 2 minutes before re-entering.");
+                qDebug() << "Re-entry blocked for employee ID:" << id;
+                return;
+            }
+        } else if (lastStatus == "Entered") {
+            // Allow the employee to exit
+            newStatus = "Left";
+        }
+    } else {
+        // First-time entry
+        newStatus = "Entered";
+    }
+
+    // Step 3: Insert the new attendance record
+    query.prepare("INSERT INTO Attendance (id_Employe, timestamp, status) VALUES (:id, :timestamp, :status)");
+    query.bindValue(":id", id);
+    query.bindValue(":timestamp", currentTimestamp);
+    query.bindValue(":status", newStatus);
+
+    if (!query.exec()) {
+        qDebug() << "Failed to insert log into Attendance table:" << query.lastError().text();
+        QMessageBox::critical(this, "Error", "Failed to log attendance.");
+        return;
+    }
+
+    // Step 4: Display the information in label_EmployeeInfo
+    QString info;
+
+    if (newStatus == "Entered") {
+        info = QString("Welcome %1\nEntered at: %2")
+        .arg(name)
+            .arg(currentTimestamp.toString("yyyy-MM-dd HH:mm:ss"));
+    } else if (newStatus == "Left") {
+        info = QString("Goodbye %1\nEntered at: %2\nLeft at: %3")
+        .arg(name)
+            .arg(lastTimestamp.toString("yyyy-MM-dd HH:mm:ss"))
+            .arg(currentTimestamp.toString("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    ui->label_EmployeeInfo->setText(info);
+
+    // Debugging: Show final displayed message
+    qDebug() << "Displayed info:" << info;
+
+    // Step 5: Refresh the model to update the QTableView
+    QString updatedAttendanceQuery = "SELECT id_Attendance, id_Employe, timestamp, status "
+                                     "FROM Attendance "
+                                     "ORDER BY timestamp DESC";
+
+    model->setQuery(updatedAttendanceQuery);
+
+    if (model->lastError().isValid()) {
+        qDebug() << "Query Error after refresh:" << model->lastError().text();
+    }
+
+    // Optionally, you can resize columns again if necessary
+    ui->tableView_Logs->resizeColumnsToContents();
+}
+
+
+void mainservice::on_pushButton_analysis_clicked() {
+    // Call the populateStatistics function and pass the table view
+    service->populateStatistics(ui->tableView);
+}
+void mainservice::populateStatistics(QTableView *tableView) {
+    // Prepare a query to calculate the average salary grouped by `poste`
+    QSqlQuery query("SELECT poste, COUNT(*) AS employee_count, AVG(salaire) AS avg_salary FROM Employes GROUP BY poste");
+
+    // Check for query errors
+    if (query.lastError().isValid()) {
+        qDebug() << "Query failed:" << query.lastError().text();
+        return;
+    }
+
+    // Create a model to store the results
+    QStandardItemModel *model = new QStandardItemModel();
+    model->setHorizontalHeaderLabels({"Poste", "Employee Count", "Average Salary"});
+
+    // Fetch results and populate the model
+    int row = 0;
+    while (query.next()) {
+        QString poste = query.value("poste").toString();
+        int employeeCount = query.value("employee_count").toInt();
+        double avgSalary = query.value("avg_salary").toDouble();
+
+        model->setItem(row, 0, new QStandardItem(poste));
+        model->setItem(row, 1, new QStandardItem(QString::number(employeeCount)));
+        model->setItem(row, 2, new QStandardItem(QString::number(avgSalary, 'f', 2)));
+        row++;
+    }
+
+    // Set the model to the table view
+    tableView->setModel(model);
 }
 
 void mainservice::onSendMessage() {
@@ -148,45 +369,85 @@ void mainservice::on_pushButton_supprimer_clicked() {
 
 void mainservice::on_pushButton_afficher_clicked() {
 
+    // Clear the table to prepare for new data
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-
+    // Get the id_Employe from the line edit
     int id_employe = ui->lineEdit_sr->text().toInt();
-    if (id_employe <= 0) {
-        QMessageBox::warning(this, "Warning", "Please enter a valid employe ID.");
+    qDebug() << "id_Employe:" << id_employe;  // Debugging: Log the id_employe value
+
+    // Get the selected poste from the combo box
+    QString poste = ui->comboBox_poste_2->currentText();
+    qDebug() << "Selected poste:" << poste;  // Debugging: Log the selected poste value
+
+    // Validate id_employe or poste to ensure at least one is provided
+    if (id_employe <= 0 && poste.isEmpty()) {
+        QMessageBox::warning(this, "Warning", "Please enter a valid employe ID or select a poste.");
         return;
     }
 
     QSqlQuery query;
-    query.prepare("SELECT id_Employe, nom, prenom, poste, date_embauche, salaire FROM Employes WHERE id_Employe = :id_Employe");
-    query.bindValue(":id_Employe", id_employe);
+    QString queryStr = "SELECT id_Employe, nom, prenom, poste, date_embauche, salaire FROM Employes WHERE 1=1";
 
+    // Add condition for id_Employe if provided
+    if (id_employe > 0) {
+        queryStr += " AND id_Employe = :id_Employe";
+    }
 
+    // Add condition for poste if selected (not empty)
+    if (!poste.isEmpty()) {
+        queryStr += " AND poste = :poste";
+    }
+
+    // Debugging: Log the query string
+    qDebug() << "Executing query:" << queryStr;
+
+    // Prepare the query
+    query.prepare(queryStr);
+
+    // Bind the values if they are set
+    if (id_employe > 0) {
+        query.bindValue(":id_Employe", id_employe);
+    }
+    if (!poste.isEmpty()) {
+        query.bindValue(":poste", poste);
+    }
+
+    // Execute the query
     if (query.exec()) {
+        bool found = false;
 
-        if (query.next()) {
+        // Process the result
+        while (query.next()) {
+            found = true;
 
+            // Insert row in the tableWidget
             int rowCount = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(rowCount);
 
+            // Set the data into tableWidget
+            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(query.value(0).toString()));  // id_Employe
+            ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(query.value(1).toString()));  // nom
+            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(query.value(2).toString()));  // prenom
+            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(query.value(3).toString()));  // poste
+            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(query.value(4).toString()));  // date_embauche
+            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(query.value(5).toString()));  // salaire
+        }
 
-            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(query.value(0).toString()));
-            ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(query.value(1).toString()));
-            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(query.value(2).toString()));
-            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(query.value(3).toString()));
-            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(query.value(4).toString()));
-            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(query.value(5).toString()));
-        } else {
-
-            QMessageBox::warning(this, "Error", "No employe found with the given ID.");
+        // If no rows are found, show a warning
+        if (!found) {
+            QMessageBox::warning(this, "No Results", "No employe found with the given criteria.");
         }
     } else {
-
         qDebug() << "Query execution failed:" << query.lastError().text();
         QMessageBox::warning(this, "Error", "Failed to execute query.");
     }
 }
+
+
+
+
 
 
 void mainservice::on_pushButton_edit_clicked() {
