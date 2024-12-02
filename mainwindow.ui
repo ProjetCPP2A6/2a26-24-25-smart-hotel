@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1650</width>
+    <height>783</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Gestion des Clients</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="statistique">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>40</y>
+      <width>1191</width>
+      <height>641</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Ajouter</string>
+     </attribute>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>451</width>
+        <height>691</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #B4A9D5; /* Couleur plus douce pour l'état normal */
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}
+</string>
+      </property>
+      <property name="title">
+       <string>Ajouter réservation</string>
+      </property>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>141</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Id du client </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>type de la réservation </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>151</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Date de début</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>101</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Date de fin</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>151</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nombre de personnes</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>220</y>
+         <width>63</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Statut</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="id_reservation">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>30</y>
+         <width>113</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="id_client">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>60</y>
+         <width>113</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="Np">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>190</y>
+         <width>113</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>260</y>
+         <width>121</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Montant total</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>310</y>
+         <width>171</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Mode de paiment</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="Montant">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>260</y>
+         <width>113</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="comboBox_type">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>100</y>
+         <width>111</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Chambre</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Restaurant</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Parking</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="comboBox_statut">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>220</y>
+         <width>111</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>confirmée</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string> en attente</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>annulée</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="comboBox_mode">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>300</y>
+         <width>111</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>carte bancaire</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>espéces</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Virement</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QPushButton" name="enregistrer">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>450</y>
+         <width>93</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
+       </property>
+       <property name="text">
+        <string>enregistrer</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="modifier">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>380</y>
+         <width>93</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
+       </property>
+       <property name="text">
+        <string>modifier</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="ajouter">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>380</y>
+         <width>93</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
+       </property>
+       <property name="text">
+        <string>ajouter</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>151</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Id de la réservation</string>
+       </property>
+      </widget>
+      <widget class="QDateEdit" name="date_debut">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>130</y>
+         <width>110</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QDateEdit" name="date_fin">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>160</y>
+         <width>110</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>100</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Id de la reservation</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableView">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>160</y>
+        <width>521</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #B4A9D5; /* Couleur plus douce pour l'état normal */
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}
+</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="rechercher">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>40</y>
+        <width>93</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #B4A9D5; /* Couleur plus douce pour l'état normal */
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Rechercher</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>130</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Trier par:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBoxCritere">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>120</y>
+        <width>121</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Montant</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>statut</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>date_debut</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="trier">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>120</y>
+        <width>93</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Trier</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_idReservation">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>90</y>
+        <width>121</width>
+        <height>26</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="supprimer">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>80</y>
+        <width>93</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>supprimer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="exporter">
+      <property name="geometry">
+       <rect>
+        <x>1000</x>
+        <y>570</y>
+        <width>111</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
+      </property>
+      <property name="text">
+       <string>exporter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="annuler">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>570</y>
+        <width>93</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
+      </property>
+      <property name="text">
+       <string>Annuler</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label1">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>10</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&amp;quot;chargement...&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_criteria">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>40</y>
+        <width>131</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>id_reservation</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>id_client</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>montant</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_searchValue">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>40</y>
+        <width>113</width>
+        <height>26</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Page</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton_statistiques">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>280</y>
+        <width>93</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>statistiques</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_type">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>50</y>
+        <width>63</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="graphWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>120</y>
+        <width>381</width>
+        <height>181</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>1302</x>
+      <y>589</y>
+      <width>321</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1650</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
