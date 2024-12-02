@@ -1,0 +1,11 @@
+debug/arduino.o
+debug/connection.o
+debug/flamedetection.o
+debug/mailhandler.o
+debug/main.o
+debug/mainservice.o
+debug/service.o
+debug/taskscheduling.o
+debug/moc_mailhandler.o
+debug/moc_mainservice.o
+debug/moc_taskscheduling.o

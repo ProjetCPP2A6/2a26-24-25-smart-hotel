@@ -1,0 +1,11 @@
+release/arduino.o
+release/connection.o
+release/flamedetection.o
+release/mailhandler.o
+release/main.o
+release/mainservice.o
+release/service.o
+release/taskscheduling.o
+release/moc_mailhandler.o
+release/moc_mainservice.o
+release/moc_taskscheduling.o

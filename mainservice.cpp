@@ -13,6 +13,16 @@
 #include <QFileDialog>
 #include <vector>
 #include <QStandardItemModel>
+#include <QPen>
+#include <QBrush>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
+#include "flamedetection.h"
+#include <QTimer>
+#include "Arduino.h"
+
+
+
 struct Service {
     int id;
     QString name;
@@ -28,6 +38,7 @@ mainservice::mainservice(QWidget *parent)
     , ui(new Ui::mainservice)
 {
     ui->setupUi(this);
+
 
     // Validator for ID and cout fields (positive integers, max 8 digits)
     QRegularExpression reIdCout("^\\d{1,8}$");
@@ -46,12 +57,129 @@ mainservice::mainservice(QWidget *parent)
     ui->lineEdit_categorie->setValidator(charValidator);
     ui->lineEdit__etat_ed->setValidator(charValidator);
 
+
+    int ret=A.connectArduino();
+    switch(ret){
+    case(0):qDebug()<<"arduino is available and connected to : "<< A.getArduinoPortName();
+        break;
+    case(1):qDebug()<<"arduino is available but not connected to :"<< A.getArduinoPortName();
+        break;
+    case(-1):qDebug()<<"arduino is not available : ";
+
+    }
+    QObject::connect(A.getSerial(),SIGNAL(readyRead()),this,SLOT(update_label()));
+    flameDetectionTimer = new QTimer(this);
+    flameDetectionTimer->start(5000);
 }
 
 mainservice::~mainservice()
 {
     delete ui;
+
+
 }
+
+
+QMessageBox *flameMsgBox = nullptr;
+
+
+void mainservice::insertFlameDetectedData()
+{
+    QSqlQuery query;
+
+    // Insert flame detected into the database
+    query.prepare("INSERT INTO FLAME_DETECTION (DETECTION_TIME, STATUS, DURATION) "
+                  "VALUES (TO_TIMESTAMP(:detection_time, 'YYYY-MM-DD HH24:MI:SS'), :status, :duration)");
+    query.bindValue(":detection_time", QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":status", "Flame Detected");
+    query.bindValue(":duration", 0);  // Bind as NULL instead of 0.0
+
+    if (!query.exec()) {
+        qDebug() << "Error inserting detection data: " << query.lastError().text();
+    } else {
+        qDebug() << "Flame detected data inserted successfully.";
+    }
+    if (flameMsgBox == nullptr || !flameMsgBox->isVisible()) {
+        flameMsgBox = new QMessageBox(QMessageBox::Information, "Flame Detected",
+                                      "A flame has been detected! Please take action.",
+                                      QMessageBox::Ok, this);
+        flameMsgBox->show();
+    } else {
+        // If the message box exists and is visible, just update its content
+        flameMsgBox->setWindowTitle("Flame Detected");
+        flameMsgBox->setText("A flame has been detected! Please take action.");
+        flameMsgBox->setIcon(QMessageBox::Information);
+    }
+}
+
+void mainservice::insertFlameExtinguishedData(double duration)
+{
+    QSqlQuery query;
+
+    // Insert flame extinguished data into the database
+    query.prepare("INSERT INTO FLAME_DETECTION (DETECTION_TIME, STATUS, DURATION) "
+                  "VALUES (TO_TIMESTAMP(:detection_time, 'YYYY-MM-DD HH24:MI:SS'), :status, :duration)");
+    query.bindValue(":detection_time", QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":status", "Flame Extinguished");
+    query.bindValue(":duration", duration);  // Use the duration passed from Arduino
+
+    if (!query.exec()) {
+        qDebug() << "Error inserting flame extinguished data: " << query.lastError().text();
+    } else {
+        qDebug() << "Flame extinguished data inserted successfully.";
+    }
+    if (flameMsgBox != nullptr) {
+        flameMsgBox->setWindowTitle("Flame Extinguished");
+        flameMsgBox->setText("The flame has been extinguished.");
+        flameMsgBox->setIcon(QMessageBox::Information);
+    }
+}
+
+
+
+void mainservice::update_label()
+{
+    // Read all available data from the Arduino
+    QByteArray data = A.getSerial()->readAll();
+
+    // Append the newly received data to the buffer
+    receivedData.append(data);
+
+    // Debug the received data to monitor its progress
+    qDebug() << "Received data from Arduino: " << receivedData;
+
+    // Check if the buffer contains a complete message (ending with \r\n)
+    while (receivedData.contains("\r\n")) {
+        // Extract the complete message by splitting at the end marker "\r\n"
+        int messageEnd = receivedData.indexOf("\r\n");
+        QByteArray message = receivedData.left(messageEnd);  // Get the message up to \r\n
+        receivedData.remove(0, messageEnd + 2);  // Remove the processed message from the buffer
+
+        // Convert QByteArray to QString
+        QString messageStr = QString::fromUtf8(message).trimmed();
+
+        // Skip empty messages
+        if (messageStr.isEmpty()) continue;
+
+        // Debug the message being processed
+        qDebug() << "Processing message: " << messageStr;
+
+        // Check if the message matches flame detection or extinguished
+        if (messageStr.contains("FLAME_DETECTED")) {
+            qDebug() << "Flame detected message received.";
+            insertFlameDetectedData();  // Insert "FLAME_DETECTED" event into the DB
+        } else if (messageStr.contains("FLAME_EXTINGUISHED")) {
+            qDebug() << "Flame extinguished message received.";
+            // Extract the duration from the message
+            QStringList messageParts = messageStr.split(",");
+            double duration = messageParts.size() >= 3 ? messageParts[2].toDouble() : 0.0;
+            insertFlameExtinguishedData(duration); // Insert "FLAME_EXTINGUISHED" event into the DB
+        }
+    }
+}
+
+
+
 
 void mainservice::on_pushButton_ajouter_clicked() {
     int id = ui->lineEdit_id->text().toInt();
@@ -73,6 +201,8 @@ void mainservice::on_pushButton_ajouter_clicked() {
         QMessageBox::warning(this, "Error", "Failed to add service.");
     }
 }
+
+
 
 void mainservice::on_pushButton_supprimer_clicked() {
     int id_service = ui->lineEdit_idSP->text().toInt();
@@ -436,3 +566,31 @@ void mainservice::on_pushButton_sendEmail_clicked()
         ui->tableView_stat->setModel(model);
         ui->tableView_stat->resizeColumnsToContents();
     }
+
+    void mainservice::on_pushButton_display_fire_clicked()
+    {
+        ui->tableWidget_3->setRowCount(0); // Clear existing data in table widget
+
+        QSqlQuery query;
+        // Modify the SQL query to order by DETECTION_TIME in descending order
+        query.prepare("SELECT DETECTION_TIME, STATUS, DURATION FROM FLAME_DETECTION ORDER BY DETECTION_TIME DESC");
+        if (!query.exec()) {
+            qDebug() << "Error fetching data: " << query.lastError();
+            return;  // Return early if the query fails
+        }
+
+        // Iterate through the query results and insert rows in the table
+        while (query.next()) {
+            int row = ui->tableWidget_3->rowCount(); // Get the current row count
+            ui->tableWidget_3->insertRow(row); // Insert a new row
+
+            // Set data for each column
+            ui->tableWidget_3->setItem(row, 0, new QTableWidgetItem(query.value(0).toString())); // DETECTION_TIME
+            ui->tableWidget_3->setItem(row, 1, new QTableWidgetItem(query.value(1).toString())); // STATUS
+            QString duration = (query.value(1).toString() == "Flame Detected" && query.value(2).toDouble() == 0.0)
+                                   ? "" : query.value(2).toString();
+            ui->tableWidget_3->setItem(row, 2, new QTableWidgetItem(duration)); // DURATION
+        }
+    }
+
+

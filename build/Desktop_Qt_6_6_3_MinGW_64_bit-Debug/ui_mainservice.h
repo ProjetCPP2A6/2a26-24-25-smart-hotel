@@ -93,6 +93,9 @@ public:
     QTextEdit *textEdit_eventDetails;
     QLabel *label_18;
     QPushButton *AddEvent;
+    QWidget *tab_8;
+    QPushButton *pushButton_display_fire;
+    QTableWidget *tableWidget_3;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *mainservice)
@@ -104,7 +107,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName("tabWidget");
-        tabWidget->setGeometry(QRect(30, 20, 1121, 591));
+        tabWidget->setGeometry(QRect(20, 20, 1121, 591));
         tab_6 = new QWidget();
         tab_6->setObjectName("tab_6");
         lineEdit_sr = new QLineEdit(tab_6);
@@ -375,6 +378,24 @@ public:
         AddEvent->setObjectName("AddEvent");
         AddEvent->setGeometry(QRect(990, 110, 83, 29));
         tabWidget->addTab(tab_7, QString());
+        tab_8 = new QWidget();
+        tab_8->setObjectName("tab_8");
+        pushButton_display_fire = new QPushButton(tab_8);
+        pushButton_display_fire->setObjectName("pushButton_display_fire");
+        pushButton_display_fire->setGeometry(QRect(470, 390, 121, 31));
+        tableWidget_3 = new QTableWidget(tab_8);
+        if (tableWidget_3->columnCount() < 3)
+            tableWidget_3->setColumnCount(3);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        tableWidget_3->setHorizontalHeaderItem(0, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        tableWidget_3->setHorizontalHeaderItem(1, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        tableWidget_3->setHorizontalHeaderItem(2, __qtablewidgetitem12);
+        tableWidget_3->setObjectName("tableWidget_3");
+        tableWidget_3->setGeometry(QRect(100, 60, 581, 271));
+        tableWidget_3->setMinimumSize(QSize(0, 271));
+        tabWidget->addTab(tab_8, QString());
         mainservice->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(mainservice);
         statusbar->setObjectName("statusbar");
@@ -382,7 +403,7 @@ public:
 
         retranslateUi(mainservice);
 
-        tabWidget->setCurrentIndex(4);
+        tabWidget->setCurrentIndex(7);
 
 
         QMetaObject::connectSlotsByName(mainservice);
@@ -452,6 +473,14 @@ public:
         label_18->setText(QCoreApplication::translate("mainservice", "Event", nullptr));
         AddEvent->setText(QCoreApplication::translate("mainservice", "ADD", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_7), QCoreApplication::translate("mainservice", "Task Scheduling", nullptr));
+        pushButton_display_fire->setText(QCoreApplication::translate("mainservice", "display", nullptr));
+        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_3->horizontalHeaderItem(0);
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("mainservice", "DETECTION_TIME", nullptr));
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_3->horizontalHeaderItem(1);
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("mainservice", "STATUS", nullptr));
+        QTableWidgetItem *___qtablewidgetitem12 = tableWidget_3->horizontalHeaderItem(2);
+        ___qtablewidgetitem12->setText(QCoreApplication::translate("mainservice", "DURATION", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_8), QCoreApplication::translate("mainservice", "FLAME DETECTOR ", nullptr));
     } // retranslateUi
 
 };

@@ -17,14 +17,14 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>20</y>
       <width>1121</width>
       <height>591</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="tab_6">
      <attribute name="title">
@@ -977,6 +977,55 @@
       <property name="text">
        <string>ADD</string>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_8">
+     <attribute name="title">
+      <string>FLAME DETECTOR </string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton_display_fire">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>390</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>display</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>60</y>
+        <width>581</width>
+        <height>271</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>271</height>
+       </size>
+      </property>
+      <column>
+       <property name="text">
+        <string>DETECTION_TIME</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>STATUS</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>DURATION</string>
+       </property>
+      </column>
      </widget>
     </widget>
    </widget>

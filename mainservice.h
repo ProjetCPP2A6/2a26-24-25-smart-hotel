@@ -11,12 +11,17 @@
 #include <QMap>
 #include <QPair>
 #include <QDate>
+#include "arduino.h"
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class mainservice;
 }
 QT_END_NAMESPACE
+
+
 
 class mainservice : public QMainWindow
 {
@@ -25,9 +30,10 @@ class mainservice : public QMainWindow
 public:
     mainservice(QWidget *parent = nullptr);
     ~mainservice();
+    void insertFlameDetectedData();
+    void insertFlameExtinguishedData(double duration);
 private:
     QMap<QDate, QPair<QString, QString>> events;  // Declare the events map
-
     QCalendarWidget *calendarWidget;
     QLineEdit *lineEdit_eventName;
     QTextEdit *textEdit_description;
@@ -35,7 +41,18 @@ private:
     QLineEdit *lineEdit_search;
     QPushButton *btn_addEvent;
     QPushButton *btn_searchEvent;
+    QByteArray data;
+    QByteArray receivedData;
+    Arduino A;
+    QTimer *flameDetectionTimer;
+
+
+              // Timer for automatic flame detection
+
 private slots:
+    void update_label();
+
+
 
 
     void on_pushButton_ajouter_clicked();
@@ -83,6 +100,8 @@ private slots:
     void on_pushButton_exportpdf_clicked();
 
     void on_pushButton_Stat_clicked();
+
+    void on_pushButton_display_fire_clicked();
 
 private:
     Ui::mainservice *ui;

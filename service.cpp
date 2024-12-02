@@ -62,7 +62,8 @@ bool service::addServiceToDB() {
     QString res_cout = QString::number(cout);
 
     // Prepare the query with matching column names from the Services table
-    query.prepare("INSERT INTO Services (id_service, nom_service, etat, categorie, cout) VALUES (:id_service, :nom_service, :etat, :categorie, :cout)");
+    query.prepare("INSERT INTO \"PROJETCPP2A26\".\"SERVICES\" (\"ID_SERVICE\", \"NOM_SERVICE\", \"ETAT\", \"CATEGORIE\", \"COUT\") " "VALUES (:id_service, :nom_service, :etat, :categorie, :cout)");
+
 
     // Bind values to placeholders
     query.bindValue(":id_service", res_id_service);       // Using res_id_service for id_service
