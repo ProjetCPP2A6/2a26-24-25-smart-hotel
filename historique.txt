@@ -7,3 +7,11 @@
 2024-11-18 09:25:29 - Modification du transaction   de ID_TRANSACTION 41
 2024-11-18 09:48:49 - Recherche du TRANSACTIONS de ID:
 2024-11-18 09:50:05 - Recherche du TRANSACTIONS de ID:
+2024-11-18 11:37:01 - Recherche du TRANSACTIONS de ID:
+2024-11-18 12:09:10 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 43
+2024-11-18 12:43:55 - ajout du transaction  
+2024-11-18 14:04:56 - Recherche du TRANSACTIONS de ID:
+2024-11-18 14:22:26 - ajout du transaction  
+2024-11-18 14:58:31 - ajout du transaction  
+2024-11-18 15:00:57 - ajout du transaction  
+2024-11-18 15:07:01 - ajout du transaction  

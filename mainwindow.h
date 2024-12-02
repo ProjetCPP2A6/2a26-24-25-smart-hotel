@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "arduino.h"
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QLineEdit>
@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-     void clearFields();
+    void clearFields();
 
 private slots:
     void onLoginButtonClicked();
@@ -32,8 +32,6 @@ private slots:
     void showPage6();
     void showPage7();
     void on_addButton_clicked();
-
-
 
 
     void on_tableView_6_activated(const QModelIndex &index);
@@ -59,7 +57,14 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);
 
+    void on_pushButton_histo_clicked();
+
+    void on_sendButton_clicked();
+
+    void on_AJOUT_SERVICE_clicked();
+
 private:
+    Arduino A; // Instance d'Arduino
     Ui::MainWindow *ui;
     financier ETMP;
     financier f;

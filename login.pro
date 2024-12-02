@@ -1,14 +1,17 @@
-QT += core gui sql printsupport widgets charts multimedia
+QT += core gui sql printsupport widgets charts multimedia serialport
+
 
 CONFIG += c++17
 
 SOURCES += \
+    arduino.cpp \
     connexion.cpp \
     financier.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    arduino.h \
     connexion.h \
     financier.h \
     mainwindow.h

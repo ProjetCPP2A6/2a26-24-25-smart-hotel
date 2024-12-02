@@ -27,8 +27,8 @@ public:
     QDate getdate(){return dateTransaction ;}
     QString getdesc(){return desc ;}
     QString getmontant(){return montant ;}
-      QString gettype(){return type ;}
-      QString getmode(){return modePaiement ;}
+    QString gettype(){return type ;}
+    QString getmode(){return modePaiement ;}
     //setters
 
     void setdate(QDate date){dateTransaction=date;}
@@ -41,13 +41,17 @@ public:
     QSqlQueryModel *afficher();
     bool supprimer(int id);
     bool modifier_paiement();
-    QSqlQueryModel *tri_paiement();
+    QSqlQueryModel* tri_paiement(const QString& critere);
     bool PDF(const QString& fileName, QSqlQueryModel* model);
-    bool recherche(int id, QSqlQueryModel*& model);
-   void stat_paiement(QSqlQueryModel* model, QWidget* chartView);
+    bool recherche(int id, const QString& modePaiement, const QString& type, QSqlQueryModel*& model);
+    void stat_paiement(QSqlQueryModel* model, QWidget* chartView);
     void Historique(const QString &action,int IDD);
-   void History_recherche(const QString &action,int id);
+    void History_recherche(const QString &action,int id);
     void afficherHistorique();
+    void ouvrirHistorique();
+    void processIdPaiement();
+
+    void ajouterService(const QString& nomService) ;
 };
 
 #endif // FINANCIER_H

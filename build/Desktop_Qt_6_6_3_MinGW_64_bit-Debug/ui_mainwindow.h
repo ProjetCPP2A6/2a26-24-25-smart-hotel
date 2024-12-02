@@ -64,6 +64,9 @@ public:
     QPushButton *pushButton_17;
     QLabel *label_119;
     QDateEdit *dateEdit;
+    QLabel *label_133;
+    QLineEdit *lineEdit_SERVICE;
+    QPushButton *AJOUT_SERVICE;
     QWidget *tab;
     QPushButton *pushButton_76;
     QPushButton *tri;
@@ -85,6 +88,7 @@ public:
     QComboBox *comboBox_type_2;
     QLabel *label_132;
     QPushButton *PDF;
+    QPushButton *pushButton_histo;
     QWidget *tab_17;
     QLabel *label_127;
     QPushButton *pushButton_3;
@@ -92,6 +96,11 @@ public:
     QTableView *tableView_7;
     QLineEdit *lineEdit_IDSUPP;
     QPushButton *pushButton_delete;
+    QLabel *label_125;
+    QLabel *label_126;
+    QLabel *label_130;
+    QLineEdit *lineEdit_3;
+    QLineEdit *lineEdit_4;
     QWidget *tab_18;
     QPushButton *statistique;
     QWidget *chartView;
@@ -100,6 +109,8 @@ public:
     QPushButton *play_button;
     QPushButton *pause_button;
     QSlider *horizontalSlider;
+    QPushButton *pushButton_77;
+    QPushButton *sendButton;
     QWidget *page_2;
     QWidget *widget;
     QPushButton *pushButton_2;
@@ -617,7 +628,7 @@ public:
         pushButton_75->setGeometry(QRect(20, 390, 121, 31));
         tabWidget = new QTabWidget(page_7);
         tabWidget->setObjectName("tabWidget");
-        tabWidget->setGeometry(QRect(160, 50, 791, 571));
+        tabWidget->setGeometry(QRect(160, 40, 791, 571));
         tab_19 = new QWidget();
         tab_19->setObjectName("tab_19");
         label_120 = new QLabel(tab_19);
@@ -675,6 +686,16 @@ public:
         dateEdit = new QDateEdit(tab_19);
         dateEdit->setObjectName("dateEdit");
         dateEdit->setGeometry(QRect(190, 120, 151, 31));
+        label_133 = new QLabel(tab_19);
+        label_133->setObjectName("label_133");
+        label_133->setGeometry(QRect(130, 400, 181, 31));
+        label_133->setFont(font);
+        lineEdit_SERVICE = new QLineEdit(tab_19);
+        lineEdit_SERVICE->setObjectName("lineEdit_SERVICE");
+        lineEdit_SERVICE->setGeometry(QRect(360, 400, 191, 31));
+        AJOUT_SERVICE = new QPushButton(tab_19);
+        AJOUT_SERVICE->setObjectName("AJOUT_SERVICE");
+        AJOUT_SERVICE->setGeometry(QRect(160, 400, 161, 29));
         tabWidget->addTab(tab_19, QString());
         tab = new QWidget();
         tab->setObjectName("tab");
@@ -757,6 +778,9 @@ public:
         PDF = new QPushButton(tab);
         PDF->setObjectName("PDF");
         PDF->setGeometry(QRect(40, 170, 93, 29));
+        pushButton_histo = new QPushButton(tab);
+        pushButton_histo->setObjectName("pushButton_histo");
+        pushButton_histo->setGeometry(QRect(640, 170, 93, 29));
         tabWidget->addTab(tab, QString());
         tab_17 = new QWidget();
         tab_17->setObjectName("tab_17");
@@ -769,7 +793,7 @@ public:
         pushButton_3->setGeometry(QRect(40, 130, 93, 29));
         lineEdit_montant_search = new QLineEdit(tab_17);
         lineEdit_montant_search->setObjectName("lineEdit_montant_search");
-        lineEdit_montant_search->setGeometry(QRect(190, 120, 161, 41));
+        lineEdit_montant_search->setGeometry(QRect(190, 140, 161, 41));
         tableView_7 = new QTableView(tab_17);
         tableView_7->setObjectName("tableView_7");
         tableView_7->setGeometry(QRect(90, 200, 451, 111));
@@ -779,6 +803,21 @@ public:
         pushButton_delete = new QPushButton(tab_17);
         pushButton_delete->setObjectName("pushButton_delete");
         pushButton_delete->setGeometry(QRect(430, 40, 93, 29));
+        label_125 = new QLabel(tab_17);
+        label_125->setObjectName("label_125");
+        label_125->setGeometry(QRect(230, 110, 63, 20));
+        label_126 = new QLabel(tab_17);
+        label_126->setObjectName("label_126");
+        label_126->setGeometry(QRect(430, 110, 131, 20));
+        label_130 = new QLabel(tab_17);
+        label_130->setObjectName("label_130");
+        label_130->setGeometry(QRect(630, 100, 131, 21));
+        lineEdit_3 = new QLineEdit(tab_17);
+        lineEdit_3->setObjectName("lineEdit_3");
+        lineEdit_3->setGeometry(QRect(380, 150, 181, 31));
+        lineEdit_4 = new QLineEdit(tab_17);
+        lineEdit_4->setObjectName("lineEdit_4");
+        lineEdit_4->setGeometry(QRect(590, 150, 181, 31));
         tabWidget->addTab(tab_17, QString());
         tab_18 = new QWidget();
         tab_18->setObjectName("tab_18");
@@ -811,6 +850,12 @@ public:
         horizontalSlider->setMaximum(100);
         horizontalSlider->setValue(10);
         horizontalSlider->setOrientation(Qt::Orientation::Horizontal);
+        pushButton_77 = new QPushButton(tab_18);
+        pushButton_77->setObjectName("pushButton_77");
+        pushButton_77->setGeometry(QRect(600, 360, 131, 31));
+        sendButton = new QPushButton(tab_18);
+        sendButton->setObjectName("sendButton");
+        sendButton->setGeometry(QRect(380, 40, 93, 29));
         tabWidget->addTab(tab_18, QString());
         stackedWidget->addWidget(page_7);
         page_2 = new QWidget();
@@ -4218,7 +4263,7 @@ public:
         retranslateUi(MainWindow);
 
         stackedWidget->setCurrentIndex(1);
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         logistic->setCurrentIndex(0);
         employe->setCurrentIndex(3);
         reservation->setCurrentIndex(0);
@@ -4257,6 +4302,8 @@ public:
         addButton->setText(QCoreApplication::translate("MainWindow", "Ajouter", nullptr));
         pushButton_17->setText(QCoreApplication::translate("MainWindow", "Annuler", nullptr));
         label_119->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-style:italic; color:#cbb479;\">Ajouter une transaction</span></p></body></html>", nullptr));
+        label_133->setText(QString());
+        AJOUT_SERVICE->setText(QCoreApplication::translate("MainWindow", "AJOUTER SERVICE", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_19), QCoreApplication::translate("MainWindow", "insert", nullptr));
         pushButton_76->setText(QCoreApplication::translate("MainWindow", "rechercher", nullptr));
         tri->setText(QCoreApplication::translate("MainWindow", "Trier", nullptr));
@@ -4264,8 +4311,8 @@ public:
         comboBox_3->setItemText(1, QCoreApplication::translate("MainWindow", "Date de transaction", nullptr));
         comboBox_3->setItemText(2, QCoreApplication::translate("MainWindow", "Type", nullptr));
 
-        comboBox_4->setItemText(0, QCoreApplication::translate("MainWindow", "Montant", nullptr));
-        comboBox_4->setItemText(1, QCoreApplication::translate("MainWindow", "Type", nullptr));
+        comboBox_4->setItemText(0, QCoreApplication::translate("MainWindow", "TYPE", nullptr));
+        comboBox_4->setItemText(1, QCoreApplication::translate("MainWindow", "MONTANT", nullptr));
 
         label_118->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-style:italic; color:#cbb479;\">Liste des transactions</span></p><p><br/></p></body></html>", nullptr));
         label_131->setText(QCoreApplication::translate("MainWindow", "ID transaction", nullptr));
@@ -4282,16 +4329,22 @@ public:
 
         label_132->setText(QCoreApplication::translate("MainWindow", "Type", nullptr));
         PDF->setText(QCoreApplication::translate("MainWindow", "exportet PDF", nullptr));
+        pushButton_histo->setText(QCoreApplication::translate("MainWindow", "historique", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "affiche", nullptr));
         label_127->setText(QCoreApplication::translate("MainWindow", "ID transaction", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "search", nullptr));
         pushButton_delete->setText(QCoreApplication::translate("MainWindow", "delete", nullptr));
+        label_125->setText(QCoreApplication::translate("MainWindow", "id", nullptr));
+        label_126->setText(QCoreApplication::translate("MainWindow", "modePaiement", nullptr));
+        label_130->setText(QCoreApplication::translate("MainWindow", "type", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_17), QCoreApplication::translate("MainWindow", "delete", nullptr));
         statistique->setText(QCoreApplication::translate("MainWindow", "statistique", nullptr));
         FILE->setText(QCoreApplication::translate("MainWindow", "FILE_NAME", nullptr));
         FILE_NAME->setText(QString());
         play_button->setText(QString());
         pause_button->setText(QString());
+        pushButton_77->setText(QCoreApplication::translate("MainWindow", "listen_record", nullptr));
+        sendButton->setText(QCoreApplication::translate("MainWindow", "send", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_18), QCoreApplication::translate("MainWindow", "statistique", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "Gestion de service", nullptr));
         pushButton_15->setText(QCoreApplication::translate("MainWindow", "Gestion de logistique ", nullptr));

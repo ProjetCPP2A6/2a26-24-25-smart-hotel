@@ -19,6 +19,8 @@
 #include<QtMultimedia>
 #include <QMediaPlayer>
 #include <QUrl>
+#include "arduino.h"
+#include <QSqlError>
 
 
 #include <QDialog>
@@ -26,19 +28,30 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-     ui->tableView_6->setModel(ETMP.afficher());
+    ui->tableView_6->setModel(ETMP.afficher());
 
     M_PLAYER=new QMediaPlayer();
 
-     ui->play_button->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
-     ui->pause_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+    ui->play_button->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+    ui->pause_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    switch(ret){
+    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        break;
+    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+        break;
+    case(-1):qDebug() << "arduino is not available";
+    }
 
 
 
-     connect(M_PLAYER, &QMediaPlayer::positionChanged, ui->horizontalSlider, &QSlider::setValue);
-     connect(M_PLAYER, &QMediaPlayer::durationChanged, ui->horizontalSlider, &QSlider::setMaximum);
+    connect(ui->sendButton, &QPushButton::clicked, this, &MainWindow::on_sendButton_clicked);
 
-     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::onLoginButtonClicked);
+    connect(M_PLAYER, &QMediaPlayer::positionChanged, ui->horizontalSlider, &QSlider::setValue);
+    connect(M_PLAYER, &QMediaPlayer::durationChanged, ui->horizontalSlider, &QSlider::setMaximum);
+
+    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::onLoginButtonClicked);
 
 
     stackedWidget = ui->stackedWidget;
@@ -263,7 +276,7 @@ void MainWindow::on_modifier_button_clicked()
         if (!desc.isEmpty()) ui->lineEdit_modifDESC->clear();
         if (!type.isEmpty()) ui->comboBox_type_2->setCurrentText("");
         if (!modePaiement.isEmpty()) ui->comboBox_mode_2->setCurrentText("");
-         if (dateTransaction.isValid()) ui->dateEdit_2->clear();
+        if (dateTransaction.isValid()) ui->dateEdit_2->clear();
 
     }
 }
@@ -271,8 +284,13 @@ void MainWindow::on_modifier_button_clicked()
 
 void MainWindow::on_tri_clicked()
 {
-    ui->tableView_6->setModel(ETMP.tri_paiement());
+    // Récupérer la valeur sélectionnée dans comboBox_4
+    QString critere = ui->comboBox_4->currentText();
+
+    // Rafraîchir la table avec les données triées selon le critère choisi
+    ui->tableView_6->setModel(ETMP.tri_paiement(critere));
 }
+
 
 
 
@@ -282,122 +300,173 @@ void MainWindow::on_tri_clicked()
 void MainWindow::on_PDF_clicked()
 {
 
-        QString fileName = QFileDialog::getSaveFileName(this, "Exporter en PDF", "", "Fichiers PDF (*.pdf)");
-        if (!fileName.isEmpty()) {
-            financier f;
-            QSqlQueryModel* model = f.afficher();
-            // Ajoutez des instructions de débogage pour afficher le contenu du modèle
-            qDebug() << "Nombre de lignes dans le modèle :" << model->rowCount();
-            qDebug() << "Nombre de colonnes dans le modèle :" << model->columnCount();
-            for (int row = 0; row < model->rowCount(); ++row) {
-                QString rowData;
-                for (int column = 0; column < model->columnCount(); ++column) {
-                    QModelIndex index = model->index(row, column);
-                    rowData += model->data(index).toString() + "\t";
-                }
-                qDebug() << "Ligne " << row << ":" << rowData;
+    QString fileName = QFileDialog::getSaveFileName(this, "Exporter en PDF", "", "Fichiers PDF (*.pdf)");
+    if (!fileName.isEmpty()) {
+        financier f;
+        QSqlQueryModel* model = f.afficher();
+        // Ajoutez des instructions de débogage pour afficher le contenu du modèle
+        qDebug() << "Nombre de lignes dans le modèle :" << model->rowCount();
+        qDebug() << "Nombre de colonnes dans le modèle :" << model->columnCount();
+        for (int row = 0; row < model->rowCount(); ++row) {
+            QString rowData;
+            for (int column = 0; column < model->columnCount(); ++column) {
+                QModelIndex index = model->index(row, column);
+                rowData += model->data(index).toString() + "\t";
             }
-            if (f.PDF(fileName, model)) {
-                QMessageBox::information(this, "Exportation PDF", "Les données ont été exportées en PDF avec succès !");
-            } else {
-                QMessageBox::warning(this, "Exportation PDF", "Échec de l'exportation en PDF.");
-            }
+            qDebug() << "Ligne " << row << ":" << rowData;
         }
-
-    }
-
-
-
-
-
-
-
-
-    void MainWindow::on_pushButton_3_clicked()
-    {financier f;
-        int id = ui->lineEdit_montant_search->text().toInt();
-        QSqlQueryModel* searchResultModel = nullptr;
-        bool test = f.recherche(id, searchResultModel);
-
-        if (test) {
-            if (searchResultModel && searchResultModel->rowCount() > 0) {
-                ui->tableView_7->setModel(searchResultModel);
-            } else {
-                QMessageBox::information(this, "Information", "Aucun transaction"
-                                                              " trouvé avec ce id.");
-                ui->tableView_7->setModel(nullptr);
-            }
+        if (f.PDF(fileName, model)) {
+            QMessageBox::information(this, "Exportation PDF", "Les données ont été exportées en PDF avec succès !");
         } else {
-
-            QMessageBox::critical(this, "Information", "La recherche du transaction a échoué.");
-        }
-        clearFields();
-    }
-
-
-
-
-
-
-
-
-
-    void MainWindow::on_statistique_clicked()
-    {
-
-        QSqlQueryModel *model = f.afficher();
-        f.stat_paiement(model, ui->chartView);
-
-    }
-
-
-    void MainWindow::on_pushButton_delete_clicked()
-    {
-        int id = ui->lineEdit_IDSUPP->text().toInt();
-        bool test = ETMP.supprimer(id); // Suppression de la transaction
-
-        if (test) {
-
-            QMessageBox::information(nullptr, QObject::tr("OK"), QObject::tr("Suppression effectuée et ."), QMessageBox::Cancel);
-
-
-            // Actualiser la vue
-            ui->tableView_6->setModel(ETMP.afficher());
-        } else {
-            QMessageBox::critical(nullptr, QObject::tr("Erreur"), QObject::tr("Suppression non effectuée."), QMessageBox::Cancel);
-        }
-
-        clearFields();
-    }
-
-    void MainWindow::on_play_button_clicked()
-    {
-        QString fileName = QFileDialog::getOpenFileName(this, tr("Sélectionnez un fichier audio"), "", tr("Fichiers MP3 (*.mp3)"));
-
-        if (!fileName.isEmpty()) {
-            // Définir la source média
-            M_PLAYER->setSource(QUrl::fromLocalFile(fileName));
-
-            // Configurez une sortie audio
-            QAudioOutput *audioOutput = new QAudioOutput(this);
-            M_PLAYER->setAudioOutput(audioOutput);
-            audioOutput->setVolume(0.5); // Réglez le volume à 50%
-
-            // Lecture immédiate
-            M_PLAYER->play();
+            QMessageBox::warning(this, "Exportation PDF", "Échec de l'exportation en PDF.");
         }
     }
 
-    void MainWindow::on_pause_button_clicked()
-    {
-        if (M_PLAYER->playbackState() == QMediaPlayer::PlayingState) {
-            M_PLAYER->pause();
-        } else if (M_PLAYER->playbackState() == QMediaPlayer::PausedState) {
-            M_PLAYER->play();
-        }
+}
+
+
+
+
+
+
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    financier f;
+
+    // Récupérer les valeurs des champs
+    int id = ui->lineEdit_montant_search->text().toInt();
+    QString modePaiement = ui->lineEdit_3->text();
+    QString type = ui->lineEdit_4->text();
+
+    // Rafraîchir la table avant de faire une recherche
+    ui->tableView_7->setModel(nullptr);
+
+    QSqlQueryModel* searchResultModel = nullptr;
+
+    // Appeler la méthode de recherche
+    bool test = f.recherche(id, modePaiement, type, searchResultModel);
+
+    if (test) {
+        ui->tableView_7->setModel(searchResultModel); // Afficher les résultats
+    }
+}
+
+
+
+
+
+
+
+void MainWindow::on_statistique_clicked()
+{
+
+    QSqlQueryModel *model = f.afficher();
+    f.stat_paiement(model, ui->chartView);
+
+}
+
+
+void MainWindow::on_pushButton_delete_clicked()
+{
+    int id = ui->lineEdit_IDSUPP->text().toInt();
+    bool test = ETMP.supprimer(id); // Suppression de la transaction
+
+    if (test) {
+
+        QMessageBox::information(nullptr, QObject::tr("OK"), QObject::tr("Suppression effectuée et ."), QMessageBox::Cancel);
+
+
+        // Actualiser la vue
+        ui->tableView_6->setModel(ETMP.afficher());
+    } else {
+        QMessageBox::critical(nullptr, QObject::tr("Erreur"), QObject::tr("Suppression non effectuée."), QMessageBox::Cancel);
     }
 
-    void MainWindow::on_horizontalSlider_valueChanged(int value)
-    {
-        M_PLAYER->setPosition(value);
+    clearFields();
+}
+
+void MainWindow::on_play_button_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Sélectionnez un fichier audio"), "", tr("Fichiers MP3 (*.mp3)"));
+
+    if (!fileName.isEmpty()) {
+        // Définir la source média
+        M_PLAYER->setSource(QUrl::fromLocalFile(fileName));
+
+        // Configurez une sortie audio
+        QAudioOutput *audioOutput = new QAudioOutput(this);
+        M_PLAYER->setAudioOutput(audioOutput);
+        audioOutput->setVolume(0.5); // Réglez le volume à 50%
+
+        // Lecture immédiate
+        M_PLAYER->play();
     }
+}
+
+void MainWindow::on_pause_button_clicked()
+{
+    if (M_PLAYER->playbackState() == QMediaPlayer::PlayingState) {
+        M_PLAYER->pause();
+    } else if (M_PLAYER->playbackState() == QMediaPlayer::PausedState) {
+        M_PLAYER->play();
+    }
+}
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    M_PLAYER->setPosition(value);
+}
+
+
+
+
+
+
+void MainWindow::on_pushButton_histo_clicked()
+{
+    QString filePath = "C:/Users/eleuc/OneDrive/Bureau/lundi 2/lundi 2/login/historique.txt";
+    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
+}
+
+
+void MainWindow::on_sendButton_clicked()
+{
+    // Créer un objet de requête
+    QSqlQuery query;
+
+    // Définir la requête SQL
+    QString sql = "SELECT NOM_SERVICE FROM SERVICES WHERE NOM_SERVICE = 'restaurant'";
+
+    // Exécuter la requête
+    if (!query.exec(sql)) {
+        qDebug() << "Error: Failed to execute query -" << query.lastError().text();
+        return; // Si la requête échoue, on arrête la fonction ici
+    }
+
+    // Si la requête est exécutée avec succès, récupérer le résultat
+    QString nom_service;  // Variable pour stocker le nom du service
+
+    // Vérifier si une ligne a été récupérée
+    if (query.next()) {
+        nom_service = query.value(0).toString() + " open 7-10am,12-16";  // Récupérer la valeur du premier champ (nom du service)
+    }
+
+    // Si le nom du service a été récupéré, l'envoyer à l'Arduino
+    if (!nom_service.isEmpty()) {
+        // Convertir la chaîne en QByteArray et envoyer à l'Arduino
+        A.write_to_arduino(QByteArray::fromStdString(nom_service.toStdString()));
+    } else {
+        qDebug() << "Erreur : Aucun service trouvé.";
+    }
+}
+
+void MainWindow::on_AJOUT_SERVICE_clicked()
+{
+     QString nomService = ui->lineEdit_SERVICE->text();
+     f.ajouterService(nomService);
+}
+
+
+

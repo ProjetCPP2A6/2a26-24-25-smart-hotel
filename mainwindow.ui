@@ -290,13 +290,13 @@ border-bottom:2px solid white;
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>50</y>
+        <y>40</y>
         <width>791</width>
         <height>571</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_19">
        <attribute name="title">
@@ -508,6 +508,47 @@ border-bottom:2px solid white;
          </rect>
         </property>
        </widget>
+       <widget class="QLabel" name="label_133">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>400</y>
+          <width>181</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_SERVICE">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>400</y>
+          <width>191</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="AJOUT_SERVICE">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>400</y>
+          <width>161</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>AJOUTER SERVICE</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -575,12 +616,12 @@ border-bottom:2px solid white;
         </property>
         <item>
          <property name="text">
-          <string>Montant</string>
+          <string>TYPE</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Type</string>
+          <string>MONTANT</string>
          </property>
         </item>
        </widget>
@@ -831,6 +872,19 @@ border-bottom:2px solid white;
          <string>exportet PDF</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButton_histo">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>170</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>historique</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_17">
        <attribute name="title">
@@ -872,7 +926,7 @@ border-bottom:2px solid white;
         <property name="geometry">
          <rect>
           <x>190</x>
-          <y>120</y>
+          <y>140</y>
           <width>161</width>
           <height>41</height>
          </rect>
@@ -909,6 +963,65 @@ border-bottom:2px solid white;
         </property>
         <property name="text">
          <string>delete</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_125">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>110</y>
+          <width>63</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>id</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_126">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>110</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>modePaiement</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_130">
+        <property name="geometry">
+         <rect>
+          <x>630</x>
+          <y>100</y>
+          <width>131</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>type</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>150</y>
+          <width>181</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_4">
+        <property name="geometry">
+         <rect>
+          <x>590</x>
+          <y>150</y>
+          <width>181</width>
+          <height>31</height>
+         </rect>
         </property>
        </widget>
       </widget>
@@ -1017,6 +1130,32 @@ border-bottom:2px solid white;
         </property>
         <property name="orientation">
          <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_77">
+        <property name="geometry">
+         <rect>
+          <x>600</x>
+          <y>360</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>listen_record</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="sendButton">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>40</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>send</string>
         </property>
        </widget>
       </widget>
