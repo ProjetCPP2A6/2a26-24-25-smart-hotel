@@ -3,13 +3,31 @@
 #include "materiel.h"
 #include <QMessageBox>
 #include <QtCharts>
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+#include <arduino.h>
+#include <QWidget>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include <QDebug>
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    int ret=A.connectArduino();
+    switch (ret) {
+        case -1:
+            qDebug() << "arduino is available and connected to " << A.getArduinoPortName();
+            break;
+        case 0:
+            qDebug() << "arduino is available but not connected to " << A.getArduinoPortName();
+            break;
+        default:
+            qDebug() << "arduino is not available";
+            break;
+    }
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label())); // permet de lancer le slot update_label suite à la réception du signal readyRead (réception des données).
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -125,6 +143,11 @@ void MainWindow::on_pushButton_5_clicked()
        Materiel m;
        ui->tableView_2->setModel(m.tri1());
    }
+   else if(option=="type")
+   {
+       Materiel m;
+       ui->tableView_2->setModel(m.tri3());
+   }
    else
    {
        Materiel m;
@@ -134,9 +157,26 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    QString id = ui->etat_2->text();
-    Materiel m;
-    ui->tableView_2->setModel(m.rechercher(id));
+    QString text = ui->comboBox->currentText();
+    if(text=="id")
+    {
+        QString id = ui->etat_2->text();
+        Materiel m;
+        ui->tableView_2->setModel(m.rechercher(id));
+    }
+    else if(text=="type")
+    {
+        QString type = ui->etat_2->text();
+        Materiel m;
+        ui->tableView_2->setModel(m.rechercher1(type));
+    }
+    else
+    {
+        QString etat = ui->etat_2->text();
+        Materiel m;
+        ui->tableView_2->setModel(m.rechercher2(etat));
+    }
+
 }
 
 void MainWindow::on_pushButton_7_clicked()
@@ -144,14 +184,30 @@ void MainWindow::on_pushButton_7_clicked()
     QSqlQuery query;
     query.exec("SELECT ETAT, COUNT(*) FROM MATERIELS GROUP BY ETAT");
 
-    QtCharts::QPieSeries *series = new QtCharts::QPieSeries();
+    // Step 1: Calculate the total count
+    int total = 0;
+    QList<QPair<QString, int>> data; // To store ETAT and count temporarily
     while (query.next()) {
         QString ETAT = query.value(0).toString();
         int count = query.value(1).toInt();
-        QtCharts::QPieSlice *slice = new QtCharts::QPieSlice(ETAT, count);
+        total += count;
+        data.append(qMakePair(ETAT, count));
+    }
+
+    // Step 2: Create the series with percentage labels
+    QtCharts::QPieSeries *series = new QtCharts::QPieSeries();
+    for (const auto &entry : data) {
+        QString ETAT = entry.first;
+        int count = entry.second;
+        double percentage = (static_cast<double>(count) / total) * 100.0;
+
+        // Add slice with percentage in the label
+        QtCharts::QPieSlice *slice = new QtCharts::QPieSlice(
+            QString("%1 (%2%)").arg(ETAT).arg(QString::number(percentage, 'f', 1)), count);
         series->append(slice);
     }
 
+    // Step 3: Create and display the chart
     QtCharts::QChart *chart = new QtCharts::QChart();
     chart->addSeries(series);
     chart->setTitle("Statistics based on MATERIELS ETAT");
@@ -162,73 +218,144 @@ void MainWindow::on_pushButton_7_clicked()
     chartView->setParent(ui->tableView);
     chartView->resize(ui->tableView->size());
     chartView->show();
+
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    QPdfWriter pdf("C:/Users/HP/OneDrive/Bureau/materiels/materiel.pdf");
+    QString type = ui->comboBox_2->currentText();
+    if(type=="fonctionnel")
+    {
+        QPdfWriter pdf("C:/Users/HP/OneDrive/Bureau/materiels/materiel.pdf");
 
-           QPainter painter(&pdf);
-           int i = 4100;
+               QPainter painter(&pdf);
+               int i = 4100;
 
-                  QColor dateColor(0x4a5bcf);
-                  painter.setPen(dateColor);
+                      QColor dateColor(0x4a5bcf);
+                      painter.setPen(dateColor);
 
-                  painter.setFont(QFont("Montserrat SemiBold", 11));
-                  QDate cd = QDate::currentDate();
-                  painter.drawText(7700,250,cd.toString("Ariana, El Ghazela"));
-                  painter.drawText(8100,500,cd.toString("dd/MM/yyyy"));
+                      painter.setFont(QFont("Montserrat SemiBold", 11));
+                      QDate cd = QDate::currentDate();
+                      painter.drawText(7700,250,cd.toString("Ariana, El Ghazela"));
+                      painter.drawText(8100,500,cd.toString("dd/MM/yyyy"));
 
-                  QColor titleColor(0x341763);
-                  painter.setPen(titleColor);
-                  painter.setFont(QFont("Montserrat SemiBold", 25));
+                      QColor titleColor(0x341763);
+                      painter.setPen(titleColor);
+                      painter.setFont(QFont("Montserrat SemiBold", 25));
 
-                  painter.drawText(3000,2700,"Liste des materiels");
+                      painter.drawText(3000,2700,"Liste des materiels");
 
-                  painter.setPen(Qt::black);
-                  painter.setFont(QFont("Time New Roman", 15));
-                  //painter.drawRect(100,100,9400,2500);
-                  painter.drawRect(100,3300,9400,500);
+                      painter.setPen(Qt::black);
+                      painter.setFont(QFont("Time New Roman", 15));
+                      //painter.drawRect(100,100,9400,2500);
+                      painter.drawRect(100,3300,9400,500);
 
-                  painter.setFont(QFont("Montserrat SemiBold", 10));
-                              painter.drawText(300,3600,"id_materiel");
-                              painter.drawText(2000,3600,"nom");
-                              painter.drawText(3000,3600,"type");
-                              painter.drawText(4000,3600,"quantite");
-                              painter.drawText(5000,3600,"etat");
-                              painter.drawText(7000,3600,"date_acquisition");
-                              painter.drawText(9000,3600,"id_employe");
-                  painter.setFont(QFont("Montserrat", 10));
-                  painter.drawRect(100,3300,9400,9000);
+                      painter.setFont(QFont("Montserrat SemiBold", 10));
+                                  painter.drawText(300,3600,"id_materiel");
+                                  painter.drawText(2000,3600,"nom");
+                                  painter.drawText(3000,3600,"type");
+                                  painter.drawText(4000,3600,"quantite");
+                                  painter.drawText(5000,3600,"etat");
+                                  painter.drawText(7000,3600,"date_acquisition");
+                                  painter.drawText(9000,3600,"id_employe");
+                      painter.setFont(QFont("Montserrat", 10));
+                      painter.drawRect(100,3300,9400,9000);
 
-                  QSqlQuery query;
-                  query.prepare("select * from MATERIELS");
-                  query.exec();
-                  int y=4300;
-                  while (query.next())
-                  {
-                      painter.drawLine(100,y,9490,y);
-                      y+=500;
-                      painter.drawText(300,i,query.value(0).toString());
-                          painter.drawText(2000,i,query.value(1).toString());
-                          painter.drawText(3000,i,query.value(2).toString());
-                          painter.drawText(4000,i,query.value(3).toString());
-                          painter.drawText(5000,i,query.value(4).toString());
-                          painter.drawText(7000,i,query.value(5).toString());
-                          painter.drawText(9000,i,query.value(6).toString());
-                     i = i + 500;
-                  }
+                      QSqlQuery query;
+                      query.prepare("select * from MATERIELS where etat='fonctionnel'");
+                      query.exec();
+                      int y=4300;
+                      while (query.next())
+                      {
+                          painter.drawLine(100,y,9490,y);
+                          y+=500;
+                          painter.drawText(300,i,query.value(0).toString());
+                              painter.drawText(2000,i,query.value(1).toString());
+                              painter.drawText(3000,i,query.value(2).toString());
+                              painter.drawText(4000,i,query.value(3).toString());
+                              painter.drawText(5000,i,query.value(4).toString());
+                              painter.drawText(7000,i,query.value(5).toString());
+                              painter.drawText(9000,i,query.value(6).toString());
+                         i = i + 500;
+                      }
 
-                  int reponse = QMessageBox::question(this, "Génerer PDF", "PDF Enregistré.\nVous voulez l'affichez ?", QMessageBox::Yes |  QMessageBox::No);
-                  if (reponse == QMessageBox::Yes)
-                  {
-                      QDesktopServices::openUrl( QUrl::fromLocalFile("C:/Users/HP/OneDrive/Bureau/materiels/materiel.pdf"));
-                      painter.end();
-                  }
-                  else
-                  {
-                      painter.end();
-                  }
+                      int reponse = QMessageBox::question(this, "Génerer PDF", "PDF Enregistré.\nVous voulez l'affichez ?", QMessageBox::Yes |  QMessageBox::No);
+                      if (reponse == QMessageBox::Yes)
+                      {
+                          QDesktopServices::openUrl( QUrl::fromLocalFile("C:/Users/HP/OneDrive/Bureau/materiels/materiel.pdf"));
+                          painter.end();
+                      }
+                      else
+                      {
+                          painter.end();
+                      }
+    }
+    else{
+        QPdfWriter pdf("C:/Users/HP/OneDrive/Bureau/materiels/materiel.pdf");
+
+               QPainter painter(&pdf);
+               int i = 4100;
+
+                      QColor dateColor(0x4a5bcf);
+                      painter.setPen(dateColor);
+
+                      painter.setFont(QFont("Montserrat SemiBold", 11));
+                      QDate cd = QDate::currentDate();
+                      painter.drawText(7700,250,cd.toString("Ariana, El Ghazela"));
+                      painter.drawText(8100,500,cd.toString("dd/MM/yyyy"));
+
+                      QColor titleColor(0x341763);
+                      painter.setPen(titleColor);
+                      painter.setFont(QFont("Montserrat SemiBold", 25));
+
+                      painter.drawText(3000,2700,"Liste des materiels");
+
+                      painter.setPen(Qt::black);
+                      painter.setFont(QFont("Time New Roman", 15));
+                      //painter.drawRect(100,100,9400,2500);
+                      painter.drawRect(100,3300,9400,500);
+
+                      painter.setFont(QFont("Montserrat SemiBold", 10));
+                                  painter.drawText(300,3600,"id_materiel");
+                                  painter.drawText(2000,3600,"nom");
+                                  painter.drawText(3000,3600,"type");
+                                  painter.drawText(4000,3600,"quantite");
+                                  painter.drawText(5000,3600,"etat");
+                                  painter.drawText(7000,3600,"date_acquisition");
+                                  painter.drawText(9000,3600,"id_employe");
+                      painter.setFont(QFont("Montserrat", 10));
+                      painter.drawRect(100,3300,9400,9000);
+
+                      QSqlQuery query;
+                      query.prepare("select * from MATERIELS where etat='non fonctionnel'");
+                      query.exec();
+                      int y=4300;
+                      while (query.next())
+                      {
+                          painter.drawLine(100,y,9490,y);
+                          y+=500;
+                          painter.drawText(300,i,query.value(0).toString());
+                              painter.drawText(2000,i,query.value(1).toString());
+                              painter.drawText(3000,i,query.value(2).toString());
+                              painter.drawText(4000,i,query.value(3).toString());
+                              painter.drawText(5000,i,query.value(4).toString());
+                              painter.drawText(7000,i,query.value(5).toString());
+                              painter.drawText(9000,i,query.value(6).toString());
+                         i = i + 500;
+                      }
+
+                      int reponse = QMessageBox::question(this, "Génerer PDF", "PDF Enregistré.\nVous voulez l'affichez ?", QMessageBox::Yes |  QMessageBox::No);
+                      if (reponse == QMessageBox::Yes)
+                      {
+                          QDesktopServices::openUrl( QUrl::fromLocalFile("C:/Users/HP/OneDrive/Bureau/materiels/materiel.pdf"));
+                          painter.end();
+                      }
+                      else
+                      {
+                          painter.end();
+                      }
+    }
+
 }
 
 void MainWindow::on_pushButton_8_clicked()
@@ -258,7 +385,7 @@ bool MainWindow::insertImageIntoDatabase(const QByteArray& imageData,QString ID)
 
        // Prepare SQL query
        QSqlQuery query;
-       query.prepare("UPDATE materiels SET image = :imageData WHERE ID_materiel = :id");
+       query.prepare("UPDATE MATERIELS SET IMAGE = :imageData WHERE ID_materiel = :id");
        query.bindValue(":imageData", imageData);
        query.bindValue(":id", ID);
        // Execute the query
@@ -278,7 +405,7 @@ void MainWindow::on_pushButton_9_clicked()
 
        // Prepare SQL query to retrieve image data based on ID
        QSqlQuery query;
-       query.prepare("SELECT image FROM materiels WHERE ID_materiel = :id");
+       query.prepare("SELECT IMAGE FROM MATERIELS WHERE ID_MATERIEL = :id");
        query.bindValue(":id", ID);
 
        // Execute the query
@@ -309,7 +436,7 @@ void MainWindow::on_pushButton_9_clicked()
 void MainWindow::on_pushButton_10_clicked()
 {
     QSqlQuery query;
-       query.prepare("SELECT SUM(cout_rep) FROM materiels where etat='non fonctionnel'");
+       query.prepare("SELECT SUM(COUT_REP) FROM MATERIELS where etat='non fonctionnel'");
 
        // Execute the query
        if (query.exec()) {
@@ -323,13 +450,21 @@ void MainWindow::on_pushButton_10_clicked()
            QMessageBox::critical(this, "Error", "Failed to execute query: ");
        }
 }
+void MainWindow::handleArduinoData()
+{
+    QString data = A.readFromArduino();  // Lecture des données de l'Arduino
+    QString message = QString(data).trimmed();  // Enlever les espaces blancs ou nouvelles lignes
+
+    if (message == "OPEN") {
+        ui->statusbar->showMessage("Bienvenue ! La barrière est ouverte.");
+    }}
 
 void MainWindow::on_ajouterMateriel_2_clicked()
 {
     QString cout = ui->etat_3->text();
     QString id = ui->id->text();
     QSqlQuery query;
-       query.prepare("UPDATE MATERIELS SET COUT_REP=:cout where id_materiel=:id");
+       query.prepare("UPDATE MATERIELS SET COUT_REP=:cout where ID_MATERIEL=:id");
        query.bindValue(":id",id);
        query.bindValue(":cout",cout);
        // Execute the query
@@ -341,4 +476,21 @@ void MainWindow::on_ajouterMateriel_2_clicked()
             QMessageBox::information(this, "error", "error ");
        }
 
+
+
+           if (A.connectArduino() == 0) {
+               qDebug() << "Arduino connecté sur" << A.getArduinoPortName();
+               QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(updatelabel()));
+           } else {
+               qDebug() << "Impossible de connecter Arduino";
+               QMessageBox::critical(this, "Erreur", "Impossible de connecter Arduino");
+           }
+       }
+void MainWindow::on_arduinoafficher_clicked(){
+
+    A.writeToArduino("1");
 }
+void MainWindow::on_closearduino_clicked(){
+    A.writeToArduino("0");
+}
+

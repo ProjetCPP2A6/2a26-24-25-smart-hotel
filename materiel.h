@@ -49,7 +49,10 @@ public:
     QSqlQueryModel *afficher();
     QSqlQueryModel *tri1();
     QSqlQueryModel *tri2();
+    QSqlQueryModel *tri3();
     QSqlQueryModel * rechercher(QString id);
+    QSqlQueryModel * rechercher1(QString id);
+    QSqlQueryModel * rechercher2(QString id);
 };
 
 #endif // MATERIEL_H

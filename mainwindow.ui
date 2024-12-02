@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>911</width>
+      <width>931</width>
       <height>751</height>
      </rect>
     </property>
@@ -233,8 +233,8 @@
      <widget class="QComboBox" name="tri">
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>350</y>
+        <x>640</x>
+        <y>440</y>
         <width>121</width>
         <height>22</height>
        </rect>
@@ -246,6 +246,11 @@
       </item>
       <item>
        <property name="text">
+        <string>type</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
         <string>date_acquisition</string>
        </property>
       </item>
@@ -253,8 +258,8 @@
      <widget class="QPushButton" name="pushButton_5">
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>300</y>
+        <x>770</x>
+        <y>440</y>
         <width>93</width>
         <height>28</height>
        </rect>
@@ -266,7 +271,7 @@
      <widget class="QLineEdit" name="etat_2">
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>440</x>
         <y>340</y>
         <width>113</width>
         <height>22</height>
@@ -276,7 +281,7 @@
      <widget class="QPushButton" name="pushButton_6">
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>560</x>
         <y>340</y>
         <width>93</width>
         <height>28</height>
@@ -289,8 +294,8 @@
      <widget class="QPushButton" name="pushButton_7">
       <property name="geometry">
        <rect>
-        <x>620</x>
-        <y>0</y>
+        <x>730</x>
+        <y>10</y>
         <width>151</width>
         <height>28</height>
        </rect>
@@ -302,18 +307,18 @@
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
-        <x>475</x>
+        <x>435</x>
         <y>51</y>
-        <width>291</width>
-        <height>231</height>
+        <width>481</width>
+        <height>251</height>
        </rect>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>0</y>
+        <x>580</x>
+        <y>10</y>
         <width>151</width>
         <height>28</height>
        </rect>
@@ -382,6 +387,77 @@
       </property>
       <property name="text">
        <string>add cout</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>352</x>
+        <y>340</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>id</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>type</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>etat</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="comboBox_2">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>10</y>
+        <width>121</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>fonctionnel</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>non fonctionnel</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="arduinoafficher">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>430</y>
+        <width>81</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>OPEN</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="closearduino">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>430</y>
+        <width>81</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CLOSE</string>
       </property>
      </widget>
     </widget>
