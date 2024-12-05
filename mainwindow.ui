@@ -17,18 +17,21 @@
    <widget class="QTabWidget" name="statistique">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>40</y>
       <width>1191</width>
       <height>641</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Ajouter</string>
+      <string>Acceuil</string>
      </attribute>
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
@@ -40,18 +43,8 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton {
-    font-size: 16px; 
-    color: #00207F;
-    background-color: #B4A9D5; /* Couleur plus douce pour l'état normal */
-    border: 2px solid blue;
-    border-radius: 10px; 
-}
-
-QPushButton:pressed {
-    background-color: #7C73BB; /* Couleur au clic */
-}
-</string>
+       <string notr="true">
+    background-color:rgb(185, 213, 255)</string>
       </property>
       <property name="title">
        <string>Ajouter réservation</string>
@@ -64,6 +57,9 @@ QPushButton:pressed {
          <width>141</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="text">
         <string>Id du client </string>
@@ -362,6 +358,10 @@ QPushButton:pressed {
          <height>20</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font: 9pt &quot;Led Italic Font&quot;;
+font: 700 9pt &quot;Segoe UI&quot;;</string>
+       </property>
        <property name="text">
         <string>Id de la réservation</string>
        </property>
@@ -437,15 +437,14 @@ QPushButton:pressed {
        <string notr="true">QPushButton {
     font-size: 16px; 
     color: #00207F;
-    background-color: #B4A9D5; /* Couleur plus douce pour l'état normal */
+    background-color: #DEDFF5; 
     border: 2px solid blue;
     border-radius: 10px; 
 }
 
 QPushButton:pressed {
     background-color: #7C73BB; /* Couleur au clic */
-}
-</string>
+}</string>
       </property>
       <property name="text">
        <string>Rechercher</string>
@@ -498,6 +497,19 @@ QPushButton:pressed {
         <height>29</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
+      </property>
       <property name="text">
        <string>Trier</string>
       </property>
@@ -520,6 +532,19 @@ QPushButton:pressed {
         <width>93</width>
         <height>29</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 16px; 
+    color: #00207F;
+    background-color: #DEDFF5; 
+    border: 2px solid blue;
+    border-radius: 10px; 
+}
+
+QPushButton:pressed {
+    background-color: #7C73BB; /* Couleur au clic */
+}</string>
       </property>
       <property name="text">
        <string>supprimer</string>
@@ -580,8 +605,8 @@ QPushButton:pressed {
      <widget class="QLabel" name="label1">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>10</y>
+        <x>490</x>
+        <y>0</y>
         <width>171</width>
         <height>21</height>
        </rect>
@@ -628,7 +653,7 @@ QPushButton:pressed {
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Page</string>
+      <string>fonctionalités</string>
      </attribute>
      <widget class="QPushButton" name="pushButton_statistiques">
       <property name="geometry">

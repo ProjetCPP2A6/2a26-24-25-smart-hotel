@@ -33,15 +33,16 @@ MainWindow::MainWindow(QWidget *parent)
         // Initialiser la tableView avec les données de la base de données
         rafraichirTable();
         // Connexion à Arduino
-        if (arduino.connect_arduino() == 0) {
+        arduino = new Arduino();  // Assurez-vous d'initialiser l'objet Arduino
+        if (arduino->connect_arduino() == 0) {
             qDebug() << "Arduino connecté!";
         } else {
             qDebug() << "Échec de la connexion à Arduino";
+            QMessageBox::critical(this, "Erreur", "Échec de la connexion à Arduino.");
         }
 
         // Lancer la lecture périodique des données
         setupTimer();
-
     }
 
     // Connexion des boutons à leurs slots
@@ -62,6 +63,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     db.close();
+
 }
 
 
@@ -230,7 +232,7 @@ void MainWindow::on_supprimer_clicked()
 
         // Appeler la méthode modifier() pour appliquer les changements
         if (res.modifier(id_reservation)) {
-            QMessageBox::information(this, "Succès", "La réservation a été modifiée avec succès.");
+            QMessageBox::information(this, "Succès", " la reservation est trouvée vous pouvez faire la modifictaion.");
         } else {
             QMessageBox::critical(this, "Erreur", "La modification a échoué. Vérifiez les données.");
         }
@@ -378,7 +380,25 @@ void MainWindow::on_supprimer_clicked()
                 idExists = true; // L'ID existe dans la base de données
             }
         }
+        QSqlQuery query12;
+        query12.prepare("SELECT COUNT(*) FROM reservation WHERE id_client = :id_client");
+        query12.bindValue(":id_client", id_client);
 
+        if (!query12.exec()) {
+            QMessageBox::critical(nullptr, "Database Error", query12.lastError().text());
+            return;
+        }
+
+        if (query12.next()) {
+            int count = query12.value(0).toInt();
+            if (count > 3) {
+                QMessageBox::information(nullptr, "Remise", "Ce client a droit à une remise de 10% !");
+                montant=montant-montant*0.1;
+
+            } else {
+                QMessageBox::information(nullptr, "Aucune réduction", "Ce client n'est pas éligible à une réduction.");
+            }
+        }
         // Création de l'objet réservation
         reservation newRes(id_reservation, id_client, type_reservation, date_debut, date_fin,
                            nb_personnes, statut, montant, mode_paiement);
@@ -403,7 +423,6 @@ void MainWindow::on_supprimer_clicked()
         // Rafraîchissement de la table des réservations
         ui->tableView->setModel(Rtmp.afficher()); // Actualiser l'affichage des réservations
     }
-
 
     void MainWindow::on_enregistrer_clicked()
     {
@@ -504,7 +523,7 @@ void MainWindow::on_supprimer_clicked()
             QMessageBox::critical(nullptr, "Database Error", query.lastError().text());
         }
     }
-    void MainWindow::setupTimer() {
+  /*  void MainWindow::setupTimer() {
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &MainWindow::updateObstacleStatus);
         timer->start(1000);  // Délai de 1 seconde pour chaque lecture
@@ -567,7 +586,7 @@ void MainWindow::on_supprimer_clicked()
                 ui->label1->setText("Aucune voiture détectée.");
             }
         }
-    }
+    }*/
     void MainWindow::on_pushButton_statistiques_clicked()
     {
 
@@ -630,3 +649,60 @@ void MainWindow::on_supprimer_clicked()
 
         QMessageBox::information(this, "Statistiques", "Graphique mis à jour avec succès.");
     }
+
+
+
+
+
+    void MainWindow::setupTimer() {
+        QTimer *timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &MainWindow::updateObstacleStatus);
+        timer->start(100);  // Lire les données toutes les 0.5 seconde, essayer avec un délai plus court
+    }
+
+
+    void MainWindow::updateObstacleStatus() {
+        QByteArray data = arduino->read_from_arduino();  // Lire les données de l'Arduino
+        if (!data.isEmpty()) {
+            qDebug() << "Données reçues : " << data;
+            QString message = QString::fromUtf8(data.trimmed());  // Convertir en chaîne de caractères et enlever les espaces inutiles
+            qDebug() << "Message reçu : " << message;
+
+            // Détection de l'obstacle et ouverture/fermeture de la barrière
+            if (message.contains("Voiture détectée")) {
+                // Incrémenter le compteur de détections
+                detection_count++;
+
+                // Décrémenter les places disponibles et ouvrir la barrière
+                if (placesDisponibles > 0) {
+                    placesDisponibles--;
+                }
+
+                arduino->write_to_arduino("OPEN\n");  // Ouvrir la barrière
+
+                // Mettre à jour l'affichage
+                if (placesDisponibles == 0) {
+                    ui->label1->setText("Aucune place disponible.");
+                } else {
+                    ui->label1->setText(QString::number(placesDisponibles) + " place(s) disponible(s).");
+                }
+
+                // Vérifier si la limite de détection de voiture est atteinte
+                if (detection_count >= 5) {
+                    ui->label1->setText("Aucune place disponible.");
+                }
+            }
+            else if (message.contains("Aucun obstacle")) {
+                // Réinitialiser le compteur de détections si aucune voiture n'est détectée
+                detection_count = 0;
+                // Fermer la barrière
+                arduino->write_to_arduino("CLOSE\n");
+                ui->label1->setText("Aucune voiture détectée.");
+            }
+        } else {
+            qDebug() << "Aucune donnée reçue.";
+        }
+    }
+
+
+
