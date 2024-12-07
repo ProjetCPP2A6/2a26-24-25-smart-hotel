@@ -1,0 +1,10 @@
+debug/arduino.o
+debug/chambre.o
+debug/main.o
+debug/mainwindow.o
+debug/connection.o
+debug/qcustomplot.o
+debug/qrcode.o
+debug/reservation.o
+debug/moc_mainwindow.o
+debug/moc_qcustomplot.o
