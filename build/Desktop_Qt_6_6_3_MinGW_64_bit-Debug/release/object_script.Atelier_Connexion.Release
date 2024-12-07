@@ -1,0 +1,10 @@
+release/arduino.o
+release/chambre.o
+release/main.o
+release/mainwindow.o
+release/connection.o
+release/qcustomplot.o
+release/qrcode.o
+release/reservation.o
+release/moc_mainwindow.o
+release/moc_qcustomplot.o
