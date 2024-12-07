@@ -2,3 +2,4 @@
 2024-12-07 13:31:16 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 3
 2024-12-07 14:25:55 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 4
 2024-12-07 14:31:34 - Supression du transaction DE ID_TRANSACTION =  de ID_TRANSACTION 6
+2024-12-07 18:28:06 - ajout du transaction   de ID_TRANSACTION 6

@@ -88,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->lineEdit_supp->setValidator(new QIntValidator(0,9999,this));
     ui->lineEdit_ID->setValidator(new QIntValidator(0,9999,this));
+    connect(ui->pushButton_exporter_2, &QPushButton::clicked, this, &MainWindow::on_pushButton_exporter_2_clicked);
     connect(ui->lineEdit_ID, &QLineEdit::editingFinished, this, &MainWindow::on_lineEdit_ID_editingFinished);
     connect(ui->pushButton_tri, &QPushButton::clicked, this, &MainWindow::on_pushButton_tri_clicked);
     //connect(A.getserial(), &QSerialPort::readyRead, this, &MainWindow::readDataFromArduino);
@@ -105,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Charger les réservations dans le tableView
     ui->tableView_2->setModel(resTmp.afficher1());
-     ui->tableView_trr->setModel(ETMP.afficher3());
+    ui->tableView_trr->setModel(ETMP.afficher3());
 }
 
 MainWindow::~MainWindow()
@@ -597,7 +598,7 @@ void MainWindow::on_pushButton_SMS_clicked()
 
     // Twilio API Credentials
     QString accountSID = "AC0ab85d030d910067416bc0204c8138db";
-    QString authToken = "54a304e86d63b45f987ecb5f37bc6550";
+    QString authToken = "623afbbf604062b04a875336cbba6bec";
     QString fromNumber = "+14243427425"; // Twilio number
 
     // Selected reservation ID
@@ -606,7 +607,7 @@ void MainWindow::on_pushButton_SMS_clicked()
 
     // Query to fetch reservation details
     QSqlQuery query;
-    query.prepare("SELECT NUMT, MONTANT_TOTAL, IDCHAMBRE FROM GS_RESERVATION WHERE ID_RESERVATION = :id");
+    query.prepare("SELECT NUMT, MONTANT, IDCHAMBRE FROM GS_RESERVATION WHERE ID_RESERVATION = :id");
     query.bindValue(":id", id);
 
     QString numm, montant, idch, type;
@@ -615,7 +616,7 @@ void MainWindow::on_pushButton_SMS_clicked()
         numm = query.value(0).toString();
         montant = query.value(1).toString();
         idch = query.value(2).toString();
-        qDebug() << "Query 1 Results - NUMT:" << numm << ", MONTANT_TOTAL:" << montant << ", IDCHAMBRE:" << idch;
+        qDebug() << "Query 1 Results - NUMT:" << numm << ", MONTANT:" << montant << ", IDCHAMBRE:" << idch;
     } else {
         qDebug() << "Query 1 failed or no results:" << query.lastError().text();
         return;
@@ -663,6 +664,9 @@ void MainWindow::on_pushButton_SMS_clicked()
         }
         reply->deleteLater();
     });
+
+
+
 }
 
 
@@ -675,7 +679,7 @@ void MainWindow::on_pushButton_exporter_2_clicked()
     QString id = ui->comboBox->currentText();
     QSqlQuery query;
     QString date_debut,date_fin;
-    query.prepare("Select date_dedut,date_fin from GS_RESERVATION where id_reservation=:id");
+    query.prepare("Select DATE_DEBUT,DATE_FIN from GS_RESERVATION where id_reservation=:id");
     query.bindValue(":id", id);
 
     if (query.exec()) {
@@ -691,6 +695,36 @@ void MainWindow::on_pushButton_exporter_2_clicked()
     } else {
         qDebug() << "Query execution failed: " << query.lastError().text();
     }
+
+
+    /*int idchambre = ui->lineEdit_ID->text().toInt();
+    QString etat = ui->comboBox_etat->currentText();
+    QString type = ui->comboBox_type->currentText();
+    float tarif = ui->lineEdit_T->text().toFloat();
+    QString id = ui->comboBox->currentText();
+
+    // Vérification des champs vides
+    if (ui->lineEdit_ID->text().isEmpty() || etat.isEmpty() || type.isEmpty() || ui->lineEdit_T->text().isEmpty() || id.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
+        return;
+    }
+
+    QSqlQuery query;
+    QString date_debut, date_fin;
+    query.prepare("SELECT DATE_DEBUT, DATE_FIN FROM GS_RESERVATION WHERE id_reservation = :id");
+    query.bindValue(":id", id);
+
+    if (query.exec()) {
+        if (query.next()) {
+            date_debut = query.value(0).toString();
+            date_fin = query.value(1).toString();
+            createPDF(idchambre, etat, type, tarif, id, date_debut, date_fin);
+        } else {
+            QMessageBox::warning(this, "Erreur", "Aucune réservation trouvée pour cet ID.");
+        }
+    } else {
+        QMessageBox::critical(this, "Erreur", "Échec de la requête : " + query.lastError().text());
+    }*/
 }
 
 
@@ -782,7 +816,7 @@ void MainWindow::readDataFromArduino()
                 qDebug() << "Query execution failed: " << query.lastError().text();
             }
         } else {
-            ui->label_message->setText("Erreur : IDchambre non trouvé dans la base de données !");
+            ui->label_message->setText("Erreur : IDchambre non trouvé!");
         }
     } else {
         ui->label_message->setText("Erreur de requête SQL : " + query.lastError().text());
@@ -1200,19 +1234,6 @@ void MainWindow::clearFields3() {
     ui->comboBox_modet->setCurrentIndex(0);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*void MainWindow::on_sendButton_clicked()
 {

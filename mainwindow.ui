@@ -676,7 +676,8 @@ QPushButton:pressed {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);
+background-color: rgb(255, 170, 255);</string>
         </property>
         <property name="text">
          <string/>
@@ -1199,32 +1200,6 @@ QPushButton:pressed {
         </property>
         <property name="text">
          <string>supprimer</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="exporter">
-        <property name="geometry">
-         <rect>
-          <x>1000</x>
-          <y>570</y>
-          <width>111</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-    font-size: 16px; 
-    color: #00207F;
-    background-color: #DEDFF5; 
-    border: 2px solid blue;
-    border-radius: 10px; 
-}
-
-QPushButton:pressed {
-    background-color: #7C73BB; /* Couleur au clic */
-}</string>
-        </property>
-        <property name="text">
-         <string>exporter</string>
         </property>
        </widget>
        <widget class="QComboBox" name="comboBox_trier_3">
