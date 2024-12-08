@@ -5,6 +5,11 @@
 
 #include<arduino.h>
 #include <QSerialPort>
+#include <QImage>
+#include <QThread>
+#include <QAxObject>
+#include <QLabel>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -47,6 +52,10 @@ private slots:
     void on_arduinoafficher_clicked();
 
     void on_closearduino_clicked();
+    void genererCodeBarre();
+    void envoyerIdVersExcel(const QString& cheminFichierExcel, const QString& id);
+    void afficherImage(const QString& cheminImage);
+    void afficherImageDelayed();
 
 
 
@@ -55,6 +64,7 @@ private:
 
     void initarduinoConnection() ;
     void onDataReceived();
+
 
     Arduino A;
     QByteArray data;

@@ -8,6 +8,11 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QDebug>
+#include <QFileInfo>
+#include <QTimer>  // Include QTimer
+#include <QAxObject>
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -25,7 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
             qDebug() << "arduino is not available";
             break;
     }
-    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label())); // permet de lancer le slot update_label suite à la réception du signal readyRead (réception des données).
+    QObject::connect(A.getserial(), SIGNAL(readyRead()), this, SLOT(update_label()));
+    // permet de lancer le slot update_label suite à la réception du signal readyRead (réception des données).
+
+
+    connect(ui->GenererCodeBarre, &QPushButton::clicked, this, &MainWindow::genererCodeBarre);
 }
 
 
@@ -33,39 +42,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-/*void MainWindow::on_pushButtonAjout_clicked() {
-    // Retrieving the values from the input fields
 
-    int id = ui->id->text().toInt();
-    QString nom = ui->nom->text();
-    QString  = ui->type->text();
-    int quantite = ui->quantite->text().toInt();
-    QString etat = ui->etat->text().toFloat();
-
-
-
-    // Create an Employee instance
-    Employee emp(cin, name, prename, birthDate, salary, username, password, department, position);
-
-    // Call the ajouter() method to add the employee and get the result
-    bool test = emp.ajouter();
-
-    // If ajout (add) is successful
-    if (test) {
-        // Refresh the table view
-        ui->tableView->setModel(emp.afficher());
-        QMessageBox::information(nullptr, QObject::tr("Ok"),
-                                 QObject::tr("Ajout effectué \n"
-                                             "Click Cancel to exit"),
-                                 QMessageBox::Cancel);
-    } else {
-        // If ajout (add) fails
-        QMessageBox::critical(nullptr, QObject::tr("Not Ok"),
-                              QObject::tr("Ajout non effectué.\n"
-                                          "Click Cancel to exit"),
-                              QMessageBox::Cancel);
-    }
-}*/
 
 
 
@@ -494,3 +471,80 @@ void MainWindow::on_closearduino_clicked(){
     A.writeToArduino("0");
 }
 
+
+
+
+    // Optionally display the initial image if available
+
+
+
+
+// Function to generate barcode from the entered ID
+void MainWindow::genererCodeBarre() {
+    QString id = ui->lineEditId->text();  // Make sure you have a QLineEdit named 'lineEditId'
+
+    if (id.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez entrer un ID !");
+        return;
+    }
+
+    QString cheminFichierExcel =" C:\\Users\\HP\\OneDrive\\Documents\\Classeur4.xlsm";  // Make sure the Excel file exists
+
+    // Send the ID to Excel and generate the barcode
+    envoyerIdVersExcel(cheminFichierExcel, id);
+}
+
+// Implementation of envoyerIdVersExcel
+void MainWindow::envoyerIdVersExcel(const QString& cheminFichierExcel, const QString& id) {
+    QAxObject* excel = new QAxObject("Excel.Application");
+    excel->setProperty("Visible", false);  // Hide Excel
+
+    QAxObject* workbooks = excel->querySubObject("Workbooks");
+    QAxObject* workbook = workbooks->querySubObject("Open(const QString&)", cheminFichierExcel);
+    QAxObject* sheet = workbook->querySubObject("Worksheets(int)", 1);
+
+    // Place the ID in cell A1
+    QAxObject* cell = sheet->querySubObject("Cells(int, int)", 1, 1);
+    cell->setProperty("Value", id);
+
+    // Call the macro to generate the barcode
+    excel->dynamicCall("Run(const QString&)", "GenererCodeBarre");  // Call the macro
+
+    // Save the Excel file
+    workbook->dynamicCall("Save()");
+
+    // Optionally: Wait for 2 seconds to ensure the barcode is generated (you can make it asynchronous)
+
+    // Close the Excel file and quit Excel
+    workbook->dynamicCall("Close()");
+    excel->dynamicCall("Quit()");
+
+    // Clean up
+    delete cell;
+    delete sheet;
+    delete workbook;
+    delete workbooks;
+    delete excel;
+
+    // Use QTimer to delay the display of the generated barcode image by 7 seconds
+    QTimer::singleShot(00, this, &MainWindow::afficherImageDelayed);
+}
+
+// Function to display the image after a delay
+void MainWindow::afficherImageDelayed() {
+    QString cheminImage = "C:/firqs/firqscodebarre.png";  // Replace with the actual path of the generated barcode image
+    afficherImage(cheminImage);
+}
+
+void MainWindow::afficherImage(const QString& cheminImage)
+{
+    QPixmap image(cheminImage);  // Load the image from the file
+    if (image.isNull()) {
+        // If the image is invalid, display an error message
+        ui->label->setText("Erreur de chargement de l'image");
+    } else {
+        // Display the image in the QLabel
+        ui->label->setPixmap(image);
+        ui->label->setScaledContents(true);  // Resize the image to fit the QLabel
+    }
+}
